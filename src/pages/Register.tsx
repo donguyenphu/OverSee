@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Mail, Phone, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";  
+import { Link } from "react-router-dom";
 import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
 
@@ -12,7 +12,7 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navigation/>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
@@ -54,9 +54,9 @@ const Register = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">Tin nhắn</Label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="Nội dung tin nhắn của bạn..." 
+                      <Textarea
+                        id="message"
+                        placeholder="Nội dung tin nhắn của bạn..."
                         rows={5}
                       />
                     </div>
@@ -139,7 +139,7 @@ const Register = () => {
       </section>
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

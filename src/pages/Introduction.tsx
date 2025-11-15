@@ -107,7 +107,6 @@ const Introduction = () => {
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Video className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Video HD</h3>
                     <p className="text-muted-foreground">
                       <strong className="customIntroductionBold">Học đúng</strong> là yếu tố quan trọng nhất.
                     </p>
@@ -118,7 +117,6 @@ const Introduction = () => {
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <Clock className="h-6 w-6 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Học theo tiến độ</h3>
                     <p className="text-muted-foreground">
                       Bạn cần <strong className="customIntroductionBold">người dẫn đường</strong>, không phải người “chỉ bài”.
                     </p>
@@ -129,7 +127,6 @@ const Introduction = () => {
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Lightbulb className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Bài tập thực hành</h3>
                     <p className="text-muted-foreground">
                       Vì động lực thật sự đến từ <strong className="customIntroductionBold">bên trong</strong>, không từ điểm số hay ép buộc.
                     </p>
@@ -140,7 +137,6 @@ const Introduction = () => {
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <Globe className="h-6 w-6 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Cộng đồng học tập</h3>
                     <p className="text-muted-foreground">
                       Vì hành trình học cần <strong className="customIntroductionBold">người hiểu bạn</strong>, không chỉ là người dạy bạn.
                     </p>

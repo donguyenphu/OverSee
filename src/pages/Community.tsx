@@ -19,7 +19,7 @@ const Community = () => {
               Nâng cao kiến thức, <span className="text-primary">Thay đổi tương lai</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Khám phá hàng ngàn khóa học trực tuyến chất lượng cao với đội ngũ giảng viên chuyên nghiệp. 
+              Khám phá hàng ngàn khóa học trực tuyến chất lượng cao với đội ngũ giảng viên chuyên nghiệp.
               Học mọi lúc, mọi nơi với OverSee.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -66,7 +66,7 @@ const Community = () => {
       </section>
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </div>
   );
 };
