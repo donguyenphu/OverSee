@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
 
-const Contact = () => {
+const Register = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -144,4 +144,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Register;

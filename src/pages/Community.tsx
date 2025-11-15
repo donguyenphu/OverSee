@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
 
-const Index = () => {
+const Community = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -71,4 +71,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Community;

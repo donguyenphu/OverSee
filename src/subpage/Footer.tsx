@@ -12,7 +12,7 @@ const Footer = () => {
                 <span className="text-xl font-bold">OverSee</span>
               </div>
               <p className="text-background/70 mb-4">
-                Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
+                Với sứ mệnh "Nâng tầm thế hệ trẻ Việt", OverSee sẽ trang bị cho người trẻ kiến thức và kĩ năng trường học không dạy để họ sẵn sàng vươn ra ngoài thế giới.
               </p>
             </div>
             <div>
