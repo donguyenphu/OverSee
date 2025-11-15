@@ -150,7 +150,7 @@ const Recruitment = () => {
                             Trải nghiệm ngay hôm nay
                         </h2>
                         <p className="text-lg text-muted-foreground mb-8">
-                            Đăng ký miễn phí và khám phá tất cả tính năng của EduLearn
+                            Đăng ký miễn phí và khám phá tất cả tính năng của OverSee
                         </p>
                         <Link to="/">
                             <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8">
