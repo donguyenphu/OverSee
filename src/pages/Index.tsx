@@ -20,7 +20,7 @@ const Index = () => {
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Khám phá hàng ngàn khóa học trực tuyến chất lượng cao với đội ngũ giảng viên chuyên nghiệp. 
-              Học mọi lúc, mọi nơi với EduLearn.
+              Học mọi lúc, mọi nơi với OverSee.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8">

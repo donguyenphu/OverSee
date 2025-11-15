@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-20 max-w-4xl mx-auto">
             <div>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2">
                 <img src={ Logo } alt="OverSee logo" className="w-14 h-14" />
                 <span className="text-xl font-bold">OverSee</span>
               </div>

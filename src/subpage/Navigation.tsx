@@ -44,6 +44,16 @@ const Navigation = () => {
             >
                 Đăng ký
             </Link>
+            <Link 
+            to="/tuyen-dung" 
+            className={`transition-colors ${
+                isActive("/tuyen-dung")
+                ? "text-primary font-semibold"
+                : "text-foreground hover:text-primary"
+            }`}
+            >
+                Tuyển dụng
+            </Link>
           </div>
         </div>
       </nav>
