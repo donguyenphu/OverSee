@@ -8,12 +8,14 @@ import Introduction from "./pages/Introduction";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Recruitment from "./pages/Recruitment";
+import Preloader from "./components/Preloader";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <Preloader />
       <Toaster />
       <Sonner />
       <BrowserRouter>

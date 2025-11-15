@@ -8,55 +8,51 @@ const Navigation = () => {
 
     return (
         <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={Logo} alt="OverSee logo" className="w-14 h-14" />
-            <span className="text-2xl font-bold text-foreground">OverSee</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-6 mx-auto">
-            <Link 
-            to="/" 
-            className={`transition-colors ${
-                isActive("/")
-                ? "text-primary font-semibold"
-                : "text-foreground hover:text-primary"
-            }`}
-            >
-                Giới thiệu
-            </Link>
-            <Link 
-            to="/cong-dong-oversee" 
-            className={`transition-colors ${
-                isActive("/cong-dong-oversee")
-                ? "text-primary font-semibold"
-                : "text-foreground hover:text-primary"
-            }`}
-            >
-                Cộng đồng OverSee
-            </Link>
-            <Link 
-            to="/dang-ky" 
-            className={`transition-colors ${
-                isActive("/dang-ky")
-                ? "text-primary font-semibold"
-                : "text-foreground hover:text-primary"
-            }`}
-            >
-                Đăng ký
-            </Link>
-            <Link 
-            to="/tuyen-dung" 
-            className={`transition-colors ${
-                isActive("/tuyen-dung")
-                ? "text-primary font-semibold"
-                : "text-foreground hover:text-primary"
-            }`}
-            >
-                Tuyển dụng
-            </Link>
-          </div>
-        </div>
-      </nav>
+            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+                <Link to="/" className="flex items-center gap-2">
+                    <img src={Logo} alt="OverSee logo" className="w-14 h-14" />
+                    <span className="text-2xl font-bold text-foreground">OverSee</span>
+                </Link>
+                <div className="hidden md:flex items-center gap-6 mx-auto">
+                    {/* Introduction */}
+                    <div className={`transition-colors ${isActive("/")
+                                ? "text-white font-semibold bg-blue-500 px-3 p-2 rounded-md"
+                                : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                                }`}>
+                        <Link to="/">
+                            Giới thiệu
+                        </Link>
+                    </div>
+                    {/* Community */}
+                    <div className={`transition-colors ${isActive("/cong-dong-oversee")
+                                ? "text-white font-semibold bg-blue-500 px-3 p-2 rounded-md"
+                                : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                                }`}>
+                        <Link to="/cong-dong-oversee">
+                            Cộng đồng OverSee
+                        </Link>
+                    </div>
+                    {/* Register */}
+                    <div className={`transition-colors ${isActive("/dang-ky")
+                                ? "text-white font-semibold bg-blue-500 px-3 p-2 rounded-md"
+                                : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                                }`}>
+                        <Link to="/dang-ky">
+                            Đăng ký
+                        </Link>
+                    </div>
+                    {/* Recruit */}
+                    <div className={`transition-colors ${isActive("/tuyen-dung")
+                                ? "text-white font-semibold bg-blue-500 px-3 p-2 rounded-md"
+                                : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                                }`}>
+                        <Link to="/tuyen-dung">
+                            Tuyển dụng
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </nav>
     );
 };
 
