@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe, CheckCircle2 } from "lucide-react";
+import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe, CheckCircle2, AwardIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
 import '../Introduction.css';
 import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jpg';
+import Advisor1 from '@/assets/OverSee hero banner second version.jpg';
+import Advisor2 from '@/assets/OverSee hero banner second version.jpg';
 
 const Introduction = () => {
   return (
@@ -110,14 +112,76 @@ const Introduction = () => {
       </section>
       {/* Advisors */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
               Đại diện <span className="text-primary">đội ngũ cố vấn</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            {/* <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Khám phá những tính năng đột phá giúp bạn học tập hiệu quả hơn
-            </p>
+            </p> */}
+          </div>
+          <div className="md:w-full relative flex flex-col sm:flex-row gap-6 mt-6">
+            {/* <div className="flex flex-col sm:flex-row gap-6"> */}
+            {/* Advisor 1 */}
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 md:w-full relative flex flex-col sm:flex-row gap-6 mt-6 p-6">
+              <div className="w-2/3">
+                <CardContent>
+                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <GraduationCap className="h-8 w-8 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-foreground my-3">Giáo sư: Nguyễn Quang Hưng</h2>
+                  <div className="flex items-center gap-3">
+                    <AwardIcon className="w-10 h-10 text-hero-bg-blue flex-shrink-0 mt-0.5 fill-hero-bg-blue stroke-white " />
+                    <p className="text-base md:text-xl text-hero-text-black">
+                      Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <AwardIcon className="w-10 h-10 text-hero-bg-blue flex-shrink-0 mt-0.5 fill-hero-bg-blue stroke-white " />
+                    <p className="text-base md:text-xl text-hero-text-black">
+                      Hội đồng cố vấn OverSee
+                    </p>
+                  </div>
+                </CardContent>
+              </div>
+              <div className="w-1/3 items center">
+                <img src={ Advisor1 } alt="Giáo sư: Nguyễn Quang Hưng" className="w-full h-auto aspect-[1/2] object-cover rounded-md" />
+              </div>
+            </Card>
+            {/* Advisor 2 */}
+            <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 md:w-full relative flex flex-col sm:flex-row gap-6 mt-6 p-6">
+              <div className="w-2/3">
+                <CardContent>
+                  <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                    <GraduationCap className="h-8 w-8 text-secondary" />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-foreground my-3">Tiến sĩ: Kiet Hoang</h2>
+                  <div className="flex items-center gap-3">
+                    <AwardIcon className="w-10 h-10 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
+                    <p className="text-base md:text-xl text-hero-text-black">
+                      Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo dục, Đại học Pennsylvania (Mỹ)
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <AwardIcon className="w-10 h-10 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
+                    <p className="text-base md:text-xl text-hero-text-black">
+                      Giảng viên, Khoa Vật lý và Kỹ thuật Trường Đại học West Chester, Pennsylvania, Hoa Kỳ
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <AwardIcon className="w-10 h-10 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
+                    <p className="text-base md:text-xl text-hero-text-black">
+                      Hội đồng cố vấn OverSee
+                    </p>
+                  </div>
+                </CardContent>
+              </div>
+              <div className="w-1/3 items center">
+                <img src={ Advisor2 } alt="Tiến sĩ: Kiet Hoang" className="w-full h-auto aspect-[1/2] object-cover rounded-md" />
+              </div>
+            </Card>
+            {/* </div> */}
           </div>
         </div>
       </section>
