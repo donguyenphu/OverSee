@@ -19,7 +19,7 @@
   }
 }
 
-.animate-highlight {
+.animateHighlight {
   display: inline-block;
   background-color: #fef08a; /* light yellow background */
   background-image: linear-gradient(to right, #fef08a, #fbbf24); /* gradient effect for highlight */
@@ -27,3 +27,18 @@
   background-size: 0% 100%; /* Start with no background */
   animation: highlightAnimation 2s ease-in-out infinite; /* Duration and easing */
 }
+
+.scalableSpan {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.scalableSpan:hover {
+  transform: scale(1.1);
+}
+
+.customHeroBannerHeight {
+  /* height: calc(100vh - 56px - 24px); */
+}
+
+

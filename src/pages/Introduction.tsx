@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe } from "lucide-react";
+import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
@@ -11,8 +11,100 @@ const Introduction = () => {
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <Navigation />
+      {/* Hero Banner */}
+      <section className="customHeroBannerHeight relative w-full min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden bg-gray-50">
+        {/* Geometric Background Shapes */}
+        <div className="absolute inset-0 z-0">
+          {/* Dark Blue curved shape on left */}
+          <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" />
+          {/* Orange curved shapes on right */}
+          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
+          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
+          {/* Dark blue accent at bottom right */}
+          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
+        </div>
 
-      {/* Hero Section */}
+        {/* Content */}
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="max-w-[850px]">
+            <div className="space-y-6">
+              {/* Main Heading */}
+              <div className="space-y-1">
+                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                  <span className="text-hero-title-yellow">Đồng hành vững vàng</span>
+                </h1>
+                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                  <span className="text-hero-title-blue">Học tập nhẹ nhàng</span>
+                </h1>
+              </div>
+
+              {/* Subtitle */}
+              <p className="text-lg md:text-xl font-semibold text-hero-text-black">
+                Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
+              </p>
+
+              {/* Bullet Points */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
+                  <p className="text-base md:text-lg text-hero-text-black">
+                    <span className="font-bold">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                  <p className="text-base md:text-lg text-hero-text-black">
+                    <span className="font-bold">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                  <p className="text-base md:text-lg text-hero-text-black">
+                    <span className="font-bold">Phương pháp "Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                  <p className="text-base md:text-lg text-hero-text-black">
+                    <span className="font-bold">Hệ thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                  <p className="text-base md:text-lg text-hero-text-black">
+                    <span className="font-bold">Đội ngũ cố vấn gồm các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
+                  </p>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <div className="flex flex-col sm:flex-row gap-6">
+                <div className="pt-4">
+                  <Link to="/dang-ky">
+                    <Button
+                      size="lg"
+                      className="bg-hero-button hover:bg-hero-button/90 text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                    >
+                      Đăng ký ngay
+                    </Button>
+                  </Link>
+                </div>
+                <div className="pt-4">
+                  <Link to="/cong-dong-oversee">
+                    <Button
+                      size="lg"
+                      className=" hover:bg-hero-button/90 text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                    >
+                      Về chúng tôi
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Advisors */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -149,7 +241,7 @@ const Introduction = () => {
               <h4 className="text-2xl md:text-3xl font-bold text-foreground">
                 “Đồng hành học tập” là cách OverSee giúp bạn{" "}
                 <br />
-                <span className="text-orange-500 px-1">
+                <span className="text-orange-500 px-1 scalable-span">
                   tìm lại niềm vui học, làm chủ tư duy, và tiến xa bằng năng lực thật.
                 </span>
               </h4>

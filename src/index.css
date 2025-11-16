@@ -38,6 +38,15 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
+    /* Custom Colors */
+    --hero-bg-blue: 217 74% 22%;
+    --hero-bg-orange: 23 99% 53%;
+    --hero-title-yellow: 45 100% 50%;
+    --hero-title-blue: 244 100% 35%;
+    --hero-button: 29 99% 52%;
+    --hero-text-black: 0 0% 0%;
+    --hero-text-blue: 244 100% 35%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;
