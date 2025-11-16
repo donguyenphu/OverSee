@@ -8,6 +8,7 @@ import '../Introduction.css';
 import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jpg';
 import Advisor1 from '@/assets/OverSee hero banner second version.jpg';
 import Advisor2 from '@/assets/OverSee hero banner second version.jpg';
+import FaqPagination from "@/subpage/Faqs";
 
 const Introduction = () => {
   return (
@@ -25,7 +26,6 @@ const Introduction = () => {
             className="w-full h-full object-cover brightness-125"
           />
         </div>
-
 
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative z-10 translate-x-[-5%]">
@@ -317,7 +317,8 @@ const Introduction = () => {
           </div>
         </div>
       </section>
-
+      {/* FAQs Section */}
+      <FaqPagination />
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-secondary/10 via-background to-primary/10">
         <div className="container mx-auto px-4">
