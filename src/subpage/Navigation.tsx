@@ -8,7 +8,7 @@ const Navigation = () => {
 
     return (
         <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="container mx-auto px-3 py-3 flex items-center justify-between">
                 <Link to="/" className="flex items-center gap-2">
                     <img src={Logo} alt="OverSee logo" className="w-14 h-14" />
                     <span className="text-2xl font-bold text-foreground">OverSee</span>

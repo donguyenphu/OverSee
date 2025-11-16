@@ -7,3 +7,23 @@
 .customIntroductionBold {
     color: #0d2242;
 }
+
+@keyframes highlightAnimation {
+  0% {
+    background-size: 0% 100%; /* Start with no background */
+    background-position: 0% 0%; /* Position the background at the start */
+  }
+  100% {
+    background-size: 100% 100%; /* Fully fill the text */
+    background-position: 0% 0%; /* Keep it aligned to the left */
+  }
+}
+
+.animate-highlight {
+  display: inline-block;
+  background-color: #fef08a; /* light yellow background */
+  background-image: linear-gradient(to right, #fef08a, #fbbf24); /* gradient effect for highlight */
+  background-repeat: no-repeat;
+  background-size: 0% 100%; /* Start with no background */
+  animation: highlightAnimation 2s ease-in-out infinite; /* Duration and easing */
+}

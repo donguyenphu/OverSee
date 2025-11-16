@@ -144,6 +144,16 @@ const Introduction = () => {
                 </Card>
               </div>
             </div>
+            {/* Title Section */}
+            <div className="rounded-md px-3 py-3 m-auto mt-10 w-full text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-blue-500">
+              <h4 className="text-2xl md:text-3xl font-bold text-foreground">
+                “Đồng hành học tập” là cách OverSee giúp bạn{" "}
+                <br />
+                <span className="text-orange-500 px-1">
+                  tìm lại niềm vui học, làm chủ tư duy, và tiến xa bằng năng lực thật.
+                </span>
+              </h4>
+            </div>
           </div>
         </div>
       </section>
