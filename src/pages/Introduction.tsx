@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
 import '../Introduction.css';
+import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jpg';
 
 const Introduction = () => {
   return (
@@ -13,67 +14,70 @@ const Introduction = () => {
       <Navigation />
       {/* Hero Banner */}
       <section className="customHeroBannerHeight relative w-full min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden bg-gray-50">
-        {/* Geometric Background Shapes */}
+
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          {/* Dark Blue curved shape on left */}
-          <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" />
-          {/* Orange curved shapes on right */}
-          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
-          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
-          {/* Dark blue accent at bottom right */}
-          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
+          <img
+            src={HeroBannerWithNoText}
+            alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
+            className="w-full h-full object-cover brightness-125"
+          />
         </div>
 
+
         {/* Content */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
+        <div className="container mx-auto px-6 md:px-12 relative z-10 translate-x-[-5%]">
           <div className="max-w-[850px]">
-            <div className="space-y-6">
+            <div className="space-y-6 translate-y-[9%]">
+
               {/* Main Heading */}
               <div className="space-y-1">
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                   <span className="text-hero-title-yellow">Đồng hành vững vàng</span>
                 </h1>
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                <h1 className="text-5xl md:text-6xl font-bold leading-tight">
                   <span className="text-hero-title-blue">Học tập nhẹ nhàng</span>
                 </h1>
               </div>
 
-              {/* Subtitle */}
-              <p className="text-lg md:text-xl font-semibold text-hero-text-black">
-                Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
-              </p>
+              <div className="my-8">
+                {/* Subtitle */}
+                <p className="text-lg md:text-xl font-semibold text-hero-text-black mt-4">
+                  Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
+                </p>
 
-              {/* Bullet Points */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
-                  <p className="text-base md:text-lg text-hero-text-black">
-                    <span className="font-bold">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                  <p className="text-base md:text-lg text-hero-text-black">
-                    <span className="font-bold">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                  <p className="text-base md:text-lg text-hero-text-black">
-                    <span className="font-bold">Phương pháp "Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                  <p className="text-base md:text-lg text-hero-text-black">
-                    <span className="font-bold">Hệ thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                  <p className="text-base md:text-lg text-hero-text-black">
-                    <span className="font-bold">Đội ngũ cố vấn gồm các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
-                  </p>
+                {/* Bullet Points */}
+                <div className="space-y-4 mt-3">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
+                    <p className="text-base md:text-lg text-hero-text-black">
+                      <span className="font-bold">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                    <p className="text-base md:text-lg text-hero-text-black">
+                      <span className="font-bold">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                    <p className="text-base md:text-lg text-hero-text-black">
+                      <span className="font-bold">Phương pháp "Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                    <p className="text-base md:text-lg text-hero-text-black">
+                      <span className="font-bold">Hệ thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                    <p className="text-base md:text-lg text-hero-text-black">
+                      <span className="font-bold">Đội ngũ cố vấn gồm các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -83,7 +87,7 @@ const Introduction = () => {
                   <Link to="/dang-ky">
                     <Button
                       size="lg"
-                      className="bg-hero-button hover:bg-hero-button/90 text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                      className="bg-hero-button hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
                     >
                       Đăng ký ngay
                     </Button>
@@ -93,7 +97,7 @@ const Introduction = () => {
                   <Link to="/cong-dong-oversee">
                     <Button
                       size="lg"
-                      className=" hover:bg-hero-button/90 text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                      className="hover:bg-hero-button/90 hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
                     >
                       Về chúng tôi
                     </Button>
@@ -109,7 +113,7 @@ const Introduction = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Tính năng <span className="text-primary">Vượt trội</span>
+              Đại diện <span className="text-primary">đội ngũ cố vấn</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Khám phá những tính năng đột phá giúp bạn học tập hiệu quả hơn
@@ -123,14 +127,14 @@ const Introduction = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Bạn có đang mất động lực học tập?
+              Bạn có đang <strong className="text-primary text-3xl md:text-4xl font-bold text-foreground mb-4">mất động lực học tập?</strong>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-border hover:shadow-2xl transition-shadow">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <BookOpen className="h-6 w-6 text-primary" />
@@ -141,7 +145,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-shadow">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-secondary" />
@@ -152,7 +156,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-shadow">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Award className="h-6 w-6 text-primary" />
@@ -163,7 +167,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-shadow">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                   <GraduationCap className="h-6 w-6 text-secondary" />
@@ -186,7 +190,7 @@ const Introduction = () => {
               {/* Title Section */}
               <div className="md:w-1/3">
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Vì sao là “Đồng hành học tập”
+                  Vì sao là <strong className="text-primary text-3xl md:text-4xl font-bold text-foreground mb-4">“Đồng hành học tập”</strong>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                   Không phải “<strong className="customIntroductionBold">Học thêm</strong>” hay “<strong className="customIntroductionBold">Gia sư</strong>”?
