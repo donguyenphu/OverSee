@@ -9,12 +9,14 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Recruitment from "./pages/Recruitment";
 import Preloader from "./components/Preloader";
+import ZoomControl from "./components/ZoomControl";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <ZoomControl />
       <Preloader />
       <Toaster />
       <Sonner />

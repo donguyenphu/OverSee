@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -66,8 +66,10 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 210 50% 10%;
-    --foreground: 0 0% 98%;
+    /* --background: 210 50% 10%;
+    --foreground: 0 0% 98%; */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
     --card: 210 40% 15%;
     --card-foreground: 0 0% 98%;
@@ -111,5 +113,21 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  @keyframes zoom-pulse {
+
+    0%,
+    100% {
+      transform: scale(0.8);
+    }
+
+    50% {
+      transform: scale(0.8);
+    }
+  }
+
+  .animate-zoom-pulse {
+    animation: zoom-pulse 3s ease-in-out infinite;
   }
 }

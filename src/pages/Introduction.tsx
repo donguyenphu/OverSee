@@ -6,8 +6,8 @@ import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
 import '../Introduction.css';
 import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jpg';
-import Advisor1 from '@/assets/OverSee hero banner second version.jpg';
-import Advisor2 from '@/assets/OverSee hero banner second version.jpg';
+import Advisor1 from '@/assets/Advisor1.jpg';
+import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
 
 const Introduction = () => {
