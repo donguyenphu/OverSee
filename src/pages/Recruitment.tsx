@@ -19,11 +19,11 @@ const Recruitment = () => {
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Liên hệ <span className="text-primary">với chúng tôi</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+              Đăng ký <span className="text-primary">lĩnh vực bạn chọn</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Để nhận được tư vấn sớm nhất
             </p>
           </div>
         </div>

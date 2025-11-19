@@ -131,3 +131,10 @@ All colors MUST be HSL.
     animation: zoom-pulse 3s ease-in-out infinite;
   }
 }
+
+@layer base {
+  body {
+    @apply !transform-none;
+    transform-origin: initial !important;
+  }
+}

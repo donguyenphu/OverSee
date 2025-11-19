@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
 import '../Introduction.css';
-import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jpg';
+import HeroBannerWithNoText from '@/assets/OverSee_hero _banner_second version.jpg';
 import Advisor1 from '@/assets/Advisor1.jpg';
 import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
@@ -17,23 +17,22 @@ const Introduction = () => {
       {/* Navigation */}
       <Navbar />
       {/* Hero Banner */}
-      <section className="relative w-full min-h-[500px] sm:min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden bg-white">
+      <section className="relative w-full min-h-[650px] md:aspect-[2.13] flex items-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 -z-10">
           <img
             src={HeroBannerWithNoText}
             alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
-            className="w-full h-full object-cover brightness-125"
+            className="w-full h-full object-contain brightness-110"
           />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/40 via-black/20 to-transparent" />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10 translate-x-[-5%]">
-          <div className="max-w-[850px]">
+        <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
+          <div className="max-w-[800px] space-y-6">
             <div className="space-y-6 translate-y-[9%]">
-
               {/* Main Heading */}
               <div className="space-y-1">
                 <h1 className="text-5xl md:text-6xl font-bold leading-tight">
@@ -112,6 +111,8 @@ const Introduction = () => {
           </div>
         </div>
       </section>
+
+
       {/* Advisors */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="container mx-auto">
@@ -123,7 +124,7 @@ const Introduction = () => {
               Khám phá những tính năng đột phá giúp bạn học tập hiệu quả hơn
             </p> */}
           </div>
-          <div className="md:w-full relative flex flex-col sm:flex-row gap-6 mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             {/* <div className="flex flex-col sm:flex-row gap-6"> */}
             {/* Advisor 1 */}
             <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 md:w-full relative flex flex-col sm:flex-row gap-6 mt-6 p-6">
@@ -147,8 +148,8 @@ const Introduction = () => {
                   </div>
                 </CardContent>
               </div>
-              <div className="w-1/3 items center">
-                <img src={ Advisor1 } alt="Giáo sư: Nguyễn Quang Hưng" className="w-full h-auto aspect-[1/2] object-cover rounded-md" />
+              <div className="w-1/3 md:w-full sm:w-full items center">
+                <img src={Advisor1} alt="Giáo sư: Nguyễn Quang Hưng" className="w-full h-full object-cover rounded-md" />
               </div>
             </Card>
             {/* Advisor 2 */}
@@ -179,8 +180,8 @@ const Introduction = () => {
                   </div>
                 </CardContent>
               </div>
-              <div className="w-1/3 items center">
-                <img src={ Advisor2 } alt="Tiến sĩ: Kiet Hoang" className="w-full h-auto aspect-[1/2] object-cover rounded-md" />
+              <div className="w-1/3 md:w-full sm:w-full items center">
+                <img src={Advisor2} alt="Tiến sĩ: Kiet Hoang" className="w-full h-full object-cover rounded-md" />
               </div>
             </Card>
             {/* </div> */}
