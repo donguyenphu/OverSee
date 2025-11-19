@@ -25,6 +25,8 @@ const Introduction = () => {
             alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
             className="w-full h-full object-cover brightness-125"
           />
+
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/40 via-black/20 to-transparent" />
         </div>
 
         {/* Content */}

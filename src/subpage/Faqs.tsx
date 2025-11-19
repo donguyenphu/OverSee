@@ -85,7 +85,7 @@ export default function FaqPagination() {
     const item = faqs[index];
 
     return (
-        <section className="w-9/10 mx-auto p-10 bg-white shadow-sm select-none">
+        <section className="w-9/10 mx-auto p-20 md:py-23 bg-white shadow-sm select-none">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-4xl font-bold">FAQs (Câu hỏi thường gặp)</h2>
@@ -115,7 +115,7 @@ export default function FaqPagination() {
             >
                 {/* Q */}
                 <div className="flex items-start gap-8 mb-4">
-                    <div className="w-8 h-8 rounded-full border flex items-center justify-center font-semibold">
+                    <div className="w-10 h-10 rounded-full border flex items-center justify-center font-semibold">
                         Q
                     </div>
                     <p className="flex-1 border-b pb-1 text-lg">
@@ -125,10 +125,10 @@ export default function FaqPagination() {
 
                 {/* A */}
                 <div className="flex items-start gap-8">
-                    <div className="w-8 h-8 rounded-full border flex items-center justify-center font-semibold">
+                    <div className="w-10 h-10 rounded-full border flex items-center justify-center font-semibold">
                         A
                     </div>
-                    <p className="flex-1 border-b pb-1 text-gray-700">
+                    <p className="flex-1 border-b pb-1 text-gray-800 text-xl leading-relaxed">
                         {item.answer}
                     </p>
                 </div>
