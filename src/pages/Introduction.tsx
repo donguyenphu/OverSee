@@ -9,15 +9,15 @@ import HeroBannerWithNoText from '@/assets/OverSee hero banner second version.jp
 import Advisor1 from '@/assets/Advisor1.jpg';
 import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
+import Navbar from "@/components/NavBar";
 
 const Introduction = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navigation />
+      <Navbar />
       {/* Hero Banner */}
-      <section className="customHeroBannerHeight relative w-full min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden bg-gray-50">
-
+      <section className="relative w-full min-h-[500px] sm:min-h-[600px] md:min-h-[750px] flex items-center overflow-hidden bg-white">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img

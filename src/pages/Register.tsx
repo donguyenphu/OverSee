@@ -2,21 +2,22 @@ import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
 import React, { useState } from "react";
 import OverSeeForm from "@/components/OverSeeStudentForm";
+import Navbar from "@/components/NavBar";
 
 const Register = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navigation />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
               Đăng ký <span className="text-primary">lĩnh vực bạn chọn</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               Để nhận được tư vấn sớm nhất
             </p>
           </div>
@@ -24,9 +25,11 @@ const Register = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-background">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <OverSeeForm />
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 sm:gap-10 md:gap-12 max-w-6xl mx-auto ">
+            <OverSeeForm />
+          </div>
         </div>
       </section>
 

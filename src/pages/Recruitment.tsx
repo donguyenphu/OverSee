@@ -7,14 +7,13 @@ import { GraduationCap, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
-
-
+import Navbar from "@/components/NavBar";
 
 const Recruitment = () => {
     return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navigation />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">

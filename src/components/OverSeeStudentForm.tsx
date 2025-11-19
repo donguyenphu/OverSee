@@ -72,7 +72,7 @@ export default function OverSeeForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-2 rounded-2xl">
       <div className="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8 border border-gray-200">
 
         {/* STEP 1: SELECT TYPE */}
@@ -83,8 +83,8 @@ export default function OverSeeForm() {
             </h1>
             <div className="grid gap-4">
               <SelectButton label="Tư vấn IELTS" color="blue" onClick={() => handleSelectType("IELTS")} />
-              <SelectButton label="Tư vấn SAT" color="purple" onClick={() => handleSelectType("SAT")} />
-              <SelectButton label="Môn học chương trình Việt Nam" color="green" onClick={() => handleSelectType("VIET")} />
+              <SelectButton label="Tư vấn SAT" color="blue" onClick={() => handleSelectType("SAT")} />
+              <SelectButton label="Môn học chương trình Việt Nam" color="blue" onClick={() => handleSelectType("VIET")} />
             </div>
           </div>
         )}
@@ -124,7 +124,7 @@ function SelectButton({ label, color, onClick }: { label: string; color: string;
   return (
     <button
       onClick={onClick}
-      className={`p-5 bg-${color}-600 hover:bg-${color}-700 transition text-white rounded-full shadow`}
+      className={`p-5 bg-${color}-600 hover:bg-${color}-700 transition text-white font-bold text-xl rounded-full shadow`}
     >
       {label}
     </button>
