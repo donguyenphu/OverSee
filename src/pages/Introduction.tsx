@@ -9,7 +9,7 @@ import HeroBannerWithNoText from '@/assets/OverSee_hero _banner_second version.j
 import Advisor1 from '@/assets/Advisor1.jpg';
 import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
-import Navbar from "@/components/NavBar";
+import Navbar from "@/components/Navbar";
 
 const Introduction = () => {
   return (

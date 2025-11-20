@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Introduction.css"
 
 /* -------------------- TYPES -------------------- */
 type TestType = "SAT" | "IELTS" | "VIET";
@@ -40,7 +41,7 @@ interface VIETFormData extends BaseFormData {
 type FormData = Partial<IELTSFormData & SATFormData & VIETFormData & { formType: TestType }>;
 
 /* -------------------- MAIN COMPONENT -------------------- */
-export default function OverSeeForm() {
+export default function OverSeeStudentForm() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [testType, setTestType] = useState<TestType | null>(null);
   const [formData, setFormData] = useState<FormData>({});
@@ -103,8 +104,8 @@ export default function OverSeeForm() {
         {/* STEP 3: SUCCESS */}
         {step === 3 && (
           <div className="text-center space-y-6">
-            <h1 className="text-2xl font-bold text-gray-800">Đăng ký thành công!</h1>
-            <p className="text-gray-600">OverSee sẽ liên hệ với bạn trong thời gian sớm nhất.</p>
+            <h1 className="text-2xl font-bold text-black">Cảm ơn bạn!</h1>
+            <p className="text-black">Ngay bây giờ, hãy nhắn tin sau cho page OverSee “<strong className="customIntroductionBold">Tôi đã đăng kí tư vấn</strong>” để được tư vấn chi tiết hơn nhé!</p>
             <button
               onClick={() => { setStep(1); setFormData({}); }}
               className="px-8 py-3 bg-gray-700 text-white rounded-full hover:bg-gray-800"
@@ -213,18 +214,18 @@ function FormIELTS({ formData, onChange, onSubmit, loading }: any) {
   return (
     <div className="space-y-4 animate-fadeIn">
       <h2 className="text-xl font-bold text-blue-600">Điền form đăng kí tư vấn IELTS</h2>
-      <Input label="fullName" value={formData.fullName} onChange={onChange} placeholder="Họ và tên" />
-      <Input label="phone" value={formData.phone} onChange={onChange} placeholder="Số điện thoại" />
-      <Input label="email" type="email" value={formData.email} onChange={onChange} placeholder="Email" />
-      <Input label="school" value={formData.school} onChange={onChange} placeholder="Trường của học viên" />
-      <Input label="grade" value={formData.grade} onChange={onChange} placeholder="Lớp đang theo học" />
-      <Input label="testDate" type="date" value={formData.testDate} onChange={onChange} />
-      <Input label="currentScore" value={formData.currentScore} onChange={onChange} placeholder="Điểm hiện tại hoặc Chưa có điểm" />
+      <Input label="Họ và tên" value={formData.fullName} onChange={onChange} placeholder="Họ và tên"/>
+      <Input label="Số điện thoại" value={formData.phone} onChange={onChange} placeholder="Số điện thoại" />
+      <Input label="Email" type="email" value={formData.email} onChange={onChange} placeholder="Email" />
+      <Input label="Trường học" value={formData.school} onChange={onChange} placeholder="Trường của học viên" />
+      <Input label="Lớp" value={formData.grade} onChange={onChange} placeholder="Lớp đang theo học" />
+      <Input label="Ngày thi (Nếu có)" type="date" value={formData.testDate} onChange={onChange} />
+      <Input label="Điểm hiện tại" value={formData.currentScore} onChange={onChange} placeholder="Điểm hiện tại hoặc Chưa có điểm" />
       <div className="grid grid-cols-2 gap-4">
-        <Input label="readingScore" type="number" value={formData.readingScore} onChange={onChange} placeholder="Reading" />
-        <Input label="writingScore" type="number" value={formData.writingScore} onChange={onChange} placeholder="Writing" />
-        <Input label="listeningScore" type="number" value={formData.listeningScore} onChange={onChange} placeholder="Listening" />
-        <Input label="speakingScore" type="number" value={formData.speakingScore} onChange={onChange} placeholder="Speaking" />
+        <Input label="Reading" type="number" value={formData.readingScore} onChange={onChange} placeholder="Reading" />
+        <Input label="Writing" type="number" value={formData.writingScore} onChange={onChange} placeholder="Writing" />
+        <Input label="Listening" type="number" value={formData.listeningScore} onChange={onChange} placeholder="Listening" />
+        <Input label="Speaking" type="number" value={formData.speakingScore} onChange={onChange} placeholder="Speaking" />
       </div>
       <TextArea label="note" value={formData.note} onChange={onChange} />
       <TimeSelection value={formData.timeSlot} onChange={onChange} />
