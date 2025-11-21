@@ -13,8 +13,24 @@ import Navbar from "@/components/Navbar";
 import HappyStudent from "@/subpage/HappyStudent";
 import Advisor1png from "@/assets/Advisor1-removebg-preview.png";
 import Advisor2png from "@/assets/Advisor2-removebg-preview.png";
+import { useEffect } from "react";
 
 const Introduction = () => {
+  // ensure initial viewport scale = 0.8 on page load (for domain / Vercel deploy)
+  useEffect(() => {
+    const name = "viewport";
+    const content = "width=device-width, initial-scale=0.8";
+    const existing = document.querySelector(`meta[name="${name}"]`);
+    if (existing) {
+      existing.setAttribute("content", content);
+    } else {
+      const m = document.createElement("meta");
+      m.setAttribute("name", name);
+      m.setAttribute("content", content);
+      document.head.appendChild(m);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
