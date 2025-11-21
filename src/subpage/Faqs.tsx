@@ -26,7 +26,7 @@ const faqs = [
             <>
                 OverSee có nhiều chương trình học khác nhau – từ luyện thi IELTS, SAT đến các môn học theo chương trình Việt Nam.<br></br>
                 Chi phí sẽ phụ thuộc vào <strong>lộ trình</strong> và <strong>thời lượng học cá nhân hóa</strong> của từng học viên, nên không có một mức giá cố định chung.<br></br>
-                Phụ huynh và học sinh có thể nhắn tin trực tiếp cho <strong><a href="https://www.facebook.com/oversee.org">fanpage OverSee</a></strong> để được tư vấn chi tiết và thiết kế lộ trình học phù hợp nhất với mục tiêu, ngân sách và thời gian của mình.
+                Phụ huynh và học sinh có thể nhắn tin trực tiếp cho <strong><a href="https://www.facebook.com/oversee.org" className="text-orange-500">fanpage OverSee</a></strong> để được tư vấn chi tiết và thiết kế lộ trình học phù hợp nhất với mục tiêu, ngân sách và thời gian của mình.
             </>
         )
     },
@@ -34,7 +34,9 @@ const faqs = [
         question: '4. Học sinh đang mất động lực học, OverSee có giúp được không?',
         answer: (
             <>
-                <ul>Đây chính là nhóm học sinh mà OverSee đồng hành hiệu quả nhất.\n
+                <ul>
+                    Đây chính là nhóm học sinh mà OverSee đồng hành <strong>hiệu quả nhất</strong>.
+                    <br></br>
                     Thông qua <strong>quy trình 3 bước: Khám phá – Đồng hành – Dẫn lối</strong>, chúng tôi giúp học sinh:
                 </ul>
                 <li>Xác định <strong>nguyên nhân gốc</strong> của việc mất động lực.</li>

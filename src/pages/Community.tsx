@@ -23,7 +23,7 @@ interface Profile {
 const sampleProfiles: Profile[] = [
   {
     id: 1,
-    name: "Lê Hoàng Kim Khánh",
+    name: "Mentor môn Sinh : Lê Hoàng Kim Khánh",
     expertise: (
       <ul className="leading-normal list-circle pl-5 text: black">
         <li>Học sinh lớp chuyên Sinh niên khoá 2023-2026, trường THPT Chuyên Trần Phú</li>
@@ -47,7 +47,7 @@ const sampleProfiles: Profile[] = [
   },
   {
     id: 2,
-    name: "Nguyễn Hoàng Nam",
+    name: "Mentor IELTS : Nguyễn Hoàng Nam",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>Cựu học sinh lớp  chuyên Nga.</li>
@@ -70,7 +70,7 @@ const sampleProfiles: Profile[] = [
   },
   {
     id: 3,
-    name: "Nguyễn Hữu Nam",
+    name: "Mentor SAT : Nguyễn Hữu Nam",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>Mentor hướng dẫn chứng chỉ SAT </li>
@@ -94,7 +94,7 @@ const sampleProfiles: Profile[] = [
   },
   {
     id: 4,
-    name: "Nguyễn Nhật Nam",
+    name: "Mentor IELTS : Nguyễn Nhật Nam",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>Cựu học sinh Chuyên Anh 1</li>
@@ -143,7 +143,7 @@ const Profiles = () => {
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <BookOpen className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Chuyên môn cao</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Kiến thức chuyên môn</h3>
                     <p className="text-muted-foreground">
                       Là <strong className="customIntroductionBold">học sinh – sinh viên xuất sắc</strong>, có tư duy học tập hiệu quả và tinh thần chia sẻ.
                     </p>
@@ -309,7 +309,7 @@ const Profiles = () => {
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Award className="h-6 w-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Đồng hành mọi lúc</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Đồng hành</h3>
                     <p className="text-muted-foreground">
                       Luôn được <strong className="customIntroductionBold">đồng hành, thấu hiểu</strong> và <strong className="customIntroductionBold">truyền động lực</strong>, để phát triển toàn diện chứ không chỉ trong học tập.
                     </p>
@@ -320,7 +320,7 @@ const Profiles = () => {
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <GraduationCap className="h-6 w-6 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Kỹ năng đầy đủ</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Kỹ năng</h3>
                     <p className="text-muted-foreground">
                       Được đào tạo bài bản về <strong className="customIntroductionBold">kỹ năng sư phạm, coaching và mentoring</strong> trước khi đồng hành cùng học viên.
                     </p>
