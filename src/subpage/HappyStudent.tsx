@@ -100,7 +100,7 @@ export default function HappyStudent() {
 
 							<div className="mt-6 bg-white/5 rounded-xl p-4 text-white/90">
 								<h4 className="text-sm font-semibold text-white mb-2">Điểm mạnh</h4>
-								<ul className="text-sm list-disc ml-5 space-y-1">
+								<ul className="text-sm list-disc ml-5 space-y-1 font-bold">
 									<li>Biết lên kế hoạch và tự điều chỉnh lộ trình học</li>
 									<li>Ưu tiên hiểu sâu thay vì chạy theo điểm số</li>
 									<li>Giữ động lực qua mục tiêu rõ ràng và người đồng hành</li>

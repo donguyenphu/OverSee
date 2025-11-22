@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, ChevronUp, User, Mail, Phone, Target, School, Workflow } from "lucide-react";
@@ -10,6 +10,14 @@ import Mentor4 from '@/assets/4.jpg';
 import Footer from "@/subpage/Footer";
 import '../Introduction.css';
 import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe, CheckCircle2, AwardIcon } from "lucide-react";
+import VideoOverSee from '@/assets/Oversee_Video.mp4';
+import s1 from '@/assets/s1.png';
+import s2 from '@/assets/s2.png';
+import s3 from '@/assets/s3.png';
+import s4 from '@/assets/s4.png';
+import s5 from '@/assets/s5.png';
+import s6 from '@/assets/s6.png';
+import s7 from '@/assets/s7.png';
 
 interface Profile {
   id: number;
@@ -121,14 +129,128 @@ const Profiles = () => {
     setExpandedProfile(expandedProfile === id ? null : id);
   };
 
+  // Facebook embed component (load SDK and render fb-post)
+  function FacebookEmbed({ postUrl }: { postUrl: string }) {
+    useEffect(() => {
+      const id = "facebook-jssdk";
+      const existing = document.getElementById(id);
+
+      // Ensure fbAsyncInit exists so FB.init is called if SDK loads
+      (window as any).fbAsyncInit = () => {
+        try {
+          (window as any).FB.init?.({ xfbml: true, version: "v20.0" });
+        } catch (e) {
+          /* noop */
+        }
+      };
+
+      if (!existing) {
+        const script = document.createElement("script");
+        script.id = id;
+        // use Vietnamese locale for better localization of embeds
+        script.src = "https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v20.0";
+        script.async = true;
+        script.defer = true;
+        script.onload = () => {
+          try {
+            (window as any).FB?.XFBML.parse();
+          } catch (e) {
+            /* noop */
+          }
+        };
+        document.body.appendChild(script);
+      } else {
+        // SDK already present -> parse current node(s)
+        try {
+          (window as any).FB?.XFBML.parse();
+        } catch (e) {
+          /* noop */
+        }
+      }
+
+    }, [postUrl]);
+
+    return (
+      <div className="w-full bg-card rounded-lg overflow-hidden shadow-inner" style={{ minHeight: 320 }}>
+        <div
+          className="fb-post"
+          data-href={postUrl}
+          data-width="500"
+          data-show-text="true"
+        />
+      </div>
+    );
+  }
+
+  // Lazy YouTube: show thumbnail + play button, insert iframe only after click
+  function LazyYouTube({ videoId, title }: { videoId: string; title?: string }) {
+    const [playing, setPlaying] = useState(false);
+    const thumb = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+    return (
+      <div className="w-full">
+        {!playing ? (
+          <div className="relative rounded-lg overflow-hidden shadow-lg bg-black">
+            <img src={thumb} alt={title || "YouTube thumbnail"} className="w-full h-auto object-cover" />
+            <button
+              aria-label="Play video"
+              onClick={() => setPlaying(true)}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <div className="bg-primary/90 text-white rounded-full p-4 shadow-lg">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5v14l11-7L8 5z" fill="currentColor" />
+                </svg>
+              </div>
+            </button>
+            <div className="p-3 text-center text-sm text-muted-foreground">Nhấn để phát video (nếu bị chặn, mở YouTube)</div>
+            <div className="text-center pb-3">
+              <a
+                href={`https://www.youtube.com/watch?v=${videoId}`}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-sm text-primary underline"
+              >
+                Xem video trên YouTube
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div className="relative rounded-lg overflow-hidden shadow-lg" style={{ paddingTop: "56.25%" }}>
+            <iframe
+              title={title || "YouTube video"}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`}
+              className="absolute inset-0 w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Navbar />
 
-      <main className="flex-1 py-12 sm:py-16 md:py-20">
+      <main className="flex-1">
         <div className="container mx-auto">
-          <section className="pt-0 pb-20 w-full">
-            <div className="container mx-auto px-4">
+          <section
+            className="pt-0 pb-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
+            style={{
+              width: "100vw",
+              position: "relative",
+              left: "50%",
+              right: "50%",
+              marginLeft: "-50vw",
+              marginRight: "-50vw",
+            }}
+          >
+            <div className="container mx-auto px-4 py-20">
               <div className="text-center mb-16">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
                   <span className="text-primary">Mentor OverSee</span> có gì đặc biệt?
@@ -185,7 +307,7 @@ const Profiles = () => {
               </div>
             </div>
           </section>
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 py-20 md:py-16">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
               Hồ sơ các Mentor tiêu biểu của chúng tôi
             </h1>
@@ -194,7 +316,7 @@ const Profiles = () => {
             </p> */}
           </div>
 
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 pb-20 md:pb-16">
             {sampleProfiles.map((profile) => (
               <Card key={profile.id} className="shadow-lg hover:shadow-xl transition-shadow aspect-square relative">
                 <CardHeader className="cursor-pointer h-full p-6" onClick={() => toggleProfile(profile.id)}>
@@ -271,7 +393,17 @@ const Profiles = () => {
             ))}
           </div>
 
-          <section className="pt-20 w-full">
+          <section
+            className="py-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
+            style={{
+              width: "100vw",
+              position: "relative",
+              left: "50%",
+              right: "50%",
+              marginLeft: "-50vw",
+              marginRight: "-50vw",
+            }}
+          >
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
@@ -320,15 +452,218 @@ const Profiles = () => {
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <GraduationCap className="h-6 w-6 text-secondary" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Kỹ năng</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Học đúng</h3>
                     <p className="text-muted-foreground">
-                      Được đào tạo bài bản về <strong className="customIntroductionBold">kỹ năng sư phạm, coaching và mentoring</strong> trước khi đồng hành cùng học viên.
+                      Không học vì điểm số, mà học vì <strong className="customIntroductionBold">hiểu giá trị</strong> của việc học.
                     </p>
                   </CardContent>
                 </Card>
               </div>
             </div>
           </section>
+
+          {/* ===== NEW: Student shares blocks section (7 sample cards) ===== */}
+          <section className="py-16">
+            <div className="max-w-6xl mx-auto px-4">
+              <h2 className="text-3xl font-bold text-foreground text-center mb-8">
+                Một số chia sẻ của học viên
+              </h2>
+
+              <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {/* 1 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s1} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 2 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s2} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 3 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s3} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi. 
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 4 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s7} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 5 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s5} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng. Mỗi lần thi thử em hơi lo lắng nhưng mà được cái là biết trình độ của mình đang ở đâu.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 6 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s6} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* 7 */}
+                <div>
+                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
+                    {/* Left Image */}
+                    <img src={s4} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
+                    {/* Right Text */}
+                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
+                      <p className="text-foreground-600 leading-relaxed font-bold">
+                        Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* animations: simple fadeUp keyframes and responsive tweaks */}
+            <style>{`
+              @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(10px) scale(0.995); }
+                to   { opacity: 1; transform: translateY(0) scale(1); }
+              }
+              @media (max-width: 640px) {
+                .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+              }
+            `}</style>
+          </section>
+
+
+
+          {/* ===== NEW SECTION: OverSee sẻ chia (redesigned layout) ===== */}
+          <section 
+            className="py-20 bg-gradient-to-br from-secondary/4 to-primary/4 bg-gradient-to-br from-secondary/5 to-primary/5"
+            style={{
+              width: "100vw",
+              position: "relative",
+              left: "50%",
+              right: "50%",
+              marginLeft: "-50vw",
+              marginRight: "-50vw",
+            }}
+          >
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="grid gap-8 lg:grid-cols-3 items-start">
+                {/* LEFT: Title + lead */}
+                <div className="lg:col-span-1 flex flex-col justify-center">
+                  <div className="bg-card/80 p-6 rounded-2xl shadow-md border border-border">
+                    <h2 className="text-4xl sm:text-6xl font-bold text-foreground leading-tight mb-2">OverSee sẻ chia</h2>
+                    <p className="text-lg sm:text-xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
+                    <p className="text-xl sm:text-base text-foreground/90 font-bold leading-relaxed">
+                      Với mong muốn lan tỏa giá trị giáo dục và yêu thương, OverSee đã thực hiện dự án “Nguyện ước Trăng tròn” — cung cấp hơn <span className="text-primary">1500 suất ăn trưa dinh dưỡng</span> cho trẻ em có hoàn cảnh khó khăn tại khu đô thị, bắt đầu từ huyện An Lão, Hải Phòng nhân dịp Tết Trung Thu.
+                    </p>
+                    <div className="mt-4 flex gap-3">
+                      <a href="https://www.youtube.com/watch?v=tUd5xeaHcFc" className="inline-block px-4 py-2 bg-primary text-white rounded-md text-sm font-medium">Xem video</a>
+                      <a href="https://www.facebook.com/share/p/1CNKuPH2s9/?mibextid=wwXIfr" target="_blank" rel="noreferrer noopener" className="inline-block px-4 py-2 border border-primary text-primary rounded-md text-sm font-semibold">Xem bài viết</a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* RIGHT: Stats + bullets */}
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                      <div className="text-3xl font-extrabold text-primary">1500+</div>
+                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                      <div className="text-3xl font-extrabold text-primary">42</div>
+                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                      <div className="text-3xl font-extrabold text-primary">100%</div>
+                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-card/80 p-5 rounded-xl border border-border">
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">Khác với nhiều hoạt động thiện nguyện hướng về vùng cao, “Nguyện ước Trăng tròn” chọn nhìn về những đứa trẻ nơi phố thị – nơi nghèo đói đôi khi bị lãng quên giữa nhịp sống hiện đại.</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">Dự án được tài trợ 100% từ lợi nhuận của OverSee và thực hiện bởi đội ngũ 42 tình nguyện viên cùng đối tác địa phương.</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">“Nguyện ước Trăng tròn” không chỉ mang đến những bữa ăn đủ đầy, mà còn là lời nhắc về sự thấu hiểu và sẻ chia thật sự bắt đầu từ việc lắng nghe nhu cầu của cộng đồng.</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Video tổng quan sự kiện -> render as single card with same dimensions */}
+                  <div>
+                    <Card className="rounded-lg shadow-lg overflow-hidden">
+                      <CardHeader className="pt-4 px-5">
+                        <div className="text-2xl text-foreground font-bold">Video tổng quan sự kiện</div>
+                      </CardHeader>
+                      <CardContent className="p-0">
+                        {/* Video fills the card width to match bullets block (which uses p-5) */}
+                        <video src={VideoOverSee} controls className="w-full h-auto" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+
+              <style>{`
+                @media (max-width: 1024px) {
+                  .max-w-6xl { padding-left: 1rem; padding-right: 1rem; }
+                }
+              `}</style>
+            </div>
+          </section>
+
         </div>
       </main>
       {/* Footer */}
