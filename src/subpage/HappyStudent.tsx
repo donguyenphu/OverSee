@@ -7,7 +7,7 @@ export default function HappyStudent() {
 		{
 			id: "a",
 			short: "Tư duy học tập chủ động",
-			title: "A. Tư duy học tập chủ động",
+			title: "1. Tư duy học tập chủ động",
 			details:
 				`Hiểu mình để học đúng: Biết điểm mạnh – yếu, đặt mục tiêu rõ ràng cho từng giai đoạn.\n\n` +
 				`Tư duy phản biện: Biết đặt câu hỏi, dám thử và sai, tìm lời giải thay vì chờ được chỉ bài.\n\n` +
@@ -16,7 +16,7 @@ export default function HappyStudent() {
 		{
 			id: "b",
 			short: "Kỹ năng phát triển bản thân",
-			title: "B. Kỹ năng phát triển bản thân toàn diện",
+			title: "2. Kỹ năng phát triển bản thân toàn diện",
 			details:
 				`Kỹ năng học tập hiệu quả: Biết lên kế hoạch, ghi nhớ, tổng hợp và trình bày ý tưởng mạch lạc.\n\n` +
 				`Quản lý thời gian và cảm xúc: Cân bằng việc học – nghỉ ngơi – phát triển sở thích cá nhân.\n\n` +
@@ -25,7 +25,7 @@ export default function HappyStudent() {
 		{
 			id: "c",
 			short: "Động lực nội tại & hành trình",
-			title: "C. Động lực nội tại và hành trình bền vững",
+			title: "3. Động lực nội tại và hành trình bền vững",
 			details:
 				`Học vì hiểu giá trị: Nhìn thấy ý nghĩa của việc học trong tương lai của bản thân.\n\n` +
 				`Tự duy trì động lực: Có phương pháp, có người đồng hành, và biết cách đứng dậy sau thất bại.\n\n` +
@@ -60,11 +60,11 @@ export default function HappyStudent() {
 						>
 							<div className="flex flex-col lg:flex-row items-center gap-6">
 								<div className="flex-shrink-0">
-									<div className="w-44 h-44 rounded-full overflow-hidden bg-white/5 ring-2 ring-white/10 shadow-lg transform transition-transform hover:scale-105">
+									<div className="w-44 h-44 rounded-full overflow-hidden bg-orange-500 ring-4 ring-white/10 shadow-lg transform transition-transform hover:scale-105">
 										<img
 											src={TargetPersonaRemoveBg}
 											alt="persona"
-											className="w-full h-full object-cover"
+											className="w-full h-full object-cover bg-orange-500"
 										/>
 									</div>
 								</div>
@@ -158,11 +158,13 @@ export default function HappyStudent() {
 							>
 								{open[p.id] && (
 									<div className="text-sm text-foreground bg-surface p-3 rounded-md animate-fadeIn">
+                    <strong>
 										{p.details.split("\n\n").map((paragraph, idx) => (
 											<p key={idx} className="mb-2">
 												{paragraph}
 											</p>
 										))}
+                    </strong>
 									</div>
 								)}
 							</div>

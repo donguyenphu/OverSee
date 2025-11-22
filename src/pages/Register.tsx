@@ -1,7 +1,7 @@
 import Navigation from "@/subpage/Navigation";
 import Footer from "@/subpage/Footer";
 import React, { useState } from "react";
-import OverSeeStudentForm from "@/components/OverSeeStudentForm";
+import RegisterSwitcher from "@/components/RegisterSwitcher";
 import Navbar from "@/components/Navbar";
 
 const Register = () => {
@@ -11,8 +11,8 @@ const Register = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-        <div className="container mx-auto px-4">
+      <section className="py-10 bg-background">
+        <div className="container mx-auto px-2 md:px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
               Đăng ký <span className="text-primary">lĩnh vực bạn chọn</span>
@@ -24,11 +24,12 @@ const Register = () => {
         </div>
       </section>
 
+
       {/* Contact Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 sm:gap-10 md:gap-12 max-w-6xl mx-auto ">
-            <OverSeeStudentForm />
+          <div className="max-w-6xl mx-auto ">
+            <RegisterSwitcher />
           </div>
         </div>
       </section>

@@ -37,6 +37,17 @@ const Introduction = () => {
       <Navbar />
       {/* Hero Banner */}
       <section className="relative w-full min-h-[650px] md:aspect-[2.13] flex items-center overflow-hidden">
+        {/* Geometric Background Shapes */}
+        <div className="absolute inset-0 z-0">
+          {/* Dark Blue curved shape on left */}
+          <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" />
+          {/* Orange curved shapes on right */}
+          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
+          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
+          {/* Dark blue accent at bottom right */}
+          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
+        </div>
+
         {/* Background Image */}
         <div className="absolute inset-0 -z-10">
           <img

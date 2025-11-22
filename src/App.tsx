@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Community from "./pages/Community";
 import Introduction from "./pages/Introduction";
 import Register from "./pages/Register";
@@ -18,6 +20,7 @@ const App = () => (
     <TooltipProvider>
       <ZoomControl />
       <Preloader />
+      <ToastContainer position="top-right" autoClose={3000} />
       <Toaster />
       <Sonner />
       <BrowserRouter>

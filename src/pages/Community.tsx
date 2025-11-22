@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronDown, ChevronUp, User, Mail, Phone, Target, School, Workflow } from "lucide-react";
@@ -123,11 +123,26 @@ const sampleProfiles: Profile[] = [
 ];
 
 const Profiles = () => {
-  const [expandedProfile, setExpandedProfile] = useState<number | null>(null);
+  // Allow multiple mentor profiles expanded at once
+  const [expandedProfiles, setExpandedProfiles] = useState<number[]>([]);
+  // Track expanded share paragraphs
+  const [expandedShareIds, setExpandedShareIds] = useState<number[]>([]);
+  // Lightbox state for share images (id, src)
+  const [lightbox, setLightbox] = useState<{ id: number; src: string } | null>(null);
+  // Lens position state for magnifier (null when not active)
+  const [lensPos, setLensPos] = useState<{ x: number; y: number } | null>(null);
+  const lensSize = 140; // lens square size
+  const zoomFactor = 2.2; // magnification level
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const [imgDims, setImgDims] = useState<{w:number; h:number}>({w:0,h:0});
 
   const toggleProfile = (id: number) => {
-    setExpandedProfile(expandedProfile === id ? null : id);
+    setExpandedProfiles(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]);
   };
+
+  const toggleShare = (id: number) => {
+    setExpandedShareIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  }
 
   // Facebook embed component (load SDK and render fb-post)
   function FacebookEmbed({ postUrl }: { postUrl: string }) {
@@ -259,7 +274,8 @@ const Profiles = () => {
                   Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
                 </p> */}
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Responsive feature cards: keep sm/md; enhance lg with balanced heights */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:auto-rows-fr">
                 <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -307,7 +323,7 @@ const Profiles = () => {
               </div>
             </div>
           </section>
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 py-20 md:py-16">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-20 md:pt-16">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
               Hồ sơ các Mentor tiêu biểu của chúng tôi
             </h1>
@@ -334,7 +350,7 @@ const Profiles = () => {
                           <GraduationCap className="h-6 w-6 text-secondary" />
                         </div>
                         <Button variant="ghost" size="icon" className="w-8 h-8">
-                          {expandedProfile === profile.id ? (
+                          {expandedProfiles.includes(profile.id) ? (
                             <ChevronUp className="h-5 w-5" />
                           ) : (
                             <ChevronDown className="h-5 w-5" />
@@ -355,7 +371,7 @@ const Profiles = () => {
                   </div>
                 </CardHeader>
 
-                {expandedProfile === profile.id && (
+                {expandedProfiles.includes(profile.id) && (
                   <div className="p-3 absolute inset-0 bg-card z-10 rounded-lg animate-fade-in overflow-auto">
                     <CardContent className="space-y-4 p-6 h-full">
                       <div className="flex justify-between items-start mb-4">
@@ -413,7 +429,8 @@ const Profiles = () => {
                   Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
                 </p> */}
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Responsive feature cards: keep sm/md; enhance lg with balanced heights */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:auto-rows-fr">
                 <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -462,117 +479,155 @@ const Profiles = () => {
             </div>
           </section>
 
-          {/* ===== NEW: Student shares blocks section (7 sample cards) ===== */}
+          {/* ===== NEW: Student shares blocks section (masonry + hover animation) ===== */}
           <section className="py-16">
             <div className="max-w-6xl mx-auto px-4">
-              <h2 className="text-3xl font-bold text-foreground text-center mb-8">
+              <h2 className="text-4xl font-bold text-foreground text-center mb-10">
                 Một số chia sẻ của học viên
               </h2>
-
-              <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {/* 1 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s1} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.
-                      </p>
-                    </div>
+              {/* Data-driven share cards with expand/collapse + lightbox */}
+              {(() => {
+                const shares: {id:number; img:string; text:string; tag:string; delay:number}[] = [
+                  { id:1, img:s1, tag:'#OverSeeCare', delay:0.6, text:`Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.` },
+                  { id:2, img:s2, tag:'#IELTSJourney', delay:0.65, text:`Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!` },
+                  { id:3, img:s3, tag:'#FeedbackMatters', delay:0.7, text:`Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi.` },
+                  { id:4, img:s7, tag:'#OwnYourTime', delay:0.75, text:`Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.` },
+                  { id:5, img:s5, tag:'#PracticeMakesPerfect', delay:0.8, text:`Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng.` },
+                  { id:6, img:s6, tag:'#TransparentProgress', delay:0.85, text:`Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))` },
+                  { id:7, img:s4, tag:'#SpeakDaily', delay:0.9, text:`Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh.` },
+                ];
+                return (
+                  <div className="columns-1 md:columns-2 lg:columns-3 gap-8 [column-fill:balance]">
+                    {shares.map(share => {
+                      const expanded = expandedShareIds.includes(share.id);
+                      const isLong = share.text.length > 260; // threshold
+                      return (
+                        <div key={share.id} className="mb-6 break-inside-avoid">
+                          <div
+                            className="group relative flex items-center gap-6 bg-white rounded-md shadow-md p-6 md:p-5 sm:p-4 sm:flex-col sm:gap-4 transition-all duration-500
+                              hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] hover:bg-white/95
+                              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40
+                              before:absolute before:inset-0 before:rounded-md before:pointer-events-none before:opacity-0 before:transition-opacity before:duration-500 before:bg-gradient-to-r before:from-primary/10 before:to-secondary/10 group-hover:before:opacity-100"
+                          >
+                            <img
+                              src={share.img}
+                              className={`w-64 h-64 object-cover rounded-md sm:w-full sm:h-auto animate-[fadeIn_${share.delay}s_ease-out] md:w-52 md:h-52 cursor-zoom-in`}
+                              alt={share.tag}
+                              onClick={() => { setLightbox({ id: share.id, src: share.img }); setLensPos(null); }}
+                            />
+                            <div className="flex flex-col gap-3 animate-[slideIn_0.6s_ease-out] w-full">
+                              <div className={`relative text-foreground leading-relaxed font-bold ${!expanded && isLong ? 'clamped' : ''}`}> {share.text}
+                                {!expanded && isLong && (
+                                  <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <span className="inline-block text-xs font-semibold text-primary/70 opacity-0 group-hover:opacity-100 transition-opacity">{share.tag}</span>
+                                {isLong && (
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleShare(share.id)}
+                                    className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                                  >
+                                    {expanded ? 'Thu gọn' : 'Xem thêm'}
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
+                );
+              })()}
+              
+            </div>
+            {/* Lightbox Overlay */}
+            {lightbox && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fade-in"
+                onClick={(e) => { if (e.target === e.currentTarget) { setLightbox(null); setLensPos(null); } }}
+              >
+                <div className="absolute top-4 right-4 flex gap-2">
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10" onClick={() => { setLightbox(null); setLensPos(null); }} aria-label="Đóng">
+                    <span className="text-xl leading-none">×</span>
+                  </Button>
                 </div>
-                {/* 2 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s2} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!
-                      </p>
-                    </div>
+                <div className="flex gap-6 items-start">
+                  {/* Base image with lens */}
+                  <div
+                    className="relative max-w-[60vw] max-h-[85vh] overflow-hidden rounded-lg shadow-2xl bg-black/20 p-3"
+                    onMouseMove={(e) => {
+                      const imgEl = imgRef.current;
+                      if (!imgEl) return;
+                      const rect = imgEl.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      if (x < 0 || y < 0 || x > rect.width || y > rect.height) { setLensPos(null); return; }
+                      setLensPos({ x, y });
+                    }}
+                    onMouseLeave={() => setLensPos(null)}
+                  >
+                    <img
+                      ref={imgRef}
+                      src={lightbox.src}
+                      alt="preview"
+                      className="object-contain max-h-[80vh] mx-auto select-none"
+                      draggable={false}
+                      onLoad={(e) => {
+                        const el = e.currentTarget;
+                        setImgDims({ w: el.clientWidth, h: el.clientHeight });
+                      }}
+                    />
+                    {lensPos && (
+                      <div
+                        className="pointer-events-none absolute border-2 border-white shadow-md bg-white/10 backdrop-blur-sm flex items-center justify-center"
+                        style={{
+                          width: lensSize + 'px',
+                          height: lensSize + 'px',
+                          left: (lensPos.x - lensSize / 2) + 'px',
+                          top: (lensPos.y - lensSize / 2) + 'px'
+                        }}
+                      >
+                        {/* Magnifier icon */}
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="8" />
+                          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
-                </div>
-                {/* 3 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s3} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi. 
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* 4 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s7} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* 5 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s5} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng. Mỗi lần thi thử em hơi lo lắng nhưng mà được cái là biết trình độ của mình đang ở đâu.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* 6 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s6} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* 7 */}
-                <div>
-                  <div className="flex items-center gap-6 bg-white rounded-md shadow-md p-6 transition-all duration-500 hover:shadow-x hover:-translate-y-1 md:p-4 sm:flex-col sm:p-3">
-                    {/* Left Image */}
-                    <img src={s4} className="w-full h-full object-cover rounded-md sm:w-full sm:h-full animate-[fadeIn_0.8s_ease-out]"/>
-                    {/* Right Text */}
-                    <div className="flex flex-col gap-3 animate-[slideIn_0.8s_ease-out]">
-                      <p className="text-foreground-600 leading-relaxed font-bold">
-                        Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh
-                      </p>
-                    </div>
+                  {/* Zoom panel */}
+                  <div className="hidden md:block w-[360px] h-[360px] rounded-lg border border-white/30 bg-black/30 overflow-hidden relative shadow-xl">
+                    {lensPos ? (
+                      <div
+                        className="w-full h-full"
+                        style={{
+                          backgroundImage: `url(${lightbox.src})`,
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: `${imgDims.w * zoomFactor}px ${imgDims.h * zoomFactor}px`,
+                          backgroundPosition: `${-((lensPos.x) * zoomFactor - lensSize / 2)}px ${-((lensPos.y) * zoomFactor - lensSize / 2)}px`
+                        }}
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center w-full h-full text-white/60 text-sm p-4 text-center">
+                        Di chuột lên ảnh để phóng to khu vực.
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* animations: simple fadeUp keyframes and responsive tweaks */}
+            )}
             <style>{`
-              @keyframes fadeUp {
-                from { opacity: 0; transform: translateY(10px) scale(0.995); }
-                to   { opacity: 1; transform: translateY(0) scale(1); }
+              /* Masonry helpers */
+              .break-inside-avoid { break-inside: avoid; }
+              .clamped { display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+              @supports (animation-timeline: scroll()) {
+                /* Future progressive enhancements */
               }
-              @media (max-width: 640px) {
-                .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-              }
+              @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+              @keyframes slideIn { from { opacity:0; transform:translateX(24px);} to { opacity:1; transform:translateX(0);} }
             `}</style>
           </section>
 
