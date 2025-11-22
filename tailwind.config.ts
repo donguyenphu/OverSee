@@ -12,10 +12,25 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1.6rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1120px'
 			}
+		},
+		fontSize: {
+			xs: ['0.6rem', { lineHeight: '0.8rem' }],
+			sm: ['0.7rem', { lineHeight: '1rem' }],
+			base: ['0.8rem', { lineHeight: '1.2rem' }],
+			lg: ['0.9rem', { lineHeight: '1.4rem' }],
+			xl: ['1rem', { lineHeight: '1.5rem' }],
+			'2xl': ['1.2rem', { lineHeight: '1.6rem' }],
+			'3xl': ['1.5rem', { lineHeight: '1.8rem' }],
+			'4xl': ['1.8rem', { lineHeight: '2rem' }],
+			'5xl': ['2.4rem', { lineHeight: '2.6rem' }],
+			'6xl': ['3rem', { lineHeight: '3.2rem' }],
+			'7xl': ['3.6rem', { lineHeight: '3.8rem' }],
+			'8xl': ['4.8rem', { lineHeight: '5rem' }],
+			'9xl': ['6.4rem', { lineHeight: '6.6rem' }]
 		},
 		extend: {
 			fontFamily: {
