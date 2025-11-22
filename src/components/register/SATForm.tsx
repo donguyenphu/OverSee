@@ -5,8 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { appendStudent } from '@/lib/sheets';
 import { toast } from 'react-toastify';
-
-const OVERSEE_PAGE_URL = 'https://www.facebook.com/oversee.org';
+import SuccessStudent from '@/components/SuccessStudent';
 
 interface SATData {
   name: string;
@@ -57,14 +56,7 @@ const SATForm: React.FC = () => {
   };
 
   if (submitted) {
-    return (
-      <div className='space-y-4 p-6 rounded-lg border bg-white shadow'>
-        <h2 className='text-2xl font-bold text-primary'>Cảm ơn bạn!</h2>
-        <p className='font-semibold'>Ngay bây giờ, hãy nhắn tin sau cho page OverSee: <span className='italic'>“Tôi đã đăng kí tư vấn”</span> để được tư vấn chi tiết hơn nhé!</p>
-        <a href={OVERSEE_PAGE_URL} target='_blank' rel='noreferrer' className='text-sm text-blue-600 underline'>Link page OverSee</a>
-        <Button variant='outline' onClick={() => { setSubmitted(false); setData(initialData); }}>Gửi thêm đơn khác</Button>
-      </div>
-    );
+    return <SuccessStudent onReset={() => { setSubmitted(false); setData(initialData); }} />;
   }
 
   return (
@@ -72,13 +64,13 @@ const SATForm: React.FC = () => {
       {submitError && <p className='text-sm text-red-600'>{submitError}</p>}
       <div className='bg-primary/10 border border-primary rounded-md p-4 text-sm font-semibold text-primary'>Điền form đăng kí tư vấn ngay để được thi thử và phân tích kết quả, tư vấn lộ trình học SAT miễn phí cùng OverSee!</div>
       <div className='grid md:grid-cols-2 gap-4'>
-        <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Trường học</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên (không bắt buộc)' /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Trường học</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên (không bắt buộc)' maxLength={200} /></div>
         <div><label className='text-sm font-medium mb-1 block'>Lớp</label><Input type='number' min='1' max='12' name='grade' value={data.grade} onChange={handleChange} placeholder='Lớp đang theo học (không bắt buộc)' /></div>
         <div><label className='text-sm font-medium mb-1 block'>Lịch thi dự kiến</label><Input type='date' name='plannedDate' value={data.plannedDate} onChange={handleChange} placeholder='Lịch thi SAT dự kiến (không bắt buộc)' /></div>
-        <Input name='currentScore' value={data.currentScore} onChange={handleChange} placeholder='Điểm thi SAT hiện tại hoặc "Chưa có điểm" (không bắt buộc)' />
+        <Input name='currentScore' value={data.currentScore} onChange={handleChange} placeholder='Điểm thi SAT hiện tại hoặc "Chưa có điểm" (không bắt buộc)' maxLength={50} />
       </div>
       <div className='grid md:grid-cols-3 gap-4'>
         <div><label className='text-sm font-medium mb-1 block'>Reading & Writing</label><Select value={data.rw} onValueChange={(val) => handleSelectChange('rw', val)}>
@@ -94,7 +86,7 @@ const SATForm: React.FC = () => {
           <SelectContent>{Array.from({length: 121}, (_, i) => 400 + i * 10).map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
       </div>
-      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (không bắt buộc)' /></div>
+      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (không bắt buộc)' maxLength={500} /></div>
       <div className='space-y-2'>
         <p className='text-sm font-medium'>Khung thời gian học sinh tiện trao đổi:</p>
         <div className='flex gap-4 flex-wrap'>

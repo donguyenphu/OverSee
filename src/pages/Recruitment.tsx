@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import MentorRecruitSwitcher from "@/components/MentorRecruitSwitcher";
 import Navbar from "@/components/Navbar";
 
-const Recruit = () => {
+const Recruitment = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation */}
       <Navbar />
 
@@ -42,9 +42,11 @@ const Recruit = () => {
           </section>
 
       {/* Footer */}
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 };
 
-export default Recruit;
+export default Recruitment;

@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 
 const Register = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation */}
       <Navbar />
 
@@ -35,7 +35,9 @@ const Register = () => {
       </section>
 
       {/* Footer */}
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 };

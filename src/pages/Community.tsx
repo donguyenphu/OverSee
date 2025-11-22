@@ -140,9 +140,13 @@ const Profiles = () => {
     setExpandedProfiles(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]);
   };
 
+  const toggleShareParagraph = (id: number) => {
+    setExpandedShareIds(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]);
+  };
+
   const toggleShare = (id: number) => {
     setExpandedShareIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
-  }
+  };
 
   // Facebook embed component (load SDK and render fb-post)
   function FacebookEmbed({ postUrl }: { postUrl: string }) {
@@ -722,7 +726,9 @@ const Profiles = () => {
         </div>
       </main>
       {/* Footer */}
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 };

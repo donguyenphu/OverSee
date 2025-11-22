@@ -32,7 +32,7 @@ const Introduction = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Navigation */}
       <Navbar />
       {/* Hero Banner */}
@@ -397,7 +397,9 @@ const Introduction = () => {
       </section>
 
       {/* Footer */}
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 };
