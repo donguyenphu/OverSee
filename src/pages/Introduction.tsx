@@ -115,7 +115,7 @@ const Introduction = () => {
               </div>
 
               {/* CTA Button */}
-              <div className="flex flex-col sm:flex-row gap-6">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <div className="pt-4">
                   <Link to="/dang-ky">
                     <Button
