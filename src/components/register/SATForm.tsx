@@ -67,18 +67,17 @@ const SATForm: React.FC = () => {
         <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Trường học</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên (không bắt buộc)' maxLength={200} /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Lớp</label><Input type='number' min='1' max='12' name='grade' value={data.grade} onChange={handleChange} placeholder='Lớp đang theo học (không bắt buộc)' /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Trường học *</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên' required maxLength={200} /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Lớp *</label><Input type='number' min='1' max='12' name='grade' value={data.grade} onChange={handleChange} required placeholder='Lớp đang theo học (không bắt buộc)' /></div>
         <div><label className='text-sm font-medium mb-1 block'>Lịch thi dự kiến</label><Input type='date' name='plannedDate' value={data.plannedDate} onChange={handleChange} placeholder='Lịch thi SAT dự kiến (không bắt buộc)' /></div>
-        <Input name='currentScore' value={data.currentScore} onChange={handleChange} placeholder='Điểm thi SAT hiện tại hoặc "Chưa có điểm" (không bắt buộc)' maxLength={50} />
       </div>
       <div className='grid md:grid-cols-3 gap-4'>
         <div><label className='text-sm font-medium mb-1 block'>Reading & Writing</label><Select value={data.rw} onValueChange={(val) => handleSelectChange('rw', val)}>
-          <SelectTrigger><SelectValue placeholder='Reading & Writing' /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder='Reading & Writing (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{Array.from({length: 41}, (_, i) => 400 + i * 10).map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
         <div><label className='text-sm font-medium mb-1 block'>Math</label><Select value={data.math} onValueChange={(val) => handleSelectChange('math', val)}>
-          <SelectTrigger><SelectValue placeholder='Math' /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder='Math (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{Array.from({length: 41}, (_, i) => 400 + i * 10).map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
         <div><label className='text-sm font-medium mb-1 block'>Điểm tổng</label><Select value={data.currentScore} onValueChange={(val) => handleSelectChange('currentScore', val)}>
@@ -86,7 +85,7 @@ const SATForm: React.FC = () => {
           <SelectContent>{Array.from({length: 121}, (_, i) => 400 + i * 10).map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
       </div>
-      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (không bắt buộc)' maxLength={500} /></div>
+      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm *</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (Không có thì ghi "Không có")' maxLength={500} required /></div>
       <div className='space-y-2'>
         <p className='text-sm font-medium'>Khung thời gian học sinh tiện trao đổi:</p>
         <div className='flex gap-4 flex-wrap'>

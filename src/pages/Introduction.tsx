@@ -36,27 +36,17 @@ const Introduction = () => {
       {/* Navigation */}
       <Navbar />
       {/* Hero Banner */}
-      <section className="relative w-full min-h-[650px] md:aspect-[2.13] flex items-center overflow-hidden">
-        {/* Geometric Background Shapes */}
-        <div className="absolute inset-0 z-0">
-          {/* Dark Blue curved shape on left */}
-          <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" />
-          {/* Orange curved shapes on right */}
-          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
-          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
-          {/* Dark blue accent at bottom right */}
-          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
-        </div>
+      <section className="relative w-screen min-h-[650px] md:aspect-[2.13] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
 
         {/* Background Image */}
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0">
           <img
             src={HeroBannerWithNoText}
             alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
-            className="w-full h-full object-contain brightness-110"
+            className="w-full h-full object-cover brightness-110"
           />
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" />
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" /> */}
         </div>
 
         {/* Content */}
@@ -65,17 +55,17 @@ const Introduction = () => {
             <div className="space-y-6 translate-y-[9%]">
               {/* Main Heading */}
               <div className="space-y-1">
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+                <h1 className="text-6xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-yellow">Đồng hành vững vàng</span>
                 </h1>
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+                <h1 className="text-6xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-blue">Học tập nhẹ nhàng</span>
                 </h1>
               </div>
 
               <div className="my-8">
                 {/* Subtitle */}
-                <p className="text-lg md:text-xl font-semibold text-hero-text-black mt-4">
+                <p className="text-lg md:text-xl font-semibold mt-4" style={{ color: '#000000' }}>
                   Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
                 </p>
 
@@ -83,31 +73,31 @@ const Introduction = () => {
                 <div className="space-y-4 mt-3">
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
-                    <p className="text-base md:text-lg text-hero-text-black">
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg text-hero-text-black">
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg text-hero-text-black">
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Phương pháp "Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg text-hero-text-black">
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Hệ thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg text-hero-text-black">
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Đội ngũ cố vấn gồm các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
                     </p>
                   </div>
@@ -151,86 +141,75 @@ const Introduction = () => {
           </h1>
         </div>
 
-        {/* ===== NEW: responsive MASTER CONTAINERS (lg / md+sm stacked) ===== */}
-        <div className="flex flex-col gap-4 p-4">
-
-          {/* LG layout (>=1024px) - side-by-side, text centered inside the blue strip */}
-           <div className="hidden lg:flex lg:gap-6 lg:w-full">
-             {/* MASTER CONTAINER 1 (lg) */}
-             <div className="relative w-full lg:w-1/2 rounded-3xl overflow-hidden shadow-2xl bg-blue-500 h-[520px]">
-               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[70%] bg-[#003366] z-0" />
-               <div className="relative z-10 h-full flex items-stretch">
-                {/* left area: wider text column (60%) with reduced padding and right padding to keep gap */}
-                <div className="absolute left-0 top-[15%] w-[60%] h-[70%] p-6 md:p-8 pr-6 flex items-start text-left z-20">
-                  <div className="w-full text-center">
-                    <h2 className="text-4xl font-bold text-yellow-500">Giáo sư: Nguyễn Quang Hưng</h2>
-                    <ul className="mt-4 text-white space-y-2 text-lg font-bold">
-                      <li>• Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</li>
-                      <li>• Hội đồng cố vấn OverSee</li>
-                    </ul>
+        {/* ===== NEW: Modern Advisor Section - Redesigned ===== */}
+        <div className="flex flex-col gap-8 p-4 max-w-7xl mx-auto">
+          
+          {/* Modern Grid Layout - Responsive */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+            
+            {/* Advisor 1 - Professor Nguyen Quang Hung */}
+            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+              <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')" }} />
+              
+              <div className="relative p-8 md:p-10 flex flex-col h-full min-h-[480px]">
+                {/* Avatar Circle */}
+                <div className="flex justify-center mb-6">
+                  <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-yellow-400 shadow-2xl ring-4 ring-yellow-400/20 group-hover:scale-110 transition-transform duration-500">
+                    <img src={Advisor1png} alt="Giáo sư Nguyễn Quang Hưng" className="w-full h-full object-cover" />
                   </div>
                 </div>
-
-                {/* right half: large image reduced to 40% so text can expand safely */}
-                <div className="ml-auto w-[40%] h-full overflow-hidden">
-                   <img src={Advisor1png} alt="Giáo sư" className="w-full h-full object-cover" />
-                 </div>
-               </div>
-             </div>
- 
-             {/* MASTER CONTAINER 2 (lg) */}
-             <div className="relative w-full lg:w-1/2 rounded-3xl overflow-hidden shadow-2xl bg-blue-500 h-[520px]">
-               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[70%] bg-[#003366] z-0" />
-               <div className="relative z-10 h-full flex items-stretch">
-                <div className="absolute left-0 top-[15%] w-[60%] h-[70%] p-6 md:p-8 pr-6 flex items-start text-left z-20">
-                  <div className="w-full text-center">
-                    <h2 className="text-4xl font-bold text-yellow-500">Tiến sĩ: Kiet Hoang</h2>
-                    <ul className="mt-4 text-white space-y-2 text-lg font-bold">
-                      <li>• Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</li>
-                      <li>• Giảng viên, Khoa Vật lý & Kỹ thuật, West Chester, PA (Mỹ)</li>
-                      <li>• Hội đồng cố vấn OverSee</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="ml-auto w-[40%] h-full overflow-hidden">
-                   <img src={Advisor2png} alt="Tiến sĩ" className="w-full h-full object-cover" />
-                 </div>
-               </div>
-             </div>
-           </div>
- 
-          {/* MD+SM layout (<1024px) - stacked full-width cards (two divs), avatar only (no large images).
-              All breakpoints <1024px are treated as 'sm' */}
-          <div className="flex flex-col lg:hidden w-full gap-6">
-            {/* Card 1 (sm for all <1024px) */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-blue-500 w-full">
-              <div className="w-full bg-[#003366] py-8 px-6 flex flex-col items-center gap-4">
-                <div className="w-48 h-48 rounded-full bg-orange-400 overflow-hidden flex items-center justify-center border border-black/20">
-                  <img src={Advisor1png} alt="Giáo sư avatar" className="w-full h-full object-cover" />
-                </div>
-                <div className="text-center px-4">
-                  <h2 className="text-2xl font-bold text-yellow-500">Giáo sư: Nguyễn Quang Hưng</h2>
-                  <ul className="mt-4 text-white space-y-2 text-lg font-bold">
-                    <li>• Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</li>
-                    <li>• Hội đồng cố vấn OverSee</li>
+                
+                {/* Content */}
+                <div className="flex-1 text-center space-y-4">
+                  <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
+                    Giáo sư: Nguyễn Quang Hưng
+                  </h3>
+                  <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
+                  <ul className="text-white space-y-3 text-base md:text-xl leading-relaxed font-bold">
+                    <li className="flex items-center gap-3 justify-center">
+                      <span className="text-yellow-400 mt-1">●</span>
+                      <span className="text-center">Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</span>
+                    </li>
+                    <li className="flex items-center gap-3 justify-center">
+                      <span className="text-yellow-400 mt-1">●</span>
+                      <span className="text-center">Hội đồng cố vấn OverSee</span>
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Card 2 (sm for all <1024px) */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-blue-500 w-full">
-              <div className="w-full bg-[#003366] py-8 px-6 flex flex-col items-center gap-4">
-                <div className="w-48 h-48 rounded-full bg-orange-400 overflow-hidden flex items-center justify-center border border-black/20">
-                  <img src={Advisor2png} alt="Tiến sĩ avatar" className="w-full h-full object-cover" />
+            {/* Advisor 2 - Dr. Kiet Hoang */}
+            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+              <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')" }} />
+              
+              <div className="relative p-8 md:p-10 flex flex-col h-full min-h-[480px]">
+                {/* Avatar Circle */}
+                <div className="flex justify-center mb-6">
+                  <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-yellow-400 shadow-2xl ring-4 ring-yellow-400/20 group-hover:scale-110 transition-transform duration-500">
+                    <img src={Advisor2png} alt="Tiến sĩ Hoàng Anh Tuấn Kiệt" className="w-full h-full object-cover" />
+                  </div>
                 </div>
-                <div className="text-center px-4">
-                  <h2 className="text-2xl font-bold text-yellow-500">Tiến sĩ: Kiet Hoang</h2>
-                  <ul className="mt-4 text-white space-y-2 text-lg font-bold">
-                    <li>• Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</li>
-                    <li>• Giảng viên, Khoa Vật lý & Kỹ thuật, West Chester, PA (Mỹ)</li>
-                    <li>• Hội đồng cố vấn OverSee</li>
+                
+                {/* Content */}
+                <div className="flex-1 text-center space-y-4">
+                  <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
+                    Tiến sĩ: Hoàng Anh Tuấn Kiệt
+                  </h3>
+                  <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
+                  <ul className="text-white space-y-3 text-base md:text-xl leading-relaxed font-bold">
+                    <li className="flex items-center gap-3 justify-center">
+                      <span className="text-yellow-400 mt-1">●</span>
+                      <span className="text-center">Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</span>
+                    </li>
+                    <li className="flex items-center gap-3 justify-center">
+                      <span className="text-yellow-400 mt-1">●</span>
+                      <span className="text-center">Giảng viên, Khoa Vật lý & Kỹ thuật, West Chester, PA (Mỹ)</span>
+                    </li>
+                    <li className="flex items-center gap-3 justify-center">
+                      <span className="text-yellow-400 mt-1">●</span>
+                      <span className="text-center">Hội đồng cố vấn OverSee</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -244,15 +223,15 @@ const Introduction = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Bạn có đang <strong className="text-primary text-3xl md:text-4xl font-bold text-foreground mb-4">mất động lực học tập?</strong>
+            <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
+              Bạn có đang <strong className="text-primary text-4xl md:text-6xl font-bold text-foreground mb-4">mất động lực học tập?</strong>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-bold">
               Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <BookOpen className="h-6 w-6 text-primary" />
@@ -263,7 +242,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                   <Users className="h-6 w-6 text-secondary" />
@@ -274,7 +253,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Award className="h-6 w-6 text-primary" />
@@ -285,7 +264,7 @@ const Introduction = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-3/4">
+            <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
               <CardContent className="pt-6">
                 <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                   <GraduationCap className="h-6 w-6 text-secondary" />
@@ -307,11 +286,11 @@ const Introduction = () => {
             <div className="flex flex-col md:flex-row gap-12 items-center justify-between">
               {/* Title Section */}
               <div className="md:w-1/3">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Vì sao là <strong className="text-primary text-3xl md:text-4xl font-bold text-foreground mb-4">“Đồng hành học tập”</strong>
+                <h2 className="text-4xl md:text-8xl font-bold text-foreground mb-6 leading-tight">
+                  Vì sao là <span className="text-primary block mt-2 text-5xl md:text-7xl">"Đồng hành học tập"</span>
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Không phải “<strong className="customIntroductionBold">Học thêm</strong>” hay “<strong className="customIntroductionBold">Gia sư</strong>”?
+                <p className="text-xl md:text-2xl text-muted-foreground">
+                  Không phải "<strong className="customIntroductionBold">Học thêm</strong>" hay "<strong className="customIntroductionBold">Gia sư</strong>"?
                 </p>
               </div>
               {/* Stacked Cards */}

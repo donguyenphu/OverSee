@@ -68,11 +68,11 @@ const IELTSForm: React.FC = () => {
         <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Trường học</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên (không bắt buộc)' maxLength={200} /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Lớp</label><Input type='number' min='1' max='12' name='grade' value={data.grade} onChange={handleChange} placeholder='Lớp đang theo học (không bắt buộc)' /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Trường học *</label><Input name='school' value={data.school} onChange={handleChange} placeholder='Trường của học viên' required maxLength={200} /></div>
+        <div><label className='text-sm font-medium mb-1 block'>Lớp *</label><Input type='number' min='1' max='12' name='grade' value={data.grade} onChange={handleChange} placeholder='Lớp đang theo học' /></div>
         <div><label className='text-sm font-medium mb-1 block'>Lịch thi dự kiến</label><Input type='date' name='plannedDate' value={data.plannedDate} onChange={handleChange} placeholder='Lịch thi IELTS dự kiến (không bắt buộc)' /></div>
       </div>
-      <div className='grid md:grid-cols-4 gap-4'>
+      <div className='grid md:grid-cols-5 gap-4'>
         <div><label className='text-sm font-medium mb-1 block'>Reading</label><Select value={data.reading} onValueChange={(val) => handleSelectChange('reading', val)}>
           <SelectTrigger><SelectValue placeholder='Reading (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
@@ -89,8 +89,12 @@ const IELTSForm: React.FC = () => {
           <SelectTrigger><SelectValue placeholder='Speaking (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
+        <div><label className='text-sm font-medium mb-1 block'>Overall</label><Select value={data.speaking} onValueChange={(val) => handleSelectChange('speaking', val)}>
+          <SelectTrigger><SelectValue placeholder='Overall (không bắt buộc)' /></SelectTrigger>
+          <SelectContent>{[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
+        </Select></div>
       </div>
-      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (không bắt buộc)' maxLength={500} /></div>
+      <div><label className='text-sm font-medium mb-1 block'>Nguyện vọng thêm *</label><Textarea name='wishes' value={data.wishes} onChange={handleChange} placeholder='Chia sẻ nguyện vọng thêm từ học sinh/phụ huynh (Không có thì ghi "Không có")' maxLength={500} /></div>
       <div className='space-y-2'>
         <p className='text-sm font-medium'>Khung thời gian học sinh tiện trao đổi:</p>
         <div className='flex gap-4 flex-wrap'>

@@ -11,6 +11,7 @@ import Footer from "@/subpage/Footer";
 import '../Introduction.css';
 import { BookOpen, Users, Award, GraduationCap, Lightbulb, Video, Clock, Globe, CheckCircle2, AwardIcon } from "lucide-react";
 import VideoOverSee from '@/assets/Oversee_Video.mp4';
+import EventImage from '@/assets/Nguyen_Uoc_Trang_Tron.jpg';
 import s1 from '@/assets/s1.png';
 import s2 from '@/assets/s2.png';
 import s3 from '@/assets/s3.png';
@@ -34,8 +35,8 @@ const sampleProfiles: Profile[] = [
     name: "Mentor môn Sinh : Lê Hoàng Kim Khánh",
     expertise: (
       <ul className="leading-normal list-circle pl-5 text: black">
-        <li>Học sinh lớp chuyên Sinh niên khoá 2023-2026, trường THPT Chuyên Trần Phú</li>
-        <li>Mentor hướng dẫn môn Sinh chuyên</li>
+        <li>- Lớp chuyên Sinh niên khoá 2023-2026, trường THPT Chuyên Trần Phú</li>
+        <li>- Mentor hướng dẫn môn Sinh chuyên</li>
       </ul>
     ),
     experience: (
@@ -58,8 +59,8 @@ const sampleProfiles: Profile[] = [
     name: "Mentor IELTS : Nguyễn Hoàng Nam",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
-        <li>Cựu học sinh lớp  chuyên Nga.</li>
-        <li>Mentor hướng dẫn chứng chỉ IELTS chuyên về kỹ năng Speaking</li>
+        <li>- Cựu học sinh lớp  chuyên Nga.</li>
+        <li>- Mentor hướng dẫn chứng chỉ IELTS chuyên về kỹ năng Speaking</li>
       </ul>
     ),
     experience: (
@@ -134,7 +135,7 @@ const Profiles = () => {
   const lensSize = 140; // lens square size
   const zoomFactor = 2.2; // magnification level
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const [imgDims, setImgDims] = useState<{w:number; h:number}>({w:0,h:0});
+  const [imgDims, setImgDims] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
 
   const toggleProfile = (id: number) => {
     setExpandedProfiles(prev => prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]);
@@ -491,14 +492,14 @@ const Profiles = () => {
               </h2>
               {/* Data-driven share cards with expand/collapse + lightbox */}
               {(() => {
-                const shares: {id:number; img:string; text:string; tag:string; delay:number}[] = [
-                  { id:1, img:s1, tag:'#OverSeeCare', delay:0.6, text:`Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.` },
-                  { id:2, img:s2, tag:'#IELTSJourney', delay:0.65, text:`Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!` },
-                  { id:3, img:s3, tag:'#FeedbackMatters', delay:0.7, text:`Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi.` },
-                  { id:4, img:s7, tag:'#OwnYourTime', delay:0.75, text:`Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.` },
-                  { id:5, img:s5, tag:'#PracticeMakesPerfect', delay:0.8, text:`Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng.` },
-                  { id:6, img:s6, tag:'#TransparentProgress', delay:0.85, text:`Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))` },
-                  { id:7, img:s4, tag:'#SpeakDaily', delay:0.9, text:`Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh.` },
+                const shares: { id: number; img: string; text: string; tag: string; delay: number }[] = [
+                  { id: 1, img: s1, tag: '#OverSeeCare', delay: 0.6, text: `Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.` },
+                  { id: 2, img: s2, tag: '#IELTSJourney', delay: 0.65, text: `Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!` },
+                  { id: 3, img: s3, tag: '#FeedbackMatters', delay: 0.7, text: `Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi.` },
+                  { id: 4, img: s7, tag: '#OwnYourTime', delay: 0.75, text: `Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.` },
+                  { id: 5, img: s5, tag: '#PracticeMakesPerfect', delay: 0.8, text: `Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng.` },
+                  { id: 6, img: s6, tag: '#TransparentProgress', delay: 0.85, text: `Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))` },
+                  { id: 7, img: s4, tag: '#SpeakDaily', delay: 0.9, text: `Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh.` },
                 ];
                 return (
                   <div className="columns-1 md:columns-2 lg:columns-3 gap-8 [column-fill:balance]">
@@ -545,7 +546,7 @@ const Profiles = () => {
                   </div>
                 );
               })()}
-              
+
             </div>
             {/* Lightbox Overlay */}
             {lightbox && (
@@ -638,7 +639,7 @@ const Profiles = () => {
 
 
           {/* ===== NEW SECTION: OverSee sẻ chia (redesigned layout) ===== */}
-          <section 
+          <section
             className="py-20 bg-gradient-to-br from-secondary/4 to-primary/4 bg-gradient-to-br from-secondary/5 to-primary/5"
             style={{
               width: "100vw",
@@ -654,15 +655,22 @@ const Profiles = () => {
                 {/* LEFT: Title + lead */}
                 <div className="lg:col-span-1 flex flex-col justify-center">
                   <div className="bg-card/80 p-6 rounded-2xl shadow-md border border-border">
-                    <h2 className="text-3xl sm:text-6xl font-bold text-foreground leading-tight mb-2">OverSee sẻ chia</h2>
-                    <p className="text-lg sm:text-xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
-                    <p className="text-xl sm:text-base text-foreground/90 font-bold leading-relaxed">
+                    <h2 className="text-4xl sm:text-7xl font-bold text-foreground leading-tight mb-2">OverSee sẻ chia</h2>
+                    <p className="text-2xl sm:text-3xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
+                    <p className="text-xl sm:text-xl text-foreground/90 font-bold leading-relaxed">
                       Với mong muốn lan tỏa giá trị giáo dục và yêu thương, OverSee đã thực hiện dự án “Nguyện ước Trăng tròn” — cung cấp hơn <span className="text-primary">1500 suất ăn trưa dinh dưỡng</span> cho trẻ em có hoàn cảnh khó khăn tại khu đô thị, bắt đầu từ huyện An Lão, Hải Phòng nhân dịp Tết Trung Thu.
                     </p>
                     <div className="mt-4 flex gap-3">
                       <a href="https://www.youtube.com/watch?v=tUd5xeaHcFc" className="inline-block px-4 py-2 bg-primary text-white rounded-md text-sm font-medium">Xem video</a>
                       <a href="https://www.facebook.com/share/p/1CNKuPH2s9/?mibextid=wwXIfr" target="_blank" rel="noreferrer noopener" className="inline-block px-4 py-2 border border-primary text-primary rounded-md text-sm font-semibold">Xem bài viết</a>
                     </div>
+                  </div>
+                  <div className="hidden lg:block my-8">
+                    <img
+                      src={EventImage}
+                      alt="Nguyện ước Trăng tròn"
+                      className="w-full h-auto rounded-2xl shadow-2xl object-cover"
+                    />
                   </div>
                 </div>
 
@@ -671,15 +679,15 @@ const Profiles = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
                       <div className="text-3xl font-extrabold text-primary">1500+</div>
-                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
                     </div>
                     <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
                       <div className="text-3xl font-extrabold text-primary">42</div>
-                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
                     </div>
                     <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
                       <div className="text-3xl font-extrabold text-primary">100%</div>
-                      <div className="text-sm text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
                     </div>
                   </div>
 
@@ -708,10 +716,33 @@ const Profiles = () => {
                       </CardHeader>
                       <CardContent className="p-0">
                         {/* Video fills the card width to match bullets block (which uses p-5) */}
-                        <video src={VideoOverSee} controls className="w-full h-auto" />
+                        <video
+                          controls
+                          className="w-full h-auto"
+                          poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23003366' width='800' height='450'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='24' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3EVideo tổng quan sự kiện%3C/text%3E%3C/svg%3E"
+                        >
+                          <source src={VideoOverSee} type="video/mp4" />
+                          <source src="/Oversee_Video.mp4" type="video/mp4" />
+                          Trình duyệt của bạn không hỗ trợ video.
+                        </video>
                       </CardContent>
                     </Card>
                   </div>
+
+                  {/* Default placeholder image */}
+                  {/* <div>
+                    <Card className="rounded-lg shadow-lg overflow-hidden bg-gradient-to-br from-blue-50 to-orange-50">
+                      <CardContent className="p-8 flex flex-col items-center justify-center min-h-[300px] text-center">
+                        <div className="w-32 h-32 mb-6 rounded-full bg-gradient-to-br from-primary/20 to-orange-400/20 flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-2xl font-bold text-foreground mb-2">Hình ảnh sự kiện</h3>
+                        <p className="text-muted-foreground">Các khoảnh khắc đẹp từ "Nguyện ước Trăng tròn"</p>
+                      </CardContent>
+                    </Card>
+                  </div> */}
                 </div>
               </div>
 
