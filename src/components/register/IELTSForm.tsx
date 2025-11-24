@@ -18,6 +18,7 @@ interface IELTSData {
   writing: string;
   listening: string;
   speaking: string;
+  overall: string;
   wishes: string;
   timeSlot: string;
   mockTest: string;
@@ -25,7 +26,7 @@ interface IELTSData {
 
 const initialData: IELTSData = {
   name: '', phone: '', email: '', school: '', grade: '', plannedDate: '',
-  reading: '', writing: '', listening: '', speaking: '', wishes: '', timeSlot: '', mockTest: ''
+  reading: '', writing: '', listening: '', speaking: '', overall: '', wishes: '', timeSlot: '', mockTest: ''
 };
 
 const IELTSForm: React.FC = () => {
@@ -89,7 +90,7 @@ const IELTSForm: React.FC = () => {
           <SelectTrigger><SelectValue placeholder='Speaking (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>
-        <div><label className='text-sm font-medium mb-1 block'>Overall</label><Select value={data.speaking} onValueChange={(val) => handleSelectChange('speaking', val)}>
+        <div><label className='text-sm font-medium mb-1 block'>Overall</label><Select value={data.overall} onValueChange={(val) => handleSelectChange('overall', val)}>
           <SelectTrigger><SelectValue placeholder='Overall (không bắt buộc)' /></SelectTrigger>
           <SelectContent>{[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0].map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select></div>

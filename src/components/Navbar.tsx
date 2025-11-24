@@ -19,7 +19,7 @@ const Navbar = () => {
   
   return (
 
-    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50" style={{ width: '105vw', marginLeft: '-2.5vw' }}>
+    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50" style={{ width: '100vw', marginLeft: '0.0vw' }}>
       <div className="container mx-auto py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">

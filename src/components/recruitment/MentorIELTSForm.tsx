@@ -8,10 +8,24 @@ import { toast } from 'react-toastify';
 import SuccessMentor from '@/components/SuccessMentor';
 
 interface MentorIELTSData {
-  phone: string; email: string; quote: string; experience: string; r: string; w: string; l: string; s: string; overall: string; englishSpec: string; englishAward: string; awardDriveLink: string; focusSkill: string; driveImg: string;
+  name: string;
+  phone: string; 
+  email: string; 
+  quote: string; 
+  experience: string; 
+  r: string; 
+  w: string; 
+  l: string; 
+  s: string; 
+  overall: string; 
+  englishSpec: string; 
+  englishAward: string; 
+  awardDriveLink: string; 
+  focusSkill: string; 
+  driveImg: string;
 }
 
-const initialData: MentorIELTSData = { phone:'', email:'', quote:'', experience:'', r:'', w:'', l:'', s:'', overall:'', englishSpec:'', englishAward:'', awardDriveLink:'', focusSkill:'', driveImg:'' };
+const initialData: MentorIELTSData = { phone:'', email:'', quote:'', experience:'', r:'', w:'', l:'', s:'', overall:'', englishSpec:'', englishAward:'', awardDriveLink:'', focusSkill:'', driveImg:'', name: '' };
 
 const MentorIELTSForm: React.FC = () => {
   const [data, setData] = useState(initialData);
@@ -48,6 +62,7 @@ const MentorIELTSForm: React.FC = () => {
     <form onSubmit={handleSubmit} className='space-y-6 p-6 rounded-lg border bg-white shadow'>
       {submitError && <p className='text-sm text-red-600'>{submitError}</p>}
       <div className='grid md:grid-cols-2 gap-4'>
+        <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Châm ngôn *</label><Input name='quote' value={data.quote} onChange={handleChange} required placeholder='Châm ngôn yêu thích' maxLength={200} /></div>

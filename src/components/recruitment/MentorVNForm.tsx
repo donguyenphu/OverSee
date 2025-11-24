@@ -7,10 +7,19 @@ import { toast } from 'react-toastify';
 import SuccessMentor from '@/components/SuccessMentor';
 
 interface MentorVNData {
-  phone: string; email: string; quote: string; subject: string; experience: string; professionalScore: string; award: string; awardDriveLink: string; driveImg: string;
+  name: string;
+  phone: string; 
+  email: string; 
+  quote: string; 
+  subject: string; 
+  experience: string; 
+  professionalScore: string; 
+  award: string; 
+  awardDriveLink: string; 
+  driveImg: string;
 }
 
-const initialData: MentorVNData = { phone:'', email:'', quote:'', subject:'', experience:'', professionalScore:'', award:'', awardDriveLink:'', driveImg:'' };
+const initialData: MentorVNData = { phone:'', email:'', quote:'', subject:'', experience:'', professionalScore:'', award:'', awardDriveLink:'', driveImg:'', name: '' };
 
 const MentorVNForm: React.FC = () => {
   const [data, setData] = useState(initialData);
@@ -42,6 +51,7 @@ const MentorVNForm: React.FC = () => {
     <form onSubmit={handleSubmit} className='space-y-6 p-6 rounded-lg border bg-white shadow'>
       {submitError && <p className='text-sm text-red-600'>{submitError}</p>}
       <div className='grid md:grid-cols-2 gap-4'>
+        <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
         <div><label className='text-sm font-medium mb-1 block'>Châm ngôn *</label><Input name='quote' value={data.quote} required onChange={handleChange} placeholder='Châm ngôn yêu thích (không bắt buộc)' maxLength={200} /></div>

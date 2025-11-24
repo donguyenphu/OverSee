@@ -20,7 +20,7 @@ const SuccessMentor: React.FC<SuccessMentorProps> = ({ onReset }) => {
           href={OVERSEE_PAGE_URL} 
           target='_blank' 
           rel='noreferrer' 
-          className='text-sm text-blue-600 hover:underline'
+          className='text-md text-blue-600 hover:underline font-bold'
         >
           Link page OverSee
         </a>

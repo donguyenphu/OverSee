@@ -1,11 +1,8 @@
 // Simple Google Sheets append helper.
 // Requires environment variables:
-// VITE_GOOGLE_API_KEY - API key with Sheets API enabled
-// VITE_STUDENT_SHEET_ID - Spreadsheet ID for student registrations
-// VITE_MENTOR_SHEET_ID - Spreadsheet ID for mentor registrations
-// NOTE: Direct client-side writes to Google Sheets require the sheet to be shared publicly
-// with edit or you must use a proxy (Apps Script / backend). Recommended: deploy an Apps Script
-// web app that receives POST and appends to the sheet, then set VITE_SHEETS_WEBAPP_URL.
+// VITE_STUDENT_WEBAPP_URL - Apps Script URL for student registrations (handles 3 tabs: IELTS, SAT, VN)
+// VITE_MENTOR_WEBAPP_URL - Apps Script URL for mentor registrations (handles 3 tabs: IELTS, SAT, VN)
+// NOTE: Apps Script will route data to correct tab based on category field
 
 export interface AppendResult {
   ok: boolean;
@@ -63,29 +60,54 @@ export async function appendStudent(category: string, data: RowData): Promise<Ap
     return { ok: false, message: 'Thiếu VITE_STUDENT_WEBAPP_URL trong file .env. Vui lòng cấu hình Apps Script webapp URL.' };
   }
   
+  // Common fields that all forms share
   const ordered = [
     new Date().toISOString(),
     category,
     data.name || '',
     data.phone || '',
-    data.email || '',
-    data.school || '',
-    data.grade || '',
-    data.plannedDate || data.plannedDateSAT || '',
-    data.currentScore || '',
-    data.reading || data.rw || '',
-    data.writing || '',
-    data.listening || '',
-    data.speaking || '',
-    data.math || '',
-    data.subject || '',
-    data.currentResult || '',
-    data.target || '',
-    data.wishes || '',
-    data.timeSlot || '',
-    data.mockTest || '',
-    data.facebook || ''
+    data.email || ''
   ];
+
+  // Add form-specific fields in separate columns
+  if (category === 'IELTS') {
+    ordered.push(
+      data.school || '',
+      data.grade || '',
+      data.wishes || '',
+      data.timeSlot || '',
+      data.plannedDate || '',
+      data.reading || '',
+      data.writing || '',
+      data.listening || '',
+      data.speaking || '',
+      data.overall || '',
+      data.mockTest || ''
+    );
+  } else if (category === 'SAT') {
+    ordered.push(
+      data.school || '',
+      data.grade || '',
+      data.wishes || '',
+      data.timeSlot || '',
+      data.plannedDate || '',
+      data.currentScore || '',
+      data.rw || '',
+      data.math || '',
+      data.mockTest || ''
+    );
+  } else if (category === 'VN') {
+    ordered.push(
+      data.facebook || '',
+      data.school || '',
+      data.grade || '',
+      data.wishes || '',
+      data.timeSlot || '',
+      data.subject || '',
+      data.currentResult || '',
+      data.target || ''
+    );
+  }
 
   return appendViaWebApp(studentWebapp, ordered);
 }
@@ -96,28 +118,53 @@ export async function appendMentor(category: string, data: RowData): Promise<App
     return { ok: false, message: 'Thiếu VITE_MENTOR_WEBAPP_URL trong file .env. Vui lòng cấu hình Apps Script webapp URL.' };
   }
   
+  // Common fields that all mentor forms share
   const ordered = [
     new Date().toISOString(),
     category,
+    data.name || '',
     data.phone || '',
     data.email || '',
-    data.quote || '',
-    data.experience || '',
-    // IELTS scores or SAT scores / subject specifics
-    data.r || data.rw || '',
-    data.w || '',
-    data.l || '',
-    data.s || '',
-    data.overall || '',
-    data.math || '',
-    data.subject || '',
-    data.professionalScore || '',
-    data.englishSpec || '',
-    data.englishAward || '',
-    data.award || '',
-    data.focusSkill || data.focusArea || '',
-    data.driveImg || ''
+    data.quote || ''
   ];
+
+  // Add form-specific fields in separate columns
+  if (category === 'Mentor IELTS') {
+    ordered.push(
+      data.experience || '',
+      data.driveImg || '',
+      data.r || '',
+      data.w || '',
+      data.l || '',
+      data.s || '',
+      data.overall || '',
+      data.englishSpec || '',
+      data.englishAward || '',
+      data.awardDriveLink || '',
+      data.focusSkill || ''
+    );
+  } else if (category === 'Mentor SAT') {
+    ordered.push(
+      data.experience || '',
+      data.driveImg || '',
+      data.rw || '',
+      data.math || '',
+      data.overall || '',
+      data.englishSpec || '',
+      data.englishAward || '',
+      data.awardDriveLink || '',
+      data.focusArea || ''
+    );
+  } else if (category === 'Mentor VN') {
+    ordered.push(
+      data.subject || '',
+      data.experience || '',
+      data.professionalScore || '',
+      data.award || '',
+      data.awardDriveLink || '',
+      data.driveImg || ''
+    );
+  }
   
   return appendViaWebApp(mentorWebapp, ordered);
 }

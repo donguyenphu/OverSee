@@ -19,7 +19,7 @@ const Introduction = () => {
   // ensure initial viewport scale = 0.8 on page load (for domain / Vercel deploy)
   useEffect(() => {
     const name = "viewport";
-    const content = "width=device-width, initial-scale=0.8";
+    const content = "width=device-width, initial-scale=1.0";
     const existing = document.querySelector(`meta[name="${name}"]`);
     if (existing) {
       existing.setAttribute("content", content);
@@ -36,7 +36,7 @@ const Introduction = () => {
       {/* Navigation */}
       <Navbar />
       {/* Hero Banner */}
-      <section className="relative w-screen min-h-[650px] md:aspect-[2.13] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
+      <section className="relative w-screen min-h-[650px] md:aspect-[1.78] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
 
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -105,7 +105,7 @@ const Introduction = () => {
               </div>
 
               {/* CTA Button */}
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-row sm:flex-row gap-2">
                 <div className="pt-4">
                   <Link to="/dang-ky">
                     <Button
