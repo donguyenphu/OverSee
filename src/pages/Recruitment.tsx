@@ -25,6 +25,8 @@ const Recruitment = () => {
                 <li>Có kinh nghiệm tự học hiệu quả hoặc từng đạt thành tích nổi bật trong học tập.</li>
                 <li>Sở hữu kỹ năng giao tiếp, tư duy logic và tinh thần hỗ trợ học sinh phát triển lâu dài.</li>
                 <li>Cam kết làm việc có trách nhiệm, bảo mật thông tin và tuân thủ quy trình đào tạo của OverSee.</li>
+                <li>Đạt tối thiểu <strong>8.0</strong> Overall IELTS để làm Mentor IELTS.</li>
+                <li>Đạt tối thiểu <strong>1540</strong> Overall SAT để làm Mentor SAT.</li>
               </ul>
               <p><strong>Hoàn thành đơn dưới đây, lựa chọn chuyên môn bạn mong muốn:</strong></p>
             </div>

@@ -11,7 +11,7 @@ import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
 import Navbar from "@/components/Navbar";
 import HappyStudent from "@/subpage/HappyStudent";
-import Advisor1png from "@/assets/Advisor1-removebg-preview.png";
+import Advisor1png from "@/assets/365133fc-9568-49dd-bb6f-6f8624abc246-removebg-preview.png";
 import Advisor2png from "@/assets/Advisor2-removebg-preview.png";
 import { useEffect } from "react";
 
@@ -38,16 +38,28 @@ const Introduction = () => {
       {/* Hero Banner */}
       <section className="relative w-screen min-h-[650px] md:aspect-[1.78] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
 
+        {/* Geometric Background Shapes */}
+        <div className="absolute inset-0 z-0">
+          {/* Dark Blue curved shape on left */}
+          {/* <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" /> */}
+          {/* Orange curved shapes on right */}
+          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
+          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
+          {/* Dark blue accent at bottom right */}
+          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
+        </div>
+
+
         {/* Background Image */}
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <img
             src={HeroBannerWithNoText}
             alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
             className="w-full h-full object-cover brightness-110"
-          />
+          /> */}
           {/* Gradient overlay */}
           {/* <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" /> */}
-        </div>
+        {/* </div> */}
 
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
@@ -143,14 +155,14 @@ const Introduction = () => {
 
         {/* ===== NEW: Modern Advisor Section - Redesigned ===== */}
         <div className="flex flex-col gap-8 p-4 max-w-7xl mx-auto">
-          
+
           {/* Modern Grid Layout - Responsive */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-            
+
             {/* Advisor 1 - Professor Nguyen Quang Hung */}
             <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
               <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')" }} />
-              
+
               <div className="relative p-8 md:p-10 flex flex-col h-full min-h-[480px]">
                 {/* Avatar Circle */}
                 <div className="flex justify-center mb-6">
@@ -158,14 +170,14 @@ const Introduction = () => {
                     <img src={Advisor1png} alt="Giáo sư Nguyễn Quang Hưng" className="w-full h-full object-cover" />
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1 text-center space-y-4">
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
                     Giáo sư: Nguyễn Quang Hưng
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
-                  <ul className="text-white space-y-3 text-base md:text-xl leading-relaxed font-bold">
+                  <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
                       <span className="text-yellow-400 mt-1">●</span>
                       <span className="text-center">Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</span>
@@ -182,7 +194,7 @@ const Introduction = () => {
             {/* Advisor 2 - Dr. Kiet Hoang */}
             <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
               <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')" }} />
-              
+
               <div className="relative p-8 md:p-10 flex flex-col h-full min-h-[480px]">
                 {/* Avatar Circle */}
                 <div className="flex justify-center mb-6">
@@ -190,14 +202,14 @@ const Introduction = () => {
                     <img src={Advisor2png} alt="Tiến sĩ Hoàng Anh Tuấn Kiệt" className="w-full h-full object-cover" />
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1 text-center space-y-4">
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
                     Tiến sĩ: Hoàng Anh Tuấn Kiệt
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
-                  <ul className="text-white space-y-3 text-base md:text-xl leading-relaxed font-bold">
+                  <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
                       <span className="text-yellow-400 mt-1">●</span>
                       <span className="text-center">Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</span>
@@ -226,7 +238,7 @@ const Introduction = () => {
             <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
               Bạn có đang <strong className="text-primary text-4xl md:text-6xl font-bold text-foreground mb-4">mất động lực học tập?</strong>
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-bold">
+            <p className="text-3xl md:text-3xl text-muted-foreground max-w-2xl mx-auto font-bold">
               Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
             </p>
           </div>
@@ -295,7 +307,7 @@ const Introduction = () => {
               </div>
               {/* Stacked Cards */}
               <div className="md:w-2/3 relative flex flex-col gap-4 items-end">
-                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-3/4">
+                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-full ">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Video className="h-6 w-6 text-primary" />
@@ -305,7 +317,7 @@ const Introduction = () => {
                     </p>
                   </CardContent>
                 </Card>
-                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-3/4">
+                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-full">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <Clock className="h-6 w-6 text-secondary" />
@@ -315,7 +327,7 @@ const Introduction = () => {
                     </p>
                   </CardContent>
                 </Card>
-                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-3/4">
+                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-full">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Lightbulb className="h-6 w-6 text-primary" />
@@ -325,7 +337,7 @@ const Introduction = () => {
                     </p>
                   </CardContent>
                 </Card>
-                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-3/4">
+                <Card className="border-border hover:shadow-xl transition-all duration-300 hover:scale-105 w-full">
                   <CardContent className="pt-6">
                     <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
                       <Globe className="h-6 w-6 text-secondary" />

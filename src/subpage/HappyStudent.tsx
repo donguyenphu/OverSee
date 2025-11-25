@@ -81,7 +81,7 @@ export default function HappyStudent() {
 										Học viên OverSee
 									</h3>
 
-									<p className="text-md text-white/90 mt-2 max-w-sm">
+									<p className="text-md text-white/90 mt-2">
 										Người học biết cách học, biết cách lớn lên và tìm thấy niềm vui thật trong tri thức.
                     <br />
 										Để trở thành Học viên Hạnh phúc không chỉ cần điểm tốt hay thành tích nổi bật — mà là

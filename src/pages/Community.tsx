@@ -677,15 +677,15 @@ const Profiles = () => {
                 {/* RIGHT: Stats + bullets */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
                       <div className="text-3xl font-extrabold text-primary">1500+</div>
                       <div className="text-md text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
                     </div>
-                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
                       <div className="text-3xl font-extrabold text-primary">42</div>
                       <div className="text-md text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
                     </div>
-                    <div className="bg-white/5 p-4 rounded-xl flex flex-col items-center text-center border border-border">
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
                       <div className="text-3xl font-extrabold text-primary">100%</div>
                       <div className="text-md text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
                     </div>
