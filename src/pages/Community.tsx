@@ -655,7 +655,7 @@ const Profiles = () => {
                 {/* LEFT: Title + lead */}
                 <div className="lg:col-span-1 flex flex-col justify-center">
                   <div className="bg-card/80 p-6 rounded-2xl shadow-md border border-border">
-                    <h2 className="text-4xl sm:text-7xl font-bold text-foreground leading-tight mb-2">OverSee sẻ chia</h2>
+                    <p className="text-4xl sm:text-7xl font-bold text-foreground leading-tight mb-2"><strong className="text-4xl sm:text-7xl font-bold text-orange-500 leading-tight">OverSee</strong> sẻ chia</p>
                     <p className="text-2xl sm:text-3xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
                     <p className="text-xl sm:text-xl text-foreground/90 font-bold leading-relaxed">
                       Với mong muốn lan tỏa giá trị giáo dục và yêu thương, OverSee đã thực hiện dự án “Nguyện ước Trăng tròn” — cung cấp hơn <span className="text-primary">1500 suất ăn trưa dinh dưỡng</span> cho trẻ em có hoàn cảnh khó khăn tại khu đô thị, bắt đầu từ huyện An Lão, Hải Phòng nhân dịp Tết Trung Thu.
@@ -721,9 +721,8 @@ const Profiles = () => {
                           className="w-full h-auto"
                           poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23003366' width='800' height='450'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='24' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3EVideo tổng quan sự kiện%3C/text%3E%3C/svg%3E"
                         >
-                          <source src={VideoOverSee} type="video/mp4" />
-                          <source src="/Oversee_Video.mp4" type="video/mp4" />
-                          Trình duyệt của bạn không hỗ trợ video.
+                          <source src="/OverSee_Video.mp4" type="video/mp4" />
+                          Your browser does not support the video tag.
                         </video>
                       </CardContent>
                     </Card>

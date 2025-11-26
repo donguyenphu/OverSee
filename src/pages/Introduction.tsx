@@ -40,13 +40,11 @@ const Introduction = () => {
 
         {/* Geometric Background Shapes */}
         <div className="absolute inset-0 z-0">
-          {/* Dark Blue curved shape on left */}
-          {/* <div className="absolute top-0 left-0 w-[45%] h-full bg-hero-bg-blue rounded-br-[200px]" /> */}
+          {/* Dark Blue curved shape on top left, curved to bottom right */}
+          <div className="absolute top-0 left-0 w-[48%] h-[90%] bg-hero-bg-blue rounded-br-[400px] rounded-tl-[0px] rounded-tr-[0px] rounded-bl-[0px]" style={{borderBottomRightRadius: '400px 300px'}} />
           {/* Orange curved shapes on right */}
           <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
           <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
-          {/* Dark blue accent at bottom right */}
-          <div className="absolute bottom-0 right-[5%] w-[20%] h-[30%] bg-hero-bg-blue rounded-tl-[150px]" />
         </div>
 
 
@@ -77,7 +75,7 @@ const Introduction = () => {
 
               <div className="my-8">
                 {/* Subtitle */}
-                <p className="text-lg md:text-xl font-semibold mt-4" style={{ color: '#000000' }}>
+                <p className="text-lg md:text-2xl font-semibold mt-4" style={{ color: '#000000' }}>
                   Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
                 </p>
 
@@ -85,32 +83,32 @@ const Introduction = () => {
                 <div className="space-y-4 mt-3">
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
+                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                      <span className="font-bold ">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
+                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                      <span className="font-bold ">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Phương pháp "Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
+                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                      <span className="font-bold">Phương pháp " Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Hệ thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
+                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                      <span className="font-bold">Hệ  thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Đội ngũ cố vấn gồm các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
+                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                      <span className="font-bold">Đội ngũ cố vấn gồm  các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
                     </p>
                   </div>
                 </div>
@@ -118,7 +116,7 @@ const Introduction = () => {
 
               {/* CTA Button */}
               <div className="flex flex-row sm:flex-row gap-2">
-                <div className="pt-4">
+                <div className="pb-4">
                   <Link to="/dang-ky">
                     <Button
                       size="lg"
@@ -128,7 +126,7 @@ const Introduction = () => {
                     </Button>
                   </Link>
                 </div>
-                <div className="pt-4">
+                <div className="pb-4">
                   <Link to="/cong-dong-oversee">
                     <Button
                       size="lg"
@@ -172,19 +170,19 @@ const Introduction = () => {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 text-center space-y-4">
+                <div className="flex-1 text-center space-y-5">
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
                     Giáo sư: Nguyễn Quang Hưng
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
                   <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
-                      <span className="text-yellow-400 mt-1">●</span>
-                      <span className="text-center">Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</span>
+                      {/* <span className="text-yellow-400 mt-1 h-4 w-4 inline-flex justify-center items-center text-center">●</span> */}
+                      <span className="text-center">- Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</span>
                     </li>
                     <li className="flex items-center gap-3 justify-center">
-                      <span className="text-yellow-400 mt-1">●</span>
-                      <span className="text-center">Hội đồng cố vấn OverSee</span>
+                      {/* <span className="text-yellow-400 mt-1 h-4 w-4 inline-flex justify-center items-center text-center">●</span> */}
+                      <span className="text-center">- Hội đồng cố vấn OverSee</span>
                     </li>
                   </ul>
                 </div>
@@ -204,23 +202,23 @@ const Introduction = () => {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 text-center space-y-4">
+                <div className="flex-1 text-center space-y-5">
                   <h3 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-3">
                     Tiến sĩ: Hoàng Anh Tuấn Kiệt
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
                   <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
-                      <span className="text-yellow-400 mt-1">●</span>
-                      <span className="text-center">Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</span>
+                      {/* <span className="text-yellow-400 mt-1">●</span> */}
+                      <span className="text-center">- Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</span>
                     </li>
                     <li className="flex items-center gap-3 justify-center">
-                      <span className="text-yellow-400 mt-1">●</span>
-                      <span className="text-center">Giảng viên, Khoa Vật lý & Kỹ thuật, West Chester, PA (Mỹ)</span>
+                      {/* <span className="text-yellow-400 mt-1">●</span> */}
+                      <span className="text-center">- Giảng viên, Khoa Vật lý & Kỹ thuật, West Chester, PA (Mỹ)</span>
                     </li>
                     <li className="flex items-center gap-3 justify-center">
-                      <span className="text-yellow-400 mt-1">●</span>
-                      <span className="text-center">Hội đồng cố vấn OverSee</span>
+                      {/* <span className="text-yellow-400 mt-1">●</span> */}
+                      <span className="text-center">- Hội đồng cố vấn OverSee</span>
                     </li>
                   </ul>
                 </div>
