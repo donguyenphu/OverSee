@@ -716,14 +716,14 @@ const Profiles = () => {
                       </CardHeader>
                       <CardContent className="p-0">
                         {/* Video fills the card width to match bullets block (which uses p-5) */}
-                        <video
-                          controls
-                          className="w-full h-auto"
-                          poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23003366' width='800' height='450'/%3E%3Ctext fill='%23ffffff' font-family='Arial' font-size='24' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3EVideo tổng quan sự kiện%3C/text%3E%3C/svg%3E"
-                        >
-                          <source src="/OverSee_Video.mp4" type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
+                        <iframe
+                          className="w-full h-full aspect-video"
+                          src="https://www.youtube.com/embed/tUd5xeaHcFc"
+                          frameBorder="0"
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                          title="YouTube Video"
+                        ></iframe>
                       </CardContent>
                     </Card>
                   </div>
