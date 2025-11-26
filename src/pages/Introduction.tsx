@@ -39,30 +39,29 @@ const Introduction = () => {
       <section className="relative w-screen min-h-[650px] md:aspect-[1.78] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
 
         {/* Geometric Background Shapes */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 block md:hidden">
           {/* Dark Blue curved shape on top left, curved to bottom right */}
-          <div className="absolute top-0 left-0 w-[48%] h-[90%] bg-hero-bg-blue rounded-br-[400px] rounded-tl-[0px] rounded-tr-[0px] rounded-bl-[0px]" style={{borderBottomRightRadius: '400px 300px'}} />
+          <div className="absolute top-0 left-0 w-[48%] h-[25%] bg-hero-bg-blue rounded-br-[400px] rounded-tl-[0px] rounded-tr-[0px] rounded-bl-[0px]" style={{borderBottomRightRadius: '400px 300px'}} />
           {/* Orange curved shapes on right */}
-          <div className="absolute top-0 right-0 w-[55%] h-[60%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
-          <div className="absolute bottom-0 right-0 w-[60%] h-[35%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
+          <div className="absolute top-0 right-0 w-[55%] h-[50%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
+          <div className="absolute bottom-0 right-0 w-[60%] h-[25%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
         </div>
 
 
         {/* Background Image */}
-        {/* <div className="absolute inset-0">
+        <div className="absolute inset-0 hidden md:block">
           <img
             src={HeroBannerWithNoText}
             alt="Đồng hành vững vàng, Học tập nhẹ nhàng"
             className="w-full h-full object-cover brightness-110"
-          /> */}
-          {/* Gradient overlay */}
+          />
           {/* <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/30 to-transparent" /> */}
-        {/* </div> */}
+        </div>
 
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
-          <div className="max-w-[800px] space-y-6">
-            <div className="space-y-6 translate-y-[9%]">
+          <div className="max-w-[800px] space-y-0">
+            <div className="space-y-2 md:space-y-6 translate-y-[9%]">
               {/* Main Heading */}
               <div className="space-y-1">
                 <h1 className="text-6xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
@@ -73,41 +72,41 @@ const Introduction = () => {
                 </h1>
               </div>
 
-              <div className="my-8">
+              <div className="my-0 md:my-8">
                 {/* Subtitle */}
-                <p className="text-lg md:text-2xl font-semibold mt-4" style={{ color: '#000000' }}>
+                <p className="text-lg md:text-xl font-semibold mt-4" style={{ color: '#000000' }}>
                   Chương trình đồng hành học tập hiệu quả nhất cho học sinh Việt Nam
                 </p>
 
                 {/* Bullet Points */}
-                <div className="space-y-4 mt-3">
+                <div className="space-y-1 md:space-y-3 lg:space-y-4 mt-3">
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white " />
-                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold ">Cá nhân hoá</span> lộ trình học theo năng lực và mục tiêu.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold ">Mentor dẫn đường,</span> giúp gợi mở tư duy và đồng hành đúng lúc.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Phương pháp " Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Hệ  thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-2xl" style={{ color: '#000000' }}>
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Đội ngũ cố vấn gồm  các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
                     </p>
                   </div>
@@ -116,21 +115,21 @@ const Introduction = () => {
 
               {/* CTA Button */}
               <div className="flex flex-row sm:flex-row gap-2">
-                <div className="pb-4">
+                <div className="pb-3">
                   <Link to="/dang-ky">
                     <Button
                       size="lg"
-                      className="bg-hero-button hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                      className="bg-hero-button hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-3 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
                     >
                       Đăng ký ngay
                     </Button>
                   </Link>
                 </div>
-                <div className="pb-4">
+                <div className="pb-3">
                   <Link to="/cong-dong-oversee">
                     <Button
                       size="lg"
-                      className="hover:bg-hero-button/90 hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
+                      className="hover:bg-hero-button/90 hover:text-white text-hero-text-black text-lg md:text-xl font-bold px-10 py-3 md:py-6 rounded-full shadow-lg hover:shadow-xl transition-all"
                     >
                       Về chúng tôi
                     </Button>
@@ -175,10 +174,14 @@ const Introduction = () => {
                     Giáo sư: Nguyễn Quang Hưng
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
-                  <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
+                  <ul className="text-white space-y-3 sm:text-xl md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
                       {/* <span className="text-yellow-400 mt-1 h-4 w-4 inline-flex justify-center items-center text-center">●</span> */}
                       <span className="text-center">- Giám đốc, Viện Khoa học Cơ bản và Ứng dụng Trường Đại học Duy Tân, Việt Nam</span>
+                    </li>
+                    <li className="flex items-center gap-3 justify-center">
+                      {/* <span className="text-yellow-400 mt-1 h-4 w-4 inline-flex justify-center items-center text-center">●</span> */}
+                      <span className="text-center">- Viện trưởng Viện Nghiên cứu Khoa học Cơ bản và Ứng dụng (IFAS)</span>
                     </li>
                     <li className="flex items-center gap-3 justify-center">
                       {/* <span className="text-yellow-400 mt-1 h-4 w-4 inline-flex justify-center items-center text-center">●</span> */}
@@ -207,7 +210,7 @@ const Introduction = () => {
                     Tiến sĩ: Hoàng Anh Tuấn Kiệt
                   </h3>
                   <div className="h-1 w-24 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mb-4" />
-                  <ul className="text-white space-y-3 text-base md:text-2xl leading-relaxed font-bold">
+                  <ul className="text-white space-y-3 sm:text-xl md:text-2xl leading-relaxed font-bold">
                     <li className="flex items-center gap-3 justify-center">
                       {/* <span className="text-yellow-400 mt-1">●</span> */}
                       <span className="text-center">- Nghiên cứu sinh Tiến sĩ Lãnh đạo Giáo Dục, Đại học Pennsylvania (Mỹ)</span>
