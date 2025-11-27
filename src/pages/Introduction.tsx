@@ -41,7 +41,7 @@ const Introduction = () => {
         {/* Geometric Background Shapes */}
         <div className="absolute inset-0 z-0 block md:hidden">
           {/* Dark Blue curved shape on top left, curved to bottom right */}
-          <div className="absolute top-0 left-0 w-[48%] h-[25%] bg-hero-bg-blue rounded-br-[400px] rounded-tl-[0px] rounded-tr-[0px] rounded-bl-[0px]" style={{borderBottomRightRadius: '400px 300px'}} />
+          <div className="absolute top-0 left-0 w-[48%] h-[25%] bg-hero-bg-blue rounded-br-[400px] rounded-tl-[0px] rounded-tr-[0px] rounded-bl-[0px]" style={{ borderBottomRightRadius: '400px 300px' }} />
           {/* Orange curved shapes on right */}
           <div className="absolute top-0 right-0 w-[55%] h-[50%] bg-hero-bg-orange rounded-bl-[300px] transform translate-x-[15%]" />
           <div className="absolute bottom-0 right-0 w-[60%] h-[25%] bg-hero-bg-orange rounded-tl-[250px] transform translate-x-[10%]" />
@@ -95,12 +95,6 @@ const Introduction = () => {
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
                     <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Phương pháp " Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
-                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Hệ  thống theo dõi minh bạch,</span> kết nối Mentor – Học sinh – Phụ huynh.
                     </p>
                   </div>
@@ -108,6 +102,12 @@ const Introduction = () => {
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
                     <p className="text-base md:text-lg" style={{ color: '#000000' }}>
                       <span className="font-bold">Đội ngũ cố vấn gồm  các Giáo sư, Tiến sĩ giáo dục:</span> chuẩn khoa học, hiệu quả thực tiễn
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
+                    <p className="text-base md:text-lg" style={{ color: '#000000' }}>
+                      <span className="font-bold">Phương pháp " Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
                     </p>
                   </div>
                 </div>
