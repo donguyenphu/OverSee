@@ -19,6 +19,8 @@ import s4 from '@/assets/s4.png';
 import s5 from '@/assets/s5.png';
 import s6 from '@/assets/s6.png';
 import s7 from '@/assets/s7.png';
+import s8 from '@/assets/s8.png';
+import defaultProfileImage from '@/assets/defaultProfileImage.jpg';
 
 interface Profile {
   id: number;
@@ -30,9 +32,10 @@ interface Profile {
 }
 
 const sampleProfiles: Profile[] = [
+  // 1 (ok) Lê Hoàng Kim Khánh
   {
     id: 1,
-    name: "Mentor môn Sinh : Lê Hoàng Kim Khánh",
+    name: "Lê Hoàng Kim Khánh - Mentor môn Sinh",
     expertise: (
       <ul className="leading-normal list-circle pl-5 text: black">
         <li>- Lớp chuyên Sinh niên khoá 2023-2026, trường THPT Chuyên Trần Phú</li>
@@ -52,11 +55,12 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“One step at a time”",
-    mentor: Mentor1
+    mentor: defaultProfileImage
   },
+  // 2 (ok) Nguyễn Hoàng Nam
   {
     id: 2,
-    name: "Mentor IELTS : Nguyễn Hoàng Nam",
+    name: "Nguyễn Hoàng Nam - Mentor IELTS",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>- Cựu học sinh lớp  chuyên Nga.</li>
@@ -75,11 +79,12 @@ const sampleProfiles: Profile[] = [
       `“If you never bleed,
         you're never gonna grow”`
     ),
-    mentor: Mentor2
+    mentor: defaultProfileImage
   },
+  // 3 (ok) Nguyễn Hữu Nam
   {
     id: 3,
-    name: "Mentor SAT : Nguyễn Hữu Nam",
+    name: "Nguyễn Hữu Nam - Mentor SAT",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>Mentor hướng dẫn chứng chỉ SAT </li>
@@ -99,11 +104,12 @@ const sampleProfiles: Profile[] = [
       `“Không có việc gì khó
         Chỉ sợ lòng không bền”`
     ),
-    mentor: Mentor3
+    mentor: defaultProfileImage
   },
+  // 4 (ok) Nguyễn Nhật Nam
   {
     id: 4,
-    name: "Mentor IELTS : Nguyễn Nhật Nam",
+    name: "Nguyễn Nhật Nam - Mentor IELTS",
     expertise: (
       <ul className="leading-normal list-circle pl-5">
         <li>Cựu học sinh Chuyên Anh 1</li>
@@ -119,8 +125,435 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“You only live once”",
-    mentor: Mentor4
-  }
+    mentor: defaultProfileImage
+  },
+  // 5 (ok) Nguyễn Minh An
+  {
+    id: 5,
+    name: "Nguyễn Minh An – Mentor IELTS",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Mentor luyện thi IELTS</li>
+        <li>- Mentor đồng hành cùng nhiều học viên trong giai đoạn cấp tốc trước thi</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- IELTS 8.0 (Reading 9.0, Listening 8.5)</li>
+        <li>- Ba năm kinh nghiệm giảng dạy IELTS</li>
+        <li>- Sử dụng và giao tiếp thành thạo bằng Tiếng Anh</li>
+        <li>- Giải Nhì học sinh giỏi Tiếng Anh cấp thành phố</li>
+        <li>- Điểm thi vào 10 chuyên Anh: 8.75</li>
+        <li>- Điểm trung bình Tiếng Anh 10–11-12: 9.6</li>
+      </ul>
+    ),
+    goals: "“Push your limits, not your stress.”",
+    mentor: defaultProfileImage
+  },
+  // 6 (ok) Trần Phương Linh
+  {
+    id: 6,
+    name: "Trần Phương Linh – Mentor SAT",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học viên đạt target score nhanh</li>
+        <li>- Mentor SAT (Reading & Writing)</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- SAT 1570</li>
+        <li>- Một năm kinh nghiệm giảng dạy SAT</li>
+        <li>- Giải Nhất học sinh giỏi Tiếng Anh cấp tỉnh</li>
+        <li>- Điểm trung bình Tiếng Anh 10–11–12: 9.8</li>
+      </ul>
+    ),
+    goals: "“Consistency beats intensity”",
+    mentor: defaultProfileImage
+  },
+  // 7 (ok) Phạm Thu Uyên
+  {
+    id: 7,
+    name: "Phạm Thu Uyên – Mentor Ngữ Văn",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm hướng dẫn học sinh thi HSG Văn</li>
+        <li>- Mentor luyện Văn chuyên và cơ bản</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhì học sinh giỏi Văn cấp thành phố</li>
+        <li>- Điểm thi vào 10 chuyên Văn 8.25</li>
+        <li>- Điểm trung bình Văn 10–11: 9.4</li>
+      </ul>
+    ),
+    goals: "“Viết bằng trái tim, suy nghĩ bằng lý trí”",
+    mentor: defaultProfileImage
+  },
+  // 8 (ok) Nguyễn Đức Thiện
+  {
+    id: 8,
+    name: "Nguyễn Đức Thiện – Mentor Toán",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh rèn luyện tư duy logic và giải nhanh trắc nghiệm</li>
+        <li>- Mentor Toán THCS và vào 10</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Top 10 AMC 10 Việt Nam</li>
+        <li>- Giải Nhì học sinh giỏi Toán cấp thành phố</li>
+        <li>- Điểm trung bình Toán 10–11–12: 9.6</li>
+      </ul>
+    ),
+    goals: "“Mathematics is the music of reason”",
+    mentor: defaultProfileImage
+  },
+  // 9 (ok) Bùi Thanh Hà
+  {
+    id: 9,
+    name: "Bùi Thanh Hà – Mentor Vật lý",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm hướng dẫn học viên thi HSG Lý</li>
+        <li>- Mentor Vật lý cơ bản và nâng cao</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Lý cấp tỉnh</li>
+        <li>- Điểm trung bình Lý 10–11–12: 9.5</li>
+      </ul>
+    ),
+    goals: "“Học không chơi đánh rơi tuổi trẻ, chơi không học bán rẻ tương lai”",
+    mentor: defaultProfileImage
+  },
+  // 10 (ok) Lê Hải Đăng
+  {
+    id: 10,
+    name: "Lê Hải Đăng – Mentor Hóa",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ ôn thi HSG Hóa và thi THPTQG</li>
+        <li>- Mentor Hóa từ cơ bản đến chuyên sâu</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Hóa cấp thành phố</li>
+        <li>- Giải Nhì kỳ thi Hóa Thành phố Bảng B</li>
+        <li>- Điểm trung bình Hóa 10–11–12: 9.4</li>
+      </ul>
+    ),
+    goals: "“Small reactions make big changes”",
+    mentor: defaultProfileImage
+  },
+  // 11 (ok) Đoàn Mỹ Ngọc
+  {
+    id: 11,
+    name: "Đoàn Mỹ Ngọc – Mentor Tiếng Anh giao tiếp",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Mentor Speaking & Pronunciation</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- IELTS 8.0 (Speaking 8.0)</li>
+        <li>- Hai năm kinh nghiệm giảng dạy Speaking</li>
+        <li>- Chủ nhiệm CLB Tiếng Anh</li>
+      </ul>
+    ),
+    goals: "“Hãy nói để tự tin”",
+    mentor: defaultProfileImage
+  },
+  // 12 (ok) Vũ Hữu Toàn
+  {
+    id: 12,
+    name: "Vũ Hữu Toàn – Mentor Tin học",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh tham gia các kỳ thi lập trình</li>
+        <li>- Mentor Pascal, Python, thuật toán cơ bản</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Ba học sinh giỏi Tin cấp thành phố</li>
+        <li>- Điểm trung bình Tin 10–11–12: 9.5</li>
+      </ul>
+    ),
+    goals: "“Code hard, think harder”",
+    mentor: defaultProfileImage
+  },
+  // 13 (ok) Nguyễn Thảo Trâm
+  {
+    id: 13,
+    name: "Nguyễn Thảo Trâm – Mentor Sinh",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm ôn thi HSG Sinh và nâng cao</li>
+        <li>- Mentor hướng dẫn môn Sinh chuyên</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhì học sinh giỏi Sinh cấp tỉnh</li>
+        <li>- Giải khuyến khích học sinh giỏi Quốc gia môn Sinh</li>
+        <li>- Điểm trung bình Sinh 10–11–12: 9.6</li>
+      </ul>
+    ),
+    goals: "“Mỗi tế bào đều có câu chuyện riêng của nó”",
+    mentor: defaultProfileImage
+  },
+  // 14 (ok) Mai Trọng Khôi
+  {
+    id: 14,
+    name: "Mai Trọng Khôi – Mentor Địa lý",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh luyện kỹ năng bản đồ và phân tích địa lý</li>
+        <li>- Mentor Địa lý học sinh giỏi và THPTQG</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Địa lý cấp thành phố</li>
+        <li>- Điểm trung bình Địa 10–11-12: 9.7</li>
+      </ul>
+    ),
+    goals: "“Understand the world to understand yourself”",
+    mentor: defaultProfileImage
+  },
+  // 15 (ok) Hoàng Lan Chi
+  {
+    id: 15,
+    name: "Hoàng Lan Chi – Mentor Lịch sử",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm ôn thi HSG và THPTQG môn Sử</li>
+        <li>- Mentor Lịch sử</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhì học sinh giỏi Sử cấp tỉnh</li>
+        <li>- Điểm trung bình Sử 10–11–12: 9.7</li>
+      </ul>
+    ),
+    goals: "“Sử - người kể quá khứ”",
+    mentor: defaultProfileImage
+  },
+  // 16 (ok) Nguyễn Bảo Lâm
+  {
+    id: 16,
+    name: "Nguyễn Bảo Lâm – Mentor SAT Math",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm hướng dẫn học sinh luyện đề SAT Math</li>
+        <li>- Mentor SAT Math</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- SAT Math 800</li>
+        <li>- Giải Nhì học sinh giỏi Toán cấp thành phố</li>
+        <li>- AMC 12 ở top 97.5 percentile</li>
+      </ul>
+    ),
+    goals: "“Precision creates excellence”",
+    mentor: defaultProfileImage
+  },
+  // 17 (ok) Phạm Yến Nhi
+  {
+    id: 17,
+    name: "Phạm Yến Nhi – Mentor Hóa chuyên",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh chuẩn bị HSG Hóa và thi THPTQG</li>
+        <li>- Mentor Hóa chuyên, luyện thi học sinh giỏi</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Hóa cấp tỉnh</li>
+        <li>- Điểm trung bình Hóa 10–11–12: 9.6</li>
+      </ul>
+    ),
+    goals: "“Hóa học là nghệ thuật của sự thay đổi”",
+    mentor: defaultProfileImage
+  },
+  // 18 (ok) Vũ Tùng Sơn
+  {
+    id: 18,
+    name: "Vũ Tùng Sơn – Mentor Vật lý chuyên",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm ôn thi HSG Lý và nâng cao</li>
+        <li>- Mentor Vật lý chuyên</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Lý cấp thành phố</li>
+        <li>- Điểm trung bình Lý 10–11–12: 9.5</li>
+      </ul>
+    ),
+    goals: "“Think deeper than the formula”",
+    mentor: defaultProfileImage
+  },
+  // 19 (ok) Hoàng Bảo Ngân
+  {
+    id: 19,
+    name: "Hoàng Bảo Ngân – Mentor Viết luận",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hướng dẫn học sinh phát triển kỹ năng viết luận sáng tạo</li>
+        <li>- Mentor essay và creative writing</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- IELTS Writing 8.5</li>
+        <li>- Giải Nhất English Creative Writing Contest</li>
+      </ul>
+    ),
+    goals: "“Câu chuyện của bạn rất quan trọng.”",
+    mentor: defaultProfileImage
+  },
+  // 20 (ok) Trịnh Minh Khang
+  {
+    id: 20,
+    name: "Trịnh Minh Khang – Mentor Tin học Olympic",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm hướng dẫn đội tuyển Tin học</li>
+        <li>- Mentor thuật toán và ôn đội tuyển</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhì học sinh giỏi Tin cấp tỉnh</li>
+        <li>- Huy chương Bạc Olympic Tin học miền Bắc</li>
+      </ul>
+    ),
+    goals: "“Algorithms shape the future”",
+    mentor: defaultProfileImage
+  },
+  // 21 (ok) Nguyễn Thuỳ Anh
+  {
+    id: 21,
+    name: "Nguyễn Thuỳ Anh – Mentor IELTS Speaking",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Một năm kinh nghiệm luyện Speaking cho học sinh</li>
+        <li>- Mentor Speaking – accent – fluency</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- MC nhiều sự kiện học sinh sinh viên</li>
+        <li>-  IELTS 8.0 (Speaking 8.5)</li>
+      </ul>
+    ),
+    goals: "“Your voice is your power”",
+    mentor: defaultProfileImage
+  },
+  // 22 (ok) Lâm Nhật Huy
+  {
+    id: 22,
+    name: "Lâm Nhật Huy – Mentor Toán THCS",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh rèn luyện tư duy Toán và giải nhanh</li>
+        <li>- Mentor Toán 6–9</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Ba học sinh giỏi Toán cấp thành phố</li>
+        <li>- Điểm vào 10 chuyên Toán: 8.7</li>
+      </ul>
+    ),
+    goals: "“Nắm vững cơ bản, chinh phục đỉnh cao”",
+    mentor: defaultProfileImage
+  },
+  // 23 (ok) Võ Gia Hân
+  {
+    id: 23,
+    name: "Võ Gia Hân – Mentor Sinh – Hóa sinh",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Kinh nghiệm ôn thi HSG Sinh và Hóa sinh</li>
+        <li>- Mentor Sinh nâng cao, Hóa sinh</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất học sinh giỏi Sinh cấp tỉnh</li>
+        <li>- Dự tuyển đội tuyển Quốc gia môn Sinh(lớp 9) </li>
+      </ul>
+    ),
+    goals: "“Curiosity drives discovery”",
+    mentor: defaultProfileImage
+  },
+  // 24 (ok) Trần Khánh Long
+  {
+    id: 24,
+    name: "Trần Khánh Long – Mentor Mỹ thuật",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hướng dẫn học sinh phát triển portfolio Mỹ thuật</li>
+        <li>- Mentor vẽ chì, màu và bố cục</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Giải Nhất Cuộc thi Mỹ thuật trẻ Hải Phòng 2024</li>
+      </ul>
+    ),
+    goals: "“Hãy tạo ra những gì bạn cảm nhận”",
+    mentor: defaultProfileImage
+  },
+  // 25 (ok) Đinh Hải Yên
+  {
+    id: 25,
+    name: "Đinh Hải Yên – Mentor Ngữ Văn",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Mentor nghị luận văn học và xã hội</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Kinh nghiệm luyện thi HSG Văn</li>
+        <li>- Giải Ba học sinh giỏi Văn cấp thành phố</li>
+      </ul>
+    ),
+    goals: "“Reason with clarity, write with soul”",
+    mentor: defaultProfileImage
+  },
+  // 26 (ok) Nguyễn Công Duy
+  {
+    id: 26,
+    name: "Nguyễn Công Duy – Mentor Tiếng Anh THCS",
+    expertise: (
+      <ul className="leading-normal list-circle pl-5 text: black">
+        <li>- Hỗ trợ học sinh ôn thi IOE và HSG Tiếng Anh</li>
+        <li>- Mentor English 6–9</li>
+      </ul>
+    ),
+    experience: (
+      <ul className="leading-normal list-circle pl-5">
+        <li>- Huy chương Bạc IOE quốc gia</li>
+        <li>- Giải Nhì học sinh giỏi Tiếng Anh cấp tỉnh</li>
+      </ul>
+    ),
+    goals: "“Học hôm nay, dẫn đầu ngày mai”",
+    mentor: defaultProfileImage
+  },
 ];
 
 const Profiles = () => {
@@ -337,7 +770,7 @@ const Profiles = () => {
             </p> */}
           </div>
 
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 pb-20 md:pb-16">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pb-20 md:pb-16">
             {sampleProfiles.map((profile) => (
               <Card key={profile.id} className="shadow-lg hover:shadow-xl transition-shadow aspect-square relative">
                 <CardHeader className="cursor-pointer h-full p-6" onClick={() => toggleProfile(profile.id)}>
@@ -388,13 +821,13 @@ const Profiles = () => {
                       <div className="space-y-6">
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <School className="h-10 w-10 flex-shrink-0" />
-                          <span className="text-lg lg: text-xl xl: text-sm font-bold">
+                          <span className="text-lg lg:text-md xl:text-sm font-bold">
                             {profile.expertise}
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <Workflow className="h-10 w-10 flex-shrink-0" />
-                          <span className="text-lg lg: text-xl lg: text-sm font-bold">
+                          <span className="text-lg lg:text-md xl:text-sm font-bold">
                             {profile.experience}
                           </span>
                         </div>
@@ -493,13 +926,14 @@ const Profiles = () => {
               {/* Data-driven share cards with expand/collapse + lightbox */}
               {(() => {
                 const shares: { id: number; img: string; text: string; tag: string; delay: number }[] = [
-                  { id: 1, img: s1, tag: '#OverSeeCare', delay: 0.6, text: `Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.` },
+                  { id: 1, img: s8, tag: '#NewShare', delay: 0.95, text: `Đúng là OverSee!` },
                   { id: 2, img: s2, tag: '#IELTSJourney', delay: 0.65, text: `Học IELTS bao nhiêu lâu rồi nhưng lần đầu tiên em chịu ngồi học từ vựng đấy ạ!` },
                   { id: 3, img: s3, tag: '#FeedbackMatters', delay: 0.7, text: `Hồi chưa gặp anh mentor em phải thuê chấm bài bên ngoài, hình như 50k/1 bài ấy. Mà giờ học OverSee mentor chấm cho em mỗi tuần 6 bài, đã thế còn chữa kỹ xong nhắc em viết lại cho hiểu bài mới thôi.` },
                   { id: 4, img: s7, tag: '#OwnYourTime', delay: 0.75, text: `Lịch học ngày trước của em đây. Sau khi học xong khóa Toán cùng mentor, em quyết định bỏ hết các chỗ học thêm để quay lại tự học. Ban đầu em cũng phải nói chuyện với bố mẹ nhiều về điều này lắm, bạn bè xung quanh cũng bảo em không học thêm sao mà giỏi được. Nhưng em tự tin em đã biết cách tự sắp xếp thời gian của mình và cũng tự biết cách tự học các môn khác, cũng giống như cách tự học Toán mà chị mentor đã hướng dẫn em. Giờ em thật sự cảm thấy làm chủ được cuộc sống của mình, biết đánh giá xem học ở đâu, thế nào mới thực sự hiệu quả. Em cảm ơn chị mentor và OverSee nhiều lắm. Hi vọng các bạn đang mất phương hướng, quá tải học thêm giống em ngày xưa cũng sẽ tìm được giải pháp và đam mê thật sự với việc học.` },
                   { id: 5, img: s5, tag: '#PracticeMakesPerfect', delay: 0.8, text: `Em học IELTS ở chỗ khác được 1 năm rồi mà chưa được thi thử lần nào. Vào OverSee hàng tháng, hàng tuần đều được mock test full 4 kỹ năng.` },
                   { id: 6, img: s6, tag: '#TransparentProgress', delay: 0.85, text: `Tháng nào mẹ em cũng nhận được báo cáo này từ OverSee. Thế là mẹ không bao giờ phải hỏi em xem dạo này học hành thế nào nữa :))` },
                   { id: 7, img: s4, tag: '#SpeakDaily', delay: 0.9, text: `Lại đến lịch học cùng mentor của em rồi. Em sẽ tâm sự đủ chuyện trên trời dưới biển nhưng mà… bằng Tiếng Anh.` },
+                  { id: 8, img: s1, tag: '#OverSeeCare', delay: 0.6, text: `Chị mentor khác hẳn những người lớn trước giờ em từng gặp. Chị không hỏi em điểm bao nhiêu, không bắt em phải học thêm gì. Chị chỉ hỏi “Em có thấy mệt không?”, “Dạo gần đây em đang áp lực phải không?”. Lần đầu tiên có người hỏi em câu đó.` },
                 ];
                 return (
                   <div className="columns-1 md:columns-2 lg:columns-3 gap-8 [column-fill:balance]">

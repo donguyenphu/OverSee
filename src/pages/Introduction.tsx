@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from '@/subpage/Navigation';
 import Footer from '@/subpage/Footer';
 import '../Introduction.css';
-import HeroBannerWithNoText from '@/assets/OverSee_hero _banner_second_version.jpg';
+import HeroBannerWithNoText from '@/assets/OverSee_hero_banner_second_version.png';
 import Advisor1 from '@/assets/Advisor1.jpg';
 import Advisor2 from '@/assets/Advisor2.webp';
 import FaqPagination from "@/subpage/Faqs";
@@ -38,6 +38,13 @@ const Introduction = () => {
       {/* Hero Banner */}
       <section className="relative w-screen min-h-[650px] md:aspect-[1.78] flex items-center overflow-hidden -mx-[calc((100vw-100%)/2)]">
 
+        {/* Large white text in top-left on md+ screens */}
+        <div className="hidden md:block absolute top-16 left-10 md:left-6 z-10">
+          <span className="text-white text-2xl md:text-4xl lg:text-6xl font-extrabold drop-shadow-lg select-none">
+            It'll pass
+          </span>
+        </div>
+
         {/* Geometric Background Shapes */}
         <div className="absolute inset-0 z-0 block md:hidden">
           {/* Dark Blue curved shape on top left, curved to bottom right */}
@@ -61,13 +68,13 @@ const Introduction = () => {
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
           <div className="max-w-[800px] space-y-0">
-            <div className="space-y-2 md:space-y-6 translate-y-[9%]">
+            <div className="space-y-4 md:space-y-6 translate-y-[9%]">
               {/* Main Heading */}
-              <div className="space-y-1">
-                <h1 className="text-6xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
+              <div className="space-y-2">
+                <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-yellow">Đồng hành vững vàng</span>
                 </h1>
-                <h1 className="text-6xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
+                <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-blue">Học tập nhẹ nhàng</span>
                 </h1>
               </div>
