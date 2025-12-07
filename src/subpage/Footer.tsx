@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '@/assets/Logo_OverSee.png'
+import { Route } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -9,7 +10,7 @@ const Footer = () => {
             <div className="flex flex-col">
               <div className="flex items-center gap-2 w-16 h-16 rounded-full bg-white px-2 space-x-2 mb-3">
                 <img src={ Logo } alt="OverSee logo" className="w-16 h-16" />
-                <span className="text-2xl font-bold">OverSee</span>
+                <Link to="/"><span className="text-2xl font-bold">OverSee</span></Link>
               </div>
               <p className="text-background/70 mb-4 text-2xl">
                 Với sứ mệnh "Nâng tầm thế hệ trẻ Việt", OverSee sẽ trang bị cho người trẻ kiến thức và kĩ năng trường học không dạy để họ sẵn sàng vươn ra ngoài thế giới.

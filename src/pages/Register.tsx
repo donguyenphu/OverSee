@@ -15,7 +15,7 @@ const Register = () => {
         <div className="container mx-auto px-2 md:px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
-              Đăng ký <span className="text-primary">lĩnh vực bạn chọn</span>
+              Đăng ký tư vấn <span className="text-primary">cá nhân hóa</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               Để nhận được tư vấn sớm nhất

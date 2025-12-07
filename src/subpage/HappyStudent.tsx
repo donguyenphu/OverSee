@@ -40,11 +40,11 @@ export default function HappyStudent() {
 	const toggle = (id: string) => setOpen((s) => ({ ...s, [id]: !s[id] }));
 
 	return (
-		<section className="w-full max-w-6xl mx-auto px-4 py-12">
+		<section className="w-full max-w-6xl mx-auto px-4 py-20">
 			<div className="text-center mb-8">
-				<h2 className="text-6xl font-bold">
-					Chân dung{" "}
-					<span className="text-primary">Học viên Hạnh phúc</span>
+				<h2 className="text-5xl font-bold">
+					Thành quả khóa học:{" "}
+					<span className="text-primary">Học viên chủ động học để điểm cao, thay vì học bị động để gỡ điểm</span>
 				</h2>
 			</div>
 
@@ -104,7 +104,7 @@ export default function HappyStudent() {
 							</div>
 
 							<div className="mt-6 bg-white/5 rounded-xl p-4 text-white/90">
-								<h4 className="text-md font-semibold text-white mb-2">Điểm mạnh</h4>
+								<h4 className="text-md font-semibold text-white mb-2">Điều làm nên một học viên chủ động học là ba nền tảng:</h4>
 								<ul className="text-md list-disc ml-5 space-y-1 font-bold">
 									<li>Biết lên kế hoạch và tự điều chỉnh lộ trình học</li>
 									<li>Ưu tiên hiểu sâu thay vì chạy theo điểm số</li>
