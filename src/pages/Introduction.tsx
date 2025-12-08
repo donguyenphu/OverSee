@@ -311,10 +311,10 @@ const Introduction = () => {
               <table className="min-w-full border border-gray-300 shadow-2xl text-base md:text-lg animate-fadein bg-white/80 backdrop-blur-md" style={{ animation: 'fadein 1.2s' }}>
                 <thead>
                   <tr>
-                    <th className="bg-gradient-to-r from-gray-100 via-yellow-100 to-blue-100 font-bold border px-4 py-3 transition-all duration-300 hover:bg-yellow-200">Tiêu chí</th>
-                    <th className="bg-gradient-to-br from-yellow-200 to-yellow-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-yellow-300">Trung tâm học thêm</th>
-                    <th className="bg-gradient-to-br from-orange-200 to-orange-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-orange-300">Gia sư truyền thống</th>
-                    <th className="bg-gradient-to-br from-blue-200 to-blue-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-blue-300">Tổ chức giáo dục OverSee</th>
+                    <th className="bg-gradient-to-r from-gray-100 via-yellow-100 to-blue-100 font-bold border px-4 py-3 transition-all duration-300 hover:bg-yellow-200 w-1/4">Tiêu chí</th>
+                    <th className="bg-gradient-to-br from-yellow-200 to-yellow-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-yellow-300  w-1/4">Trung tâm học thêm</th>
+                    <th className="bg-gradient-to-br from-orange-200 to-orange-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-orange-300  w-1/4">Gia sư truyền thống</th>
+                    <th className="bg-gradient-to-br from-blue-200 to-blue-300 font-bold border px-4 py-3 transition-all duration-300 hover:bg-blue-300  w-1/4">Tổ chức giáo dục OverSee</th>
                   </tr>
                 </thead>
                 <tbody>

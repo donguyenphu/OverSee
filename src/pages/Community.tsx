@@ -692,6 +692,121 @@ const Profiles = () => {
 
       <main className="flex-1">
         <div className="container mx-auto">
+          {/* ===== NEW SECTION: OverSee sẻ chia (redesigned layout) ===== */}
+          <section
+            className="py-20 bg-gradient-to-br from-secondary/4 to-primary/4 bg-gradient-to-br from-secondary/5 to-primary/5"
+            style={{
+              width: "100vw",
+              position: "relative",
+              left: "50%",
+              right: "50%",
+              marginLeft: "-50vw",
+              marginRight: "-50vw",
+            }}
+          >
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="grid gap-8 lg:grid-cols-3 items-start">
+                {/* LEFT: Title + lead */}
+                <div className="lg:col-span-1 flex flex-col justify-center">
+                  <div className="bg-card/80 p-6 rounded-2xl shadow-md border border-border">
+                    <p className="text-6xl sm:text-7xl font-bold text-foreground leading-tight mb-2"><strong className="text-6xl sm:text-7xl font-bold text-orange-500 leading-tight">OverSee</strong> sẻ chia</p>
+                    <p className="text-2xl sm:text-3xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
+                    <p className="text-xl sm:text-xl text-foreground/90 font-bold leading-relaxed">
+                      Với mong muốn lan tỏa giá trị giáo dục và yêu thương, OverSee đã thực hiện dự án “Nguyện ước Trăng tròn” — cung cấp hơn <span className="text-primary">1500 suất ăn trưa dinh dưỡng</span> cho trẻ em có hoàn cảnh khó khăn tại khu đô thị, bắt đầu từ huyện An Lão, Hải Phòng nhân dịp Tết Trung Thu.
+                    </p>
+                    <div className="mt-4 flex gap-3">
+                      <a href="https://www.youtube.com/watch?v=tUd5xeaHcFc" className="inline-block px-4 py-2 bg-primary text-white rounded-md text-sm font-medium">Xem video</a>
+                      <a href="https://www.facebook.com/share/p/1CNKuPH2s9/?mibextid=wwXIfr" target="_blank" rel="noreferrer noopener" className="inline-block px-4 py-2 border border-primary text-primary rounded-md text-sm font-semibold">Xem bài viết</a>
+                    </div>
+                  </div>
+                  <div className="hidden lg:block my-8">
+                    <img
+                      src={EventImage}
+                      alt="Nguyện ước Trăng tròn"
+                      className="w-full h-auto rounded-2xl shadow-2xl object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* RIGHT: Stats + bullets */}
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
+                      <div className="text-3xl font-extrabold text-primary">1500+</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
+                      <div className="text-3xl font-extrabold text-primary">42</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
+                      <div className="text-3xl font-extrabold text-primary">100%</div>
+                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-card/80 p-5 rounded-xl border border-border">
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">Khác với nhiều hoạt động thiện nguyện hướng về vùng cao, “Nguyện ước Trăng tròn” chọn nhìn về những đứa trẻ nơi phố thị – nơi nghèo đói đôi khi bị lãng quên giữa nhịp sống hiện đại.</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">Dự án được tài trợ 100% từ lợi nhuận của OverSee và thực hiện bởi đội ngũ 42 tình nguyện viên cùng đối tác địa phương.</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
+                        <p className="text-md text-foreground font-bold">“Nguyện ước Trăng tròn” không chỉ mang đến những bữa ăn đủ đầy, mà còn là lời nhắc về sự thấu hiểu và sẻ chia thật sự bắt đầu từ việc lắng nghe nhu cầu của cộng đồng.</p>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Video tổng quan sự kiện -> render as single card with same dimensions */}
+                  <div>
+                    <Card className="rounded-lg shadow-lg overflow-hidden">
+                      <CardHeader className="pt-4 px-5">
+                        <div className="text-2xl text-foreground font-bold">Video tổng quan sự kiện</div>
+                      </CardHeader>
+                      <CardContent className="p-0">
+                        {/* Video fills the card width to match bullets block (which uses p-5) */}
+                        <iframe
+                          className="w-full h-full aspect-video"
+                          src="https://www.youtube.com/embed/tUd5xeaHcFc"
+                          frameBorder="0"
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                          title="YouTube Video"
+                        ></iframe>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Default placeholder image */}
+                  {/* <div>
+                    <Card className="rounded-lg shadow-lg overflow-hidden bg-gradient-to-br from-blue-50 to-orange-50">
+                      <CardContent className="p-8 flex flex-col items-center justify-center min-h-[300px] text-center">
+                        <div className="w-32 h-32 mb-6 rounded-full bg-gradient-to-br from-primary/20 to-orange-400/20 flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-2xl font-bold text-foreground mb-2">Hình ảnh sự kiện</h3>
+                        <p className="text-muted-foreground">Các khoảnh khắc đẹp từ "Nguyện ước Trăng tròn"</p>
+                      </CardContent>
+                    </Card>
+                  </div> */}
+                </div>
+              </div>
+
+              <style>{`
+                @media (max-width: 1024px) {
+                  .max-w-6xl { padding-left: 1rem; padding-right: 1rem; }
+                }
+              `}</style>
+            </div>
+          </section>
+
           <section
             className="pt-0 pb-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
             style={{
@@ -1068,123 +1183,6 @@ const Profiles = () => {
               @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
               @keyframes slideIn { from { opacity:0; transform:translateX(24px);} to { opacity:1; transform:translateX(0);} }
             `}</style>
-          </section>
-
-
-
-          {/* ===== NEW SECTION: OverSee sẻ chia (redesigned layout) ===== */}
-          <section
-            className="py-20 bg-gradient-to-br from-secondary/4 to-primary/4 bg-gradient-to-br from-secondary/5 to-primary/5"
-            style={{
-              width: "100vw",
-              position: "relative",
-              left: "50%",
-              right: "50%",
-              marginLeft: "-50vw",
-              marginRight: "-50vw",
-            }}
-          >
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="grid gap-8 lg:grid-cols-3 items-start">
-                {/* LEFT: Title + lead */}
-                <div className="lg:col-span-1 flex flex-col justify-center">
-                  <div className="bg-card/80 p-6 rounded-2xl shadow-md border border-border">
-                    <p className="text-6xl sm:text-7xl font-bold text-foreground leading-tight mb-2"><strong className="text-6xl sm:text-7xl font-bold text-orange-500 leading-tight">OverSee</strong> sẻ chia</p>
-                    <p className="text-2xl sm:text-3xl font-semibold text-primary mb-4">Nguyện ước Trăng tròn</p>
-                    <p className="text-xl sm:text-xl text-foreground/90 font-bold leading-relaxed">
-                      Với mong muốn lan tỏa giá trị giáo dục và yêu thương, OverSee đã thực hiện dự án “Nguyện ước Trăng tròn” — cung cấp hơn <span className="text-primary">1500 suất ăn trưa dinh dưỡng</span> cho trẻ em có hoàn cảnh khó khăn tại khu đô thị, bắt đầu từ huyện An Lão, Hải Phòng nhân dịp Tết Trung Thu.
-                    </p>
-                    <div className="mt-4 flex gap-3">
-                      <a href="https://www.youtube.com/watch?v=tUd5xeaHcFc" className="inline-block px-4 py-2 bg-primary text-white rounded-md text-sm font-medium">Xem video</a>
-                      <a href="https://www.facebook.com/share/p/1CNKuPH2s9/?mibextid=wwXIfr" target="_blank" rel="noreferrer noopener" className="inline-block px-4 py-2 border border-primary text-primary rounded-md text-sm font-semibold">Xem bài viết</a>
-                    </div>
-                  </div>
-                  <div className="hidden lg:block my-8">
-                    <img
-                      src={EventImage}
-                      alt="Nguyện ước Trăng tròn"
-                      className="w-full h-auto rounded-2xl shadow-2xl object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* RIGHT: Stats + bullets */}
-                <div className="lg:col-span-2 space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
-                      <div className="text-3xl font-extrabold text-primary">1500+</div>
-                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">suất ăn trưa</div>
-                    </div>
-                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
-                      <div className="text-3xl font-extrabold text-primary">42</div>
-                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tình nguyện viên</div>
-                    </div>
-                    <div className="bg-white/5 p-4 rounded-xl items-center text-center w:1/3 justify-center gap-2 border border-border flex lg: flex-row sm:flex-col">
-                      <div className="text-3xl font-extrabold text-primary">100%</div>
-                      <div className="text-md text-muted-foreground mt-1 font-bold text-black">tài trợ từ OverSee</div>
-                    </div>
-                  </div>
-
-                  <div className="bg-card/80 p-5 rounded-xl border border-border">
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
-                        <p className="text-md text-foreground font-bold">Khác với nhiều hoạt động thiện nguyện hướng về vùng cao, “Nguyện ước Trăng tròn” chọn nhìn về những đứa trẻ nơi phố thị – nơi nghèo đói đôi khi bị lãng quên giữa nhịp sống hiện đại.</p>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
-                        <p className="text-md text-foreground font-bold">Dự án được tài trợ 100% từ lợi nhuận của OverSee và thực hiện bởi đội ngũ 42 tình nguyện viên cùng đối tác địa phương.</p>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="text-primary h-5 w-5 mt-1 flex-shrink-0" />
-                        <p className="text-md text-foreground font-bold">“Nguyện ước Trăng tròn” không chỉ mang đến những bữa ăn đủ đầy, mà còn là lời nhắc về sự thấu hiểu và sẻ chia thật sự bắt đầu từ việc lắng nghe nhu cầu của cộng đồng.</p>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Video tổng quan sự kiện -> render as single card with same dimensions */}
-                  <div>
-                    <Card className="rounded-lg shadow-lg overflow-hidden">
-                      <CardHeader className="pt-4 px-5">
-                        <div className="text-2xl text-foreground font-bold">Video tổng quan sự kiện</div>
-                      </CardHeader>
-                      <CardContent className="p-0">
-                        {/* Video fills the card width to match bullets block (which uses p-5) */}
-                        <iframe
-                          className="w-full h-full aspect-video"
-                          src="https://www.youtube.com/embed/tUd5xeaHcFc"
-                          frameBorder="0"
-                          allow="autoplay; encrypted-media"
-                          allowFullScreen
-                          title="YouTube Video"
-                        ></iframe>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Default placeholder image */}
-                  {/* <div>
-                    <Card className="rounded-lg shadow-lg overflow-hidden bg-gradient-to-br from-blue-50 to-orange-50">
-                      <CardContent className="p-8 flex flex-col items-center justify-center min-h-[300px] text-center">
-                        <div className="w-32 h-32 mb-6 rounded-full bg-gradient-to-br from-primary/20 to-orange-400/20 flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </div>
-                        <h3 className="text-2xl font-bold text-foreground mb-2">Hình ảnh sự kiện</h3>
-                        <p className="text-muted-foreground">Các khoảnh khắc đẹp từ "Nguyện ước Trăng tròn"</p>
-                      </CardContent>
-                    </Card>
-                  </div> */}
-                </div>
-              </div>
-
-              <style>{`
-                @media (max-width: 1024px) {
-                  .max-w-6xl { padding-left: 1rem; padding-right: 1rem; }
-                }
-              `}</style>
-            </div>
           </section>
 
         </div>
