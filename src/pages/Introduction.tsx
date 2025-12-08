@@ -69,13 +69,13 @@ const Introduction = () => {
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
           <div className="max-w-[800px] space-y-0">
-            <div className="space-y-4 md:space-y-6 translate-y-[9%] w-4/5">
+            <div className="space-y-4 md:space-y-6 translate-y-[0%] w-4/5">
               {/* Main Heading */}
               <div className="space-y-1.75">
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
+                <h1 className="text-[2.3rem] md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-yellow">Đồng hành vững vàng</span>
                 </h1>
-                <h1 className="text-5xl md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
+                <h1 className="text-[2.3rem] md:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
                   <span className="text-hero-title-blue">Học tập nhẹ nhàng</span>
                 </h1>
               </div>
@@ -109,7 +109,7 @@ const Introduction = () => {
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="h-7 w-7 text-hero-bg-orange flex-shrink-0 mt-0.5 fill-hero-bg-orange stroke-white" />
                     <p className="text-base md:text-lg" style={{ color: '#000000' }}>
-                      <span className="font-bold">Phương pháp " Học đúng – Không học nhiều":</span> vững kỹ năng, bền tư duy, mạnh nội lực
+                      <span className="font-bold">Phương pháp " Học đúng – Không học nhiều"</span> vững kỹ năng, bền tư duy, mạnh nội lực
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
