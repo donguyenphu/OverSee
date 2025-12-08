@@ -69,7 +69,7 @@ const Introduction = () => {
         {/* Content */}
         <div className="container mx-auto px-6 md:px-12 relative md:translate-x-[-5%]">
           <div className="max-w-[800px] space-y-0">
-            <div className="space-y-4 md:space-y-6 translate-y-[4%] w-4/5">
+            <div className="space-y-4 md:space-y-6 translate-y-[7%] w-4/5">
               {/* Main Heading */}
               <div className="space-y-1.75">
                 <h1 className="text-[1.75rem] lg:text-6xl font-bold leading-tight" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5)' }}>
