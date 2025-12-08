@@ -807,161 +807,7 @@ const Profiles = () => {
             </div>
           </section>
 
-          <section
-            className="pt-0 pb-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
-            style={{
-              width: "100vw",
-              position: "relative",
-              left: "50%",
-              right: "50%",
-              marginLeft: "-50vw",
-              marginRight: "-50vw",
-            }}
-          >
-            <div className="container mx-auto px-4 py-20">
-              <div className="text-center mb-16">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
-                  <span className="text-primary">Mentor OverSee</span> có gì đặc biệt?
-                </h1>
-                {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
-                </p> */}
-              </div>
-              {/* Responsive feature cards: keep sm/md; enhance lg with balanced heights */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:auto-rows-fr">
-                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
-                  <CardContent className="pt-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <BookOpen className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Kiến thức chuyên môn</h3>
-                    <p className="text-muted-foreground">
-                      Là <strong className="customIntroductionBold">học sinh – sinh viên xuất sắc</strong>, có tư duy học tập hiệu quả và tinh thần chia sẻ.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
-                  <CardContent className="pt-6">
-                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
-                      <Users className="h-6 w-6 text-secondary" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Khuyến khích tự học</h3>
-                    <p className="text-muted-foreground">
-                      Không “dạy thay” mà <strong className="customIntroductionBold">gợi mở tư duy</strong>, giúp học viên tự học, tự tiến bộ.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
-                  <CardContent className="pt-6">
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Award className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Quan tâm học sinh</h3>
-                    <p className="text-muted-foreground">
-                      <strong className="customIntroductionBold">Theo sát hành trình học</strong>, định hướng lộ trình, cân bằng giữa học và cuộc sống.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
-                  <CardContent className="pt-6">
-                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
-                      <GraduationCap className="h-6 w-6 text-secondary" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Kỹ năng đầy đủ</h3>
-                    <p className="text-muted-foreground">
-                      Được đào tạo bài bản về <strong className="customIntroductionBold">kỹ năng sư phạm, coaching và mentoring</strong> trước khi đồng hành cùng học viên.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </section>
-          <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-20 md:pt-16">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
-              Hồ sơ các Mentor tiêu biểu của chúng tôi
-            </h1>
-            {/* <p className="text-base sm:text-lg text-muted-foreground">
-              Nhấn để xem thêm
-            </p> */}
-          </div>
-
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pb-20 md:pb-16">
-            {sampleProfiles.map((profile) => (
-              <Card key={profile.id} className="shadow-lg hover:shadow-xl transition-shadow aspect-square relative">
-                <CardHeader className="cursor-pointer h-full p-6" onClick={() => toggleProfile(profile.id)}>
-                  <div className="relative h-full flex flex-col">
-                    {/* Top row with large icon left and smaller icons right */}
-                    <div className="flex items-start justify-between mb-auto h-[70%]">
-                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary">
-                        <User className="h-10 w-10 text-primary" />
-                      </div>
-                      <div className="p-2 rounded-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 w-full aspect-square">
-                        <img src={profile.mentor} alt={profile.name} className="rounded-full w-full h-full object-cover" />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center border-2 border-secondary">
-                          <GraduationCap className="h-6 w-6 text-secondary" />
-                        </div>
-                        <Button variant="ghost" size="icon" className="w-8 h-8">
-                          {expandedProfiles.includes(profile.id) ? (
-                            <ChevronUp className="h-5 w-5" />
-                          ) : (
-                            <ChevronDown className="h-5 w-5" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Bottom area with name and target icon */}
-                    <div className="flex items-end justify-between">
-                      <CardTitle className="text-2xl text-foreground">
-                        {profile.name}
-                      </CardTitle>
-                      <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border-2 border-accent">
-                        <Target className="h-5 w-5 text-accent" />
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                {expandedProfiles.includes(profile.id) && (
-                  <div className="p-3 absolute inset-0 bg-card z-10 rounded-lg animate-fade-in overflow-auto">
-                    <CardContent className="space-y-4 p-6 h-full">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-xl font-bold text-foreground">{profile.name}</h3>
-                        <Button variant="ghost" size="icon" onClick={() => toggleProfile(profile.id)}>
-                          <ChevronUp className="h-6 w-6" />
-                        </Button>
-                      </div>
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <School className="h-10 w-10 flex-shrink-0" />
-                          <span className="text-lg lg:text-md xl:text-sm font-bold">
-                            {profile.expertise}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <Workflow className="h-10 w-10 flex-shrink-0" />
-                          <span className="text-lg lg:text-md xl:text-sm font-bold">
-                            {profile.experience}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="border-t pt-3 space-y-3">
-                        <div>
-                          <h4 className="font-semibold text-foreground mb-1 text-xl">Châm ngôn:</h4>
-                          <div className="items-center justify-center h-full">
-                            <p className="text-muted-foreground text-2xl font-bold italic text-center h-full text-orange-500 whitespace-pre-line">{profile.goals}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </div>
-                )}
-              </Card>
-            ))}
-          </div>
-
+          {/* ===== NEW SECTION: Học sinh OverSee có gì đặc biệt ===== */}
           <section
             className="py-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
             style={{
@@ -1184,6 +1030,163 @@ const Profiles = () => {
               @keyframes slideIn { from { opacity:0; transform:translateX(24px);} to { opacity:1; transform:translateX(0);} }
             `}</style>
           </section>
+
+
+          {/* Mentor OverSee có gì đặc biệt */}
+          <section
+            className="pt-0 pb-20 w-full bg-gradient-to-br from-secondary/5 to-primary/5"
+            style={{
+              width: "100vw",
+              position: "relative",
+              left: "50%",
+              right: "50%",
+              marginLeft: "-50vw",
+              marginRight: "-50vw",
+            }}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <div className="text-center mb-16">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+                  <span className="text-primary">Mentor OverSee</span> có gì đặc biệt?
+                </h1>
+                {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Đừng lo, bạn chỉ là 1 phần nhỏ trong những trường hợp dưới đây
+                </p> */}
+              </div>
+              {/* Responsive feature cards: keep sm/md; enhance lg with balanced heights */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:auto-rows-fr">
+                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
+                  <CardContent className="pt-6">
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <BookOpen className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Kiến thức chuyên môn</h3>
+                    <p className="text-muted-foreground">
+                      Là <strong className="customIntroductionBold">học sinh – sinh viên xuất sắc</strong>, có tư duy học tập hiệu quả và tinh thần chia sẻ.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
+                  <CardContent className="pt-6">
+                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                      <Users className="h-6 w-6 text-secondary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Khuyến khích tự học</h3>
+                    <p className="text-muted-foreground">
+                      Không “dạy thay” mà <strong className="customIntroductionBold">gợi mở tư duy</strong>, giúp học viên tự học, tự tiến bộ.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
+                  <CardContent className="pt-6">
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <Award className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Quan tâm học sinh</h3>
+                    <p className="text-muted-foreground">
+                      <strong className="customIntroductionBold">Theo sát hành trình học</strong>, định hướng lộ trình, cân bằng giữa học và cuộc sống.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full">
+                  <CardContent className="pt-6">
+                    <div className="h-12 w-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                      <GraduationCap className="h-6 w-6 text-secondary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Kỹ năng đầy đủ</h3>
+                    <p className="text-muted-foreground">
+                      Được đào tạo bài bản về <strong className="customIntroductionBold">kỹ năng sư phạm, coaching và mentoring</strong> trước khi đồng hành cùng học viên.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-20 md:pt-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+              Hồ sơ các Mentor tiêu biểu của chúng tôi
+            </h1>
+            {/* <p className="text-base sm:text-lg text-muted-foreground">
+              Nhấn để xem thêm
+            </p> */}
+          </div>
+
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pb-20 md:pb-16">
+            {sampleProfiles.map((profile) => (
+              <Card key={profile.id} className="shadow-lg hover:shadow-xl transition-shadow aspect-square relative">
+                <CardHeader className="cursor-pointer h-full p-6" onClick={() => toggleProfile(profile.id)}>
+                  <div className="relative h-full flex flex-col">
+                    {/* Top row with large icon left and smaller icons right */}
+                    <div className="flex items-start justify-between mb-auto h-[70%]">
+                      <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary">
+                        <User className="h-10 w-10 text-primary" />
+                      </div>
+                      <div className="p-2 rounded-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 w-full aspect-square">
+                        <img src={profile.mentor} alt={profile.name} className="rounded-full w-full h-full object-cover" />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center border-2 border-secondary">
+                          <GraduationCap className="h-6 w-6 text-secondary" />
+                        </div>
+                        <Button variant="ghost" size="icon" className="w-8 h-8">
+                          {expandedProfiles.includes(profile.id) ? (
+                            <ChevronUp className="h-5 w-5" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5" />
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* Bottom area with name and target icon */}
+                    <div className="flex items-end justify-between">
+                      <CardTitle className="text-2xl text-foreground">
+                        {profile.name}
+                      </CardTitle>
+                      <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border-2 border-accent">
+                        <Target className="h-5 w-5 text-accent" />
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                {expandedProfiles.includes(profile.id) && (
+                  <div className="p-3 absolute inset-0 bg-card z-10 rounded-lg animate-fade-in overflow-auto">
+                    <CardContent className="space-y-4 p-6 h-full">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-xl font-bold text-foreground">{profile.name}</h3>
+                        <Button variant="ghost" size="icon" onClick={() => toggleProfile(profile.id)}>
+                          <ChevronUp className="h-6 w-6" />
+                        </Button>
+                      </div>
+                      <div className="space-y-6">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <School className="h-10 w-10 flex-shrink-0" />
+                          <span className="text-lg lg:text-md xl:text-sm font-bold">
+                            {profile.expertise}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Workflow className="h-10 w-10 flex-shrink-0" />
+                          <span className="text-lg lg:text-md xl:text-sm font-bold">
+                            {profile.experience}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="border-t pt-3 space-y-3">
+                        <div>
+                          <h4 className="font-semibold text-foreground mb-1 text-xl">Châm ngôn:</h4>
+                          <div className="items-center justify-center h-full">
+                            <p className="text-muted-foreground text-2xl font-bold italic text-center h-full text-orange-500 whitespace-pre-line">{profile.goals}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </div>
+                )}
+              </Card>
+            ))}
+          </div>
 
         </div>
       </main>
