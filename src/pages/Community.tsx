@@ -20,6 +20,8 @@ import s5 from '@/assets/s5.png';
 import s6 from '@/assets/s6.png';
 import s7 from '@/assets/s7.png';
 import s8 from '@/assets/s8.png';
+import s9 from '@/assets/s9.jpg';
+import s10 from '@/assets/s10.jpg';
 import defaultProfileImage from '@/assets/defaultProfileImage.jpg';
 
 interface Profile {
