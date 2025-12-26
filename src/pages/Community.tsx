@@ -23,6 +23,18 @@ import s8 from '@/assets/s8.png';
 import s9 from '@/assets/s9.jpg';
 import s10 from '@/assets/s10.jpg';
 import defaultProfileImage from '@/assets/defaultProfileImage.jpg';
+import t1 from '@/assets/t1.jpg';
+import t2 from '@/assets/t2.jpg';
+import t3 from '@/assets/t3.jpg';
+import t4 from '@/assets/t4.jpg';
+import t5 from '@/assets/t5.jpg';
+import t6 from '@/assets/t6.jpg';
+import t7 from '@/assets/t7.jpg';
+import t8 from '@/assets/t8.jpg';
+import t9 from '@/assets/t9.jpg';
+import t10 from '@/assets/t10.jpg';
+import t11 from '@/assets/t11.jpg';
+import t12 from '@/assets/t12.jpg';
 
 interface Profile {
   id: number;
@@ -57,7 +69,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“One step at a time”",
-    mentor: defaultProfileImage
+    mentor: t1
   },
   // 2 (ok) Nguyễn Hoàng Nam
   {
@@ -81,7 +93,7 @@ const sampleProfiles: Profile[] = [
       `“If you never bleed,
         you're never gonna grow”`
     ),
-    mentor: defaultProfileImage
+    mentor: t2
   },
   // 3 (ok) Nguyễn Hữu Nam
   {
@@ -106,7 +118,7 @@ const sampleProfiles: Profile[] = [
       `“Không có việc gì khó
         Chỉ sợ lòng không bền”`
     ),
-    mentor: defaultProfileImage
+    mentor: t4
   },
   // 4 (ok) Nguyễn Nhật Nam
   {
@@ -127,7 +139,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“You only live once”",
-    mentor: defaultProfileImage
+    mentor: t7
   },
   // 5 (ok) Nguyễn Minh An
   {
@@ -150,7 +162,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Push your limits, not your stress.”",
-    mentor: defaultProfileImage
+    mentor: t3
   },
   // 6 (ok) Trần Phương Linh
   {
@@ -171,7 +183,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Consistency beats intensity”",
-    mentor: defaultProfileImage
+    mentor: t6
   },
   // 7 (ok) Phạm Thu Uyên
   {
@@ -191,7 +203,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Viết bằng trái tim, suy nghĩ bằng lý trí”",
-    mentor: defaultProfileImage
+    mentor: t5
   },
   // 8 (ok) Nguyễn Đức Thiện
   {
@@ -211,7 +223,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Mathematics is the music of reason”",
-    mentor: defaultProfileImage
+    mentor: t4
   },
   // 9 (ok) Bùi Thanh Hà
   {
@@ -230,7 +242,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Học không chơi đánh rơi tuổi trẻ, chơi không học bán rẻ tương lai”",
-    mentor: defaultProfileImage
+    mentor: t4
   },
   // 10 (ok) Lê Hải Đăng
   {
@@ -250,7 +262,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Small reactions make big changes”",
-    mentor: defaultProfileImage
+    mentor: t10
   },
   // 11 (ok) Đoàn Mỹ Ngọc
   {
@@ -269,7 +281,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Hãy nói để tự tin”",
-    mentor: defaultProfileImage
+    mentor: t10
   },
   // 12 (ok) Vũ Hữu Toàn
   {
@@ -288,7 +300,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Code hard, think harder”",
-    mentor: defaultProfileImage
+    mentor: t12
   },
   // 13 (ok) Nguyễn Thảo Trâm
   {
@@ -308,7 +320,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Mỗi tế bào đều có câu chuyện riêng của nó”",
-    mentor: defaultProfileImage
+    mentor: t11
   },
   // 14 (ok) Mai Trọng Khôi
   {
@@ -327,7 +339,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Understand the world to understand yourself”",
-    mentor: defaultProfileImage
+    mentor: t8
   },
   // 15 (ok) Hoàng Lan Chi
   {
@@ -346,7 +358,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Sử - người kể quá khứ”",
-    mentor: defaultProfileImage
+    mentor: t9
   },
   // 16 (ok) Nguyễn Bảo Lâm
   {
@@ -366,7 +378,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Precision creates excellence”",
-    mentor: defaultProfileImage
+    mentor: t9
   },
   // 17 (ok) Phạm Yến Nhi
   {
@@ -385,7 +397,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Hóa học là nghệ thuật của sự thay đổi”",
-    mentor: defaultProfileImage
+    mentor: t9
   },
   // 18 (ok) Vũ Tùng Sơn
   {
@@ -404,7 +416,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Think deeper than the formula”",
-    mentor: defaultProfileImage
+    mentor: t12
   },
   // 19 (ok) Hoàng Bảo Ngân
   {
@@ -423,7 +435,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Câu chuyện của bạn rất quan trọng.”",
-    mentor: defaultProfileImage
+    mentor: t2
   },
   // 20 (ok) Trịnh Minh Khang
   {
@@ -442,7 +454,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Algorithms shape the future”",
-    mentor: defaultProfileImage
+    mentor: t4
   },
   // 21 (ok) Nguyễn Thuỳ Anh
   {
@@ -461,7 +473,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Your voice is your power”",
-    mentor: defaultProfileImage
+    mentor: t1
   },
   // 22 (ok) Lâm Nhật Huy
   {
@@ -480,7 +492,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Nắm vững cơ bản, chinh phục đỉnh cao”",
-    mentor: defaultProfileImage
+    mentor: t8
   },
   // 23 (ok) Võ Gia Hân
   {
@@ -499,7 +511,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Curiosity drives discovery”",
-    mentor: defaultProfileImage
+    mentor: t10
   },
   // 24 (ok) Trần Khánh Long
   {
@@ -517,7 +529,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Hãy tạo ra những gì bạn cảm nhận”",
-    mentor: defaultProfileImage
+    mentor: t3
   },
   // 25 (ok) Đinh Hải Yên
   {
@@ -535,7 +547,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Reason with clarity, write with soul”",
-    mentor: defaultProfileImage
+    mentor: t3
   },
   // 26 (ok) Nguyễn Công Duy
   {
@@ -554,7 +566,7 @@ const sampleProfiles: Profile[] = [
       </ul>
     ),
     goals: "“Học hôm nay, dẫn đầu ngày mai”",
-    mentor: defaultProfileImage
+    mentor: t5
   },
 ];
 
