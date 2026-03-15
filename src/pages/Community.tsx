@@ -1282,7 +1282,7 @@ const Profiles = () => {
                     <div className="flex items-end justify-between">
                       <div>
                           <CardTitle className="text-4xl font-semibold tracking-tight bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent antialiased">
-                            Cố vấn
+                            Mentor
                           </CardTitle>
                           <CardTitle className="text-[22px] text-foreground">
                             {profile.name}
