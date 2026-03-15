@@ -45,6 +45,28 @@ interface Profile {
   mentor: string;
 }
 
+interface MentorProfile {
+  id: number;
+  name: string;
+  expertise: JSX.Element;
+  mentor: string;
+}
+
+const mentorProfiles: MentorProfile[] = [
+  {
+    id: 1,
+    name: "Nguyễn Hương Giang",
+    expertise: (
+      <ul className="leading-normal list-disc pl-5 text-black">
+        <li>- Học bổng toàn phần Tiến sĩ tại National Singapore University (NUS)</li>
+        <li>- Trợ lý Nghiên cứu tại Asian Development Bank</li>
+        <li>- Top 1% sinh viên Đại học Ngoại Thương</li>
+      </ul>
+    ),
+    mentor: t1
+  }
+];
+
 const sampleProfiles: Profile[] = [
   // 1 (ok) Lê Hoàng Kim Khánh
   {
