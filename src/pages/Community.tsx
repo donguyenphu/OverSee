@@ -35,6 +35,15 @@ import t9 from '@/assets/t9.jpg';
 import t10 from '@/assets/t10.jpg';
 import t11 from '@/assets/t11.jpg';
 import t12 from '@/assets/t12.jpg';
+import m1 from '@/assets/mentor/m1.png';
+import m2 from '@/assets/mentor/m2.png';
+import m3 from '@/assets/mentor/m3.png';
+import m4 from '@/assets/mentor/m4.png';
+import m5 from '@/assets/mentor/m5.png';
+import m6 from '@/assets/mentor/m6.png';
+import m7 from '@/assets/mentor/m7.png';
+import m8 from '@/assets/mentor/m8.png';
+import m9 from '@/assets/mentor/m9.png';
 
 interface Profile {
   id: number;
@@ -57,13 +66,106 @@ const mentorProfiles: MentorProfile[] = [
     id: 1,
     name: "Nguyễn Hương Giang",
     expertise: (
-      <ul className="leading-normal list-disc pl-5 text-black">
-        <li>- Học bổng toàn phần Tiến sĩ tại National Singapore University (NUS)</li>
-        <li>- Trợ lý Nghiên cứu tại Asian Development Bank</li>
-        <li>- Top 1% sinh viên Đại học Ngoại Thương</li>
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Học bổng toàn phần Tiến sĩ tại National University of Singapore (NUS)</li>
+        <li>Trợ lý Nghiên cứu tại Asian Development Bank</li>
+        <li>Top 1% sinh viên Đại học Ngoại Thương</li>
       </ul>
     ),
-    mentor: t1
+    mentor: m1
+  },
+  {
+    id: 2,
+    name: "Nizhen Bang",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Thạc sĩ Economics (MPhil) tại University of Cambridge với danh hiệu Summa Cum Laude</li>
+        <li>Học bổng toàn phần Tiến sĩ tại National University of Singapore (NUS)</li>
+      </ul>
+    ),
+    mentor: m2
+  },
+  {
+    id: 3,
+    name: "Lê Minh Đạo",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Founder, CEO tại topmba.consulting</li>
+        <li>Trợ lý Nghiên cứu tại Asian Development Bank</li>
+        <li>Thạc sĩ Quản trị Kinh doanh (MBA) tại Ivey Business School - Western University</li>
+      </ul>
+    ),
+    mentor: m3
+  },
+  {
+    id: 4,
+    name: "Nguyễn Mạnh Hùng",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Thạc sĩ Entrepreneurship tại University of Cambridge</li>
+        <li>Trưởng phòng Đào tạo tại FTU Innovation and Incubation Space</li>
+      </ul>
+    ),
+    mentor: m4
+  },
+  {
+    id: 5,
+    name: "Tùng Phạm",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Thạc sĩ Quản trị Kinh doanh (MBA) tại Yale School of Management</li>
+        <li>Giám đốc Phát triển Kinh doanh tại One Mount</li>
+        <li>Từng làm Tư vấn Chiến lược tại IBM</li>
+      </ul>
+    ),
+    mentor: m5
+  },
+  {
+    id: 6,
+    name: "Nga Lê",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Thạc sĩ Quản trị Kinh doanh (MBA) tại Berkeley Haas School of Business</li>
+        <li>Giám đốc Vận hành tại Liên đoàn Bóng rổ Việt Nam</li>
+        <li>Từng làm Quản lý Sản phẩm tại Amazon</li>
+      </ul>
+    ),
+    mentor: m6
+  },
+  {
+    id: 7,
+    name: "Đinh Quang Duy",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Học bổng toàn phần Tiến sĩ tại National Singapore University (NUS)</li>
+        <li>Học bổng toàn phần Thạc sĩ Nghiên cứu tại Sungkyunkwan University</li>
+      </ul>
+    ),
+    mentor: m7
+  },
+  {
+    id: 8,
+    name: "Đặng Thị Hà Chi",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Thạc sĩ Kinh tế tại University of Bristol</li>
+        <li>Học bổng Exeter Excellence Scholarship</li>
+        <li>Học bổng Think Big Scholarship</li>
+      </ul>
+    ),
+    mentor: m8
+  },
+  {
+    id: 9,
+    name: "Ngô Nguyễn Bảo Ngọc",
+    expertise: (
+      <ul className="list-disc pl-5 leading-relaxed text-gray-800 text-lg">
+        <li>Giảng viên Kinh tế tại Maastricht University</li>
+        <li>Học bổng thạc sĩ 100% tại Maastricht University</li>
+        <li>Thực tập sinh Business Analyst tại PwC</li>
+      </ul>
+    ),
+    mentor: m9
   }
 ];
 
@@ -1150,7 +1252,7 @@ const Profiles = () => {
           </div>
 
           <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 pb-20 md:pb-16">
-            {sampleProfiles.map((profile) => (
+            {mentorProfiles.map((profile) => (
               <Card key={profile.id} className="shadow-lg hover:shadow-xl transition-shadow aspect-square relative">
                 <CardHeader className="cursor-pointer h-full p-6" onClick={() => toggleProfile(profile.id)}>
                   <div className="relative h-full flex flex-col">
@@ -1159,7 +1261,7 @@ const Profiles = () => {
                       <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary">
                         <User className="h-10 w-10 text-primary" />
                       </div>
-                      <div className="p-2 rounded-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 w-full aspect-square">
+                      <div className="p-1 rounded-full bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 w-full aspect-square">
                         <img src={profile.mentor} alt={profile.name} className="rounded-full w-full h-full object-cover" />
                       </div>
                       <div className="flex flex-col gap-2">
@@ -1178,9 +1280,14 @@ const Profiles = () => {
 
                     {/* Bottom area with name and target icon */}
                     <div className="flex items-end justify-between">
-                      <CardTitle className="text-2xl text-foreground">
-                        {profile.name}
-                      </CardTitle>
+                      <div>
+                          <CardTitle className="text-4xl font-semibold tracking-tight bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent antialiased">
+                            Cố vấn
+                          </CardTitle>
+                          <CardTitle className="text-[22px] text-foreground">
+                            {profile.name}
+                          </CardTitle>
+                      </div>
                       <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border-2 border-accent">
                         <Target className="h-5 w-5 text-accent" />
                       </div>
@@ -1192,7 +1299,7 @@ const Profiles = () => {
                   <div className="p-3 absolute inset-0 bg-card z-10 rounded-lg animate-fade-in overflow-auto">
                     <CardContent className="space-y-4 p-6 h-full">
                       <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-xl font-bold text-foreground">{profile.name}</h3>
+                        <h3 className="text-2xl font-bold text-foreground">{profile.name}</h3>
                         <Button variant="ghost" size="icon" onClick={() => toggleProfile(profile.id)}>
                           <ChevronUp className="h-6 w-6" />
                         </Button>
@@ -1204,21 +1311,15 @@ const Profiles = () => {
                             {profile.expertise}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <Workflow className="h-10 w-10 flex-shrink-0" />
-                          <span className="text-lg lg:text-md xl:text-sm font-bold">
-                            {profile.experience}
-                          </span>
-                        </div>
                       </div>
-                      <div className="border-t pt-3 space-y-3">
+                      {/* <div className="border-t pt-3 space-y-3">
                         <div>
                           <h4 className="font-semibold text-foreground mb-1 text-xl">Châm ngôn:</h4>
                           <div className="items-center justify-center h-full">
                             <p className="text-muted-foreground text-2xl font-bold italic text-center h-full text-orange-500 whitespace-pre-line">{profile.goals}</p>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </CardContent>
                   </div>
                 )}
