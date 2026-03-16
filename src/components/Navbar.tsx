@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Logo from '@/assets/Logo_OverSee.png'
 
 const Navbar = () => {
@@ -14,8 +20,7 @@ const Navbar = () => {
     { to: "/", label: "Giới thiệu" },
     { to: "/cong-dong-oversee", label: "Cộng đồng OverSee" },
     { to: "/dang-ky", label: "Đăng ký" },
-    { to: "/tuyen-dung", label: "Tuyển dụng" },
-    { to: "/thi-thu", label: "Thi thử"}
+    { to: "/tuyen-dung", label: "Tuyển dụng" }
   ];
   
   return (
@@ -43,6 +48,25 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={`transition-colors flex items-center ${
+                    location.pathname.startsWith("/thi-thu")
+                      ? "text-white font-semibold bg-blue-500 px-3 py-2 rounded-md"
+                      : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                  }`}
+                >
+                  Thi thử <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link to="/thi-thu/ielts">IELTS</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile Menu Button */}
@@ -73,6 +97,16 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="py-2 px-4">
+              <div className="font-semibold text-foreground">Thi thử</div>
+              <Link
+                to="/thi-thu/ielts"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-1 px-4 rounded-md transition-colors text-foreground hover:bg-accent"
+              >
+                IELTS
+              </Link>
+            </div>
           </div>
         )}
       </div>

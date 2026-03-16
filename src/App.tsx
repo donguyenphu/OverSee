@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Recruitment from "./pages/Recruitment";
 import Test from "./pages/Test";
+import MockTest from "./pages/MockTest";
+import IELTSMockTest from "./components/IELTSMockTest";
 import Preloader from "./components/Preloader";
 import ZoomControl from "./components/ZoomControl";
 
@@ -30,7 +32,8 @@ const App = () => (
           <Route path="/cong-dong-oversee" element={<Community />} />
           <Route path="/dang-ky" element={<Register />} />
           <Route path="/tuyen-dung" element={<Recruitment />} />
-          <Route path="/thi-thu" element={<Test />} />
+          <Route path="/thi-thu" element={<MockTest />} />
+          <Route path="/thi-thu/ielts" element={<IELTSMockTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
