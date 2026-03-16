@@ -15,6 +15,7 @@ const Navbar = () => {
     { to: "/cong-dong-oversee", label: "Cộng đồng OverSee" },
     { to: "/dang-ky", label: "Đăng ký" },
     { to: "/tuyen-dung", label: "Tuyển dụng" },
+    { to: "/thi-thu", label: "Thi thử"}
   ];
   
   return (

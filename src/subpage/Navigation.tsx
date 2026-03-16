@@ -50,6 +50,15 @@ const Navigation = () => {
                             Tuyển dụng
                         </Link>
                     </div>
+                    {/* Mock Test */}
+                    <div className={`transition-colors ${isActive("/thi-thu")
+                                ? "text-white font-semibold bg-blue-500 px-3 p-2 rounded-md"
+                                : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
+                                }`}>
+                        <Link to="/thi-thu">
+                            Thi thử
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>

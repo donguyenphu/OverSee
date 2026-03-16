@@ -10,6 +10,7 @@ import Introduction from "./pages/Introduction";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import Recruitment from "./pages/Recruitment";
+import Test from "./pages/Test";
 import Preloader from "./components/Preloader";
 import ZoomControl from "./components/ZoomControl";
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/cong-dong-oversee" element={<Community />} />
           <Route path="/dang-ky" element={<Register />} />
           <Route path="/tuyen-dung" element={<Recruitment />} />
+          <Route path="/thi-thu" element={<Test />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
