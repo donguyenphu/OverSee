@@ -9,8 +9,10 @@ const MockTest = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-10 flex-grow">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-8">Thi thử</h1>
-          <p className="text-lg text-muted-foreground mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Thi thử
+          </h1>
+          <p className="text-base md:text-lg text-muted-foreground mb-8">
             Chọn loại bài thi thử bạn muốn tham gia.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

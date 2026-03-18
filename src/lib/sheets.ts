@@ -112,6 +112,28 @@ export async function addToMockTested(email: string): Promise<AppendResult> {
   return appendViaApi(sheetId, [email]);
 }
 
+export interface MockTestResult {
+  email: string;
+  listeningScores: string; // Format: "Section 1: 8/10, Section 2: 9/10, etc"
+  readingScores: string;   // Format: "Section 1: 13/13, Section 2: 12/13, Section 3: 14/14"
+  writingResult: string;   // Tasks separated by double newline
+}
+
+export async function submitMockTestResults(data: MockTestResult): Promise<AppendResult> {
+  const sheetId = import.meta.env.VITE_MOCK_TESTED_SHEET_ID;
+  if (!sheetId) return { ok: false, message: 'Thiếu VITE_MOCK_TESTED_SHEET_ID' };
+
+  const values = [
+    data.email,
+    data.listeningScores,
+    data.readingScores,
+    data.writingResult,
+    new Date().toISOString()
+  ];
+
+  return appendViaApi(sheetId, values);
+}
+
 export async function appendStudent(category: string, data: RowData): Promise<AppendResult> {
   const studentWebapp = import.meta.env.VITE_STUDENT_WEBAPP_URL;
   if (!studentWebapp) {

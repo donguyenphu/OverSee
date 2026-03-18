@@ -959,7 +959,7 @@ const Profiles = () => {
           >
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
                   <span className="text-primary">Học sinh OverSee</span> có gì đặc biệt?
                 </h1>
                 {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -1186,7 +1186,7 @@ const Profiles = () => {
           >
             <div className="container mx-auto px-4 py-20">
               <div className="text-center mb-16">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
                   <span className="text-primary">Mentor OverSee</span> có gì đặc biệt?
                 </h1>
                 {/* <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -1243,7 +1243,7 @@ const Profiles = () => {
             </div>
           </section>
           <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-20 md:pt-16">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3 md:mb-4">
               Hồ sơ các Mentor tiêu biểu của chúng tôi
             </h1>
             {/* <p className="text-base sm:text-lg text-muted-foreground">

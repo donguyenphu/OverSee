@@ -1,175 +1,261 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/subpage/Footer";
-import { checkMockTestEligibility, addToMockTested } from "@/lib/sheets";
+import { checkMockTestEligibility } from "@/lib/sheets";
+import { toast } from "sonner";
+import Listening, { ListeningResults } from "@/components/test/Listening";
+import Reading, { ReadingResults } from "@/components/test/Reading";
+import Writing, { WritingResults } from "@/components/test/Writing";
+import Results from "@/components/test/Results";
 
 const IELTSMockTest = () => {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"email" | "code" | "listening" | "reading" | "writing" | "results">("email");
   const [error, setError] = useState("");
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: string]: string }>({});
-  const [results, setResults] = useState<{ listening?: number; reading?: number }>({});
+  const [userEmail, setUserEmail] = useState("");
+  const [listeningAnswers, setListeningAnswers] = useState<{ [key: number]: string }>({});
+  const [readingAnswers, setReadingAnswers] = useState<{ [key: number]: string }>({});
+  const [writingTask1, setWritingTask1] = useState("");
+  const [writingTask2, setWritingTask2] = useState("");
 
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (step === "listening" || step === "reading") {
-      handleSectionSubmit();
-    }
-  }, [timeLeft, step]);
-
-  const startSection = (section: "listening" | "reading" | "writing") => {
-    setStep(section);
-    if (section === "listening") setTimeLeft(30 * 60); // 30 minutes
-    else if (section === "reading") setTimeLeft(60 * 60); // 60 minutes
-    // Writing has no time limit
-  };
-
-  const handleSectionSubmit = async () => {
-    if (step === "listening") {
-      // Calculate listening score
-      const listeningScore = Math.floor(Math.random() * 9) + 1; // Placeholder
-      setResults(prev => ({ ...prev, listening: listeningScore }));
-      startSection("reading");
-    } else if (step === "reading") {
-      // Calculate reading score
-      const readingScore = Math.floor(Math.random() * 9) + 1; // Placeholder
-      setResults(prev => ({ ...prev, reading: readingScore }));
-      startSection("writing");
-    } else if (step === "writing") {
-      // Submit to Google Sheets
-      await addToMockTested(email);
-      // Send email with writing - TODO: implement email sending
-      setStep("results");
-    }
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+    if (!email.trim()) {
+      setError("Vui lòng nhập email");
+      toast.error("Email không được để trống");
+      return;
+    }
+
     if (!validateEmail(email)) {
       setError("Định dạng email không phù hợp");
+      toast.error("Email không hợp lệ");
       return;
     }
 
-    const result = await checkMockTestEligibility(email);
-    if (!result.eligible) {
-      setError(result.message);
-      return;
-    }
+    try {
+      const result = await checkMockTestEligibility(email);
+      if (!result.eligible) {
+        setError(result.message);
+        toast.error(result.message);
+        return;
+      }
 
-    setStep("code");
+      setUserEmail(email);
+      setStep("code");
+      toast.success("Email đã được xác nhận");
+    } catch (err) {
+      setError("Lỗi kiểm tra email");
+      toast.error("Lỗi kiểm tra email");
+    }
   };
 
   const handleCodeSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+
+    if (!code.trim()) {
+      setError("Vui lòng nhập mã code");
+      toast.error("Mã code không được để trống");
+      return;
+    }
+
     if (code === "OverSeechucemhoctot") {
-      setStep("test");
+      setStep("listening");
+      toast.success("Mã code đúng! Bắt đầu thi thử");
     } else {
       setError("Mã code không hợp lệ");
+      toast.error("Mã code không chính xác");
     }
+  };
+
+  const handleListeningComplete = (results: ListeningResults) => {
+    setListeningAnswers(results.answers);
+    setStep("reading");
+    toast.success("Hoàn thành Listening! Bắt đầu Reading");
+  };
+
+  const handleReadingComplete = (results: ReadingResults) => {
+    setReadingAnswers(results.answers);
+    setStep("writing");
+    toast.success("Hoàn thành Reading! Bắt đầu Writing");
+  };
+
+  const handleWritingComplete = (results: WritingResults) => {
+    setWritingTask1(results.task1);
+    setWritingTask2(results.task2);
+    setStep("results");
+    toast.success("Hoàn thành Writing! Xem kết quả");
+  };
+
+  const handleBackToHome = () => {
+    window.location.href = "/";
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <div className="container mx-auto px-4 py-10 flex-grow">
-        <div className="max-w-md mx-auto">
-          {step === "email" && (
-            <form onSubmit={handleEmailSubmit} className="space-y-4">
-              <h1 className="text-2xl font-bold text-center">Thi thử IELTS</h1>
-              <div>
-                <Label htmlFor="email">Email của bạn</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Nhập email"
-                  required
-                />
+        {/* Email Verification */}
+        {step === "email" && (
+          <div className="max-w-md mx-auto">
+            <form onSubmit={handleEmailSubmit} className="space-y-6">
+              <div className="text-center mb-8">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
+                  Thi thử IELTS
+                </h1>
+                <p className="text-base md:text-lg text-muted-foreground mb-2">
+                  Bài thi Mock độc lập, chính thức
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Thử nghiệm kỹ năng của bạn trong điều kiện thi thực
+                </p>
               </div>
-              <Button type="submit" className="w-full">Xác nhận</Button>
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+
+              <Card>
+                <CardContent className="pt-6 space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <ul className="text-sm space-y-2 text-foreground">
+                      <li>✓ 30 phút Listening (40 câu hỏi)</li>
+                      <li>✓ 60 phút Reading (40 câu hỏi)</li>
+                      <li>✓ 60 phút Writing (2 tasks)</li>
+                      <li>✓ Chấm điểm tự động</li>
+                      <li>✓ Feedback chi tiết</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="email" className="font-semibold text-base">
+                      Nhập email của bạn
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                      className="text-base h-11"
+                    />
+                  </div>
+                  <Button type="submit" className="w-full h-10 text-base font-semibold">
+                    Tiếp tục
+                  </Button>
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+                </CardContent>
+              </Card>
             </form>
-          )}
+          </div>
+        )}
 
-          {step === "code" && (
-            <form onSubmit={handleCodeSubmit} className="space-y-4">
-              <h1 className="text-2xl font-bold text-center">Nhập mã code</h1>
-              <div>
-                <Label htmlFor="code">Mã code</Label>
-                <Input
-                  id="code"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  placeholder="Nhập mã code"
-                  required
-                />
+        {/* Code Verification */}
+        {step === "code" && (
+          <div className="max-w-md mx-auto">
+            <form onSubmit={handleCodeSubmit} className="space-y-6">
+              <div className="text-center mb-8">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
+                  Xác nhận mã code
+                </h1>
+                <p className="text-base md:text-lg text-muted-foreground">
+                  Mã code đã được gửi đến {userEmail}
+                </p>
               </div>
-              <Button type="submit" className="w-full">Xác nhận</Button>
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+
+              <Card>
+                <CardContent className="pt-6 space-y-4">
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                    <p className="text-sm text-amber-900">
+                      💡 Kiểm tra hộp thư Inbox hoặc Spam để tìm mã code
+                    </p>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="code" className="font-semibold text-base">
+                      Mã code
+                    </Label>
+                    <Input
+                      id="code"
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      placeholder="Nhập mã code"
+                      required
+                      className="text-base h-11 font-mono text-center text-lg tracking-widest"
+                    />
+                  </div>
+                  <Button type="submit" className="w-full h-10 text-base font-semibold">
+                    Xác nhận
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setStep("email")}
+                  >
+                    ← Quay lại
+                  </Button>
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+                </CardContent>
+              </Card>
             </form>
-          )}
+          </div>
+        )}
 
-          {step === "test" && (
-            <div>
-              <h1 className="text-2xl font-bold text-center">Bắt đầu thi thử</h1>
-              <Button onClick={() => startSection("listening")} className="w-full">Bắt đầu Listening</Button>
-            </div>
-          )}
+        {/* Listening Test */}
+        {step === "listening" && (
+          <Listening
+            userEmail={userEmail}
+            onComplete={handleListeningComplete}
+            audioUrl="https://media.intergreat.com/Audio/RAT/1/Practice%20Test%206.mp3"
+          />
+        )}
 
-          {(step === "listening" || step === "reading") && (
-            <div>
-              <h1 className="text-2xl font-bold text-center">
-                {step === "listening" ? "Listening" : "Reading"}
-              </h1>
-              <p className="text-center">Thời gian còn lại: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</p>
-              {/* Placeholder for questions */}
-              <div className="space-y-4">
-                <Input placeholder="Answer 1" />
-                <Input placeholder="Answer 2" />
-              </div>
-              <Button onClick={handleSectionSubmit} className="w-full mt-4">Nộp bài</Button>
-            </div>
-          )}
+        {/* Reading Test */}
+        {step === "reading" && (
+          <Reading
+            userEmail={userEmail}
+            onComplete={handleReadingComplete}
+          />
+        )}
 
-          {step === "writing" && (
-            <div>
-              <h1 className="text-2xl font-bold text-center">Writing</h1>
-              <textarea
-                className="w-full h-64 p-2 border rounded"
-                placeholder="Viết bài của bạn ở đây..."
-              />
-              <Button onClick={handleSectionSubmit} className="w-full mt-4">Nộp bài</Button>
-            </div>
-          )}
+        {/* Writing Test */}
+        {step === "writing" && (
+          <Writing
+            userEmail={userEmail}
+            onComplete={handleWritingComplete}
+          />
+        )}
 
-          {step === "results" && (
-            <div>
-              <h1 className="text-2xl font-bold text-center">Kết quả</h1>
-              <p>Listening: {results.listening}</p>
-              <p>Reading: {results.reading}</p>
-              <p>Writing: Đã gửi qua email</p>
-            </div>
-          )}
-        </div>
+        {/* Results */}
+        {step === "results" && (
+          <Results
+            userEmail={userEmail}
+            listeningAnswers={listeningAnswers}
+            readingAnswers={readingAnswers}
+            writingTask1={writingTask1}
+            writingTask2={writingTask2}
+            onBackToHome={handleBackToHome}
+          />
+        )}
       </div>
       <Footer />
     </div>
