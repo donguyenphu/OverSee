@@ -29,19 +29,31 @@ const IELTSMockTest = () => {
     return emailRegex.test(email);
   };
 
+  const successToast = (message: string) => {
+    toast.success(message, {
+      style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
+    });
+  };
+
+  const errorToast = (message: string) => {
+    toast.error(message, {
+      style: { background: '#dc2626', color: '#ffffff', border: '1px solid #b91c1c' }
+    });
+  };
+
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (!email.trim()) {
       setError("Vui lòng nhập email");
-      toast.error("Email không được để trống");
+      errorToast("Email không được để trống");
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Định dạng email không phù hợp");
-      toast.error("Email không hợp lệ");
+      errorToast("Email không hợp lệ");
       return;
     }
 
@@ -49,16 +61,16 @@ const IELTSMockTest = () => {
       const result = await checkMockTestEligibility(email);
       if (!result.eligible) {
         setError(result.message);
-        toast.error(result.message);
+        errorToast(result.message);
         return;
       }
 
       setUserEmail(email);
       setStep("code");
-      toast.success("Email đã được xác nhận");
+      successToast("Email đã được xác nhận");
     } catch (err) {
       setError("Lỗi kiểm tra email");
-      toast.error("Lỗi kiểm tra email");
+      errorToast("Lỗi kiểm tra email");
     }
   };
 
@@ -68,36 +80,36 @@ const IELTSMockTest = () => {
 
     if (!code.trim()) {
       setError("Vui lòng nhập mã code");
-      toast.error("Mã code không được để trống");
+      errorToast("Mã code không được để trống");
       return;
     }
 
     if (code === "OverSeechucemhoctot") {
       setStep("listening");
-      toast.success("Mã code đúng! Bắt đầu thi thử");
+      successToast("Mã code đúng! Bắt đầu thi thử");
     } else {
       setError("Mã code không hợp lệ");
-      toast.error("Mã code không chính xác");
+      errorToast("Mã code không chính xác");
     }
   };
 
   const handleListeningComplete = (results: ListeningResults) => {
     setListeningAnswers(results.answers);
     setStep("reading");
-    toast.success("Hoàn thành Listening! Bắt đầu Reading");
+    successToast("Hoàn thành Listening! Bắt đầu Reading");
   };
 
   const handleReadingComplete = (results: ReadingResults) => {
     setReadingAnswers(results.answers);
     setStep("writing");
-    toast.success("Hoàn thành Reading! Bắt đầu Writing");
+    successToast("Hoàn thành Reading! Bắt đầu Writing");
   };
 
   const handleWritingComplete = (results: WritingResults) => {
     setWritingTask1(results.task1);
     setWritingTask2(results.task2);
     setStep("results");
-    toast.success("Hoàn thành Writing! Xem kết quả");
+    successToast("Hoàn thành Writing! Xem kết quả");
   };
 
   const handleBackToHome = () => {

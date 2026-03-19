@@ -114,7 +114,7 @@ All colors MUST be HSL.
 
   html,
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
     min-height: 100%;
   }
 

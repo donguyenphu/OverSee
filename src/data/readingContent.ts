@@ -38,19 +38,19 @@ export const readingSection1: ReadingSection = {
     "G Peter Quinn says OzKleen's approach to research and development is open slather. \"If I need it, I get it. It is about doing something simple that no one else is doing. Most of these things are just sitting in front of people ... it's just seeing the opportunities.\" With a tried and tested product, OzKleen is expanding overseas and developing more Power-brand house­hold products. Tom Quinn, who previously ran a real estate agency, says: \"We are competing with the same market all over the world, the cleaning products are sold everywhere.\" Shower Power, known as Bath Power in Britain, was launched four years ago with the help of an export develop­ment grant from the Federal Government. \"We wanted to do it straight away because we realised we had the same opportunities worldwide.\" OzKleen is already number three in the British market, and the next stop is France. The Power range includes cleaning products for carpets, kitchens and pre-wash stain removal. The Quinn and Heron families are still involved. OzKleen has been approached with offers to buy the company, but Tom Quinn says he is happy with things as they are. \"We're having too much fun.\""
   ],
   questions: [
-    { number: 1, globalNumber: 1, question: "Which paragraph mentions the company's revenue in exports?", type: "fill-blank" },
-    { number: 2, globalNumber: 2, question: "Identify the paragraph that describes the initial product development approach.", type: "fill-blank" },
-    { number: 3, globalNumber: 3, question: "Which section discusses the role of the Woolworths buyer?", type: "fill-blank" },
-    { number: 4, globalNumber: 4, question: "The paragraph addressing OzKleen's overseas expansion is...", type: "fill-blank" },
-    { number: 5, globalNumber: 5, question: "Which paragraph details the factory production challenges?", type: "fill-blank" },
-    { number: 6, globalNumber: 6, question: "Identify which section mentions Peter Quinn's invention regarding foam control.", type: "fill-blank" },
-    { number: 7, globalNumber: 7, question: "The paragraph that explains the founding of OzKleen is...", type: "fill-blank" },
-    { number: 8, globalNumber: 8, question: "Based on paragraph C, Peter Quinn replaced petroleum-based products with...", type: "fill-blank" },
-    { number: 9, globalNumber: 9, question: "According to paragraph E, how long did it take for Shower Power to become top-selling?", type: "fill-blank" },
-    { number: 10, globalNumber: 10, question: "The Innovation Xchange is described as an organization that...", type: "fill-blank" },
-    { number: 11, globalNumber: 11, question: "Which of the following is NOT mentioned as a product idea in the passage?", type: "multiple-choice" },
-    { number: 12, globalNumber: 12, question: "The Woolworths buyer's decision to champion Shower Power was influenced by...", type: "fill-blank" },
-    { number: 13, globalNumber: 13, question: "According to the passage, OzKleen's financial success came despite...", type: "multiple-choice" }
+    { number: 1, globalNumber: 1, question: "Which paragraph mentions the company's revenue in exports?", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 2, globalNumber: 2, question: "Identify the paragraph that describes the initial product development approach.", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 3, globalNumber: 3, question: "Which section discusses the role of the Woolworths buyer?", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 4, globalNumber: 4, question: "The paragraph addressing OzKleen's overseas expansion is...", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 5, globalNumber: 5, question: "Which paragraph details the factory production challenges?", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 6, globalNumber: 6, question: "Identify which section mentions Peter Quinn's invention regarding foam control.", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 7, globalNumber: 7, question: "The paragraph that explains the founding of OzKleen is...", options: ['A','B','C','D','E','F','G'], type: 'matching' },
+    { number: 8, globalNumber: 8, question: "Based on paragraph C, Peter Quinn replaced petroleum-based products with...", options: ['A','B','C','D','E'], type: 'matching' },
+    { number: 9, globalNumber: 9, question: "According to paragraph E, how long did it take for Shower Power to become top-selling?", options: ['A','B','C','D','E'], type: 'matching' },
+    { number: 10, globalNumber: 10, question: "The Innovation Xchange is described as an organization that...", options: ['A','B','C','D','E'], type: 'matching' },
+    { number: 11, globalNumber: 11, question: "Which of the following is NOT mentioned as a product idea in the passage?", options: ['A','B','C','D','E'], type: 'matching' },
+    { number: 12, globalNumber: 12, question: "Tom Quinn changed the bottle size to 750ml to make Shower Power...", options: ['A. Easier to package.', 'B. Appealing to individual customers.', 'C. Popular in foreign markets.', 'D. Attractive to supermarkets.'], type: 'multiple-choice' },
+    { number: 13, globalNumber: 13, question: "Why did Tom Quinn decide not to sell OzKleen?", options: ['A. No one wanted to buy OzKleen.', 'B. New products were being developed in OzKleen.', 'C. He couldn\'t make an agreement on the price with the buyer.', 'D. He wanted to keep things unchanged.'], type: 'multiple-choice' }
   ],
   totalQuestions: 13
 };
@@ -97,19 +97,19 @@ export const readingSection2: ReadingSection = {
     "Louisa got her £100. The case established the principle of the unilateral and is frequently cited today."
   ],
   questions: [
-    { number: 1, globalNumber: 14, question: "Did Prince Albert Victor die from the flu pandemic?", type: "true-false" },
-    { number: 2, globalNumber: 15, question: "The Carbolic Smoke Ball Company was honest about the effectiveness of their product.", type: "true-false" },
-    { number: 3, globalNumber: 16, question: "Doctors in the 1890s understood what caused the Russian flu.", type: "true-false" },
-    { number: 4, globalNumber: 17, question: "The carbolic smoke ball contained only herbal ingredients.", type: "true-false" },
-    { number: 5, globalNumber: 18, question: "The carbolic smoke ball was made of...", type: "fill-blank" },
-    { number: 6, globalNumber: 19, question: "The nozzle of the smoke ball was covered by...", type: "fill-blank" },
-    { number: 7, globalNumber: 20, question: "The smoke ball's contents included powder treated with carbolic acid, which created a _____ _____ when squeezed.", type: "fill-blank" },
-    { number: 8, globalNumber: 21, question: "The Carbolic Smoke Ball company's product was a hollow...", type: "fill-blank" },
-    { number: 9, globalNumber: 22, question: "Judge Hawkins' ruling was based on which principle?", options: ['Fraud in advertising', 'Breach of contract', 'Consumer protection', 'Medical malpractice'], type: "multiple-choice" },
-    { number: 10, globalNumber: 23, question: "What did the company's deposit of £1,000 serve to do?", options: ['Show they had money', 'Prove they meant their promise', 'Establish credibility with banks', 'Guarantee product quality'], type: "multiple-choice" },
-    { number: 11, globalNumber: 24, question: "After the initial court decision, what happened?", options: ['The company paid and closed', 'They appealed the case', 'Mrs. Carlill accepted settlement', 'The law was changed'], type: "multiple-choice" },
-    { number: 12, globalNumber: 25, question: "The case of Carlill v. Carbolic Smoke Ball established the principle of...", type: "matching" },
-    { number: 13, globalNumber: 26, question: "This legal case demonstrates that...", options: ['Companies can make false claims', 'Courts protect consumers', 'Advertisements are not binding', 'Insurance is necessary'], type: "multiple-choice" }
+    { number: 1, globalNumber: 14, question: "Did Prince Albert Victor die from the flu pandemic?", options: ['TRUE', 'FALSE', 'NOT GIVEN'], type: 'true-false' },
+    { number: 2, globalNumber: 15, question: "The Carbolic Smoke Ball Company was honest about the effectiveness of their product.", options: ['TRUE', 'FALSE', 'NOT GIVEN'], type: 'true-false' },
+    { number: 3, globalNumber: 16, question: "Doctors in the 1890s understood what caused the Russian flu.", options: ['TRUE', 'FALSE', 'NOT GIVEN'], type: 'true-false' },
+    { number: 4, globalNumber: 17, question: "The carbolic smoke ball contained only herbal ingredients.", options: ['TRUE', 'FALSE', 'NOT GIVEN'], type: 'true-false' },
+    { number: 5, globalNumber: 18, question: "The carbolic smoke ball was made of...", type: 'fill-blank' },
+    { number: 6, globalNumber: 19, question: "The nozzle of the smoke ball was covered by...", type: 'fill-blank' },
+    { number: 7, globalNumber: 20, question: "The smoke ball's contents included powder treated with carbolic acid, which created a _____ _____ when squeezed.", type: 'fill-blank' },
+    { number: 8, globalNumber: 21, question: "The Carbolic Smoke Ball company's product was a hollow...", type: 'fill-blank' },
+    { number: 9, globalNumber: 22, question: "Mrs. Carlill filed a complaint which was never responded to.", options: ['A','B','C','D','E','F'], type: 'matching' },
+    { number: 10, globalNumber: 23, question: "Mr. Carlill initiated legal action.", options: ['A','B','C','D','E','F'], type: 'matching' },
+    { number: 11, globalNumber: 24, question: "Judge Hawkins described the audience of advertisement.", options: ['A','B','C','D','E','F'], type: 'matching' },
+    { number: 12, globalNumber: 25, question: "Lord Justice Bowen treated advertisement as a type of contract.", options: ['A','B','C','D','E','F'], type: 'matching' },
+    { number: 13, globalNumber: 26, question: "This legal case demonstrates that...", options: ['A. It proved the untrustworthiness of advertisements.', 'B. It established the validity of one-sided contract.', 'C. It explained the nature of contract.', 'D. It defended the rights of consumers.'], type: 'multiple-choice' }
   ],
   totalQuestions: 13
 };
@@ -137,20 +137,20 @@ export const readingSection3: ReadingSection = {
     "H - Combined styles for workplace: A well-functioning team should have all of these communication styles for true effectiveness. All teams need to focus on the task, and they need to take care of relationships in order to achieve those tasks. They need the big picture perspective or the context of their work, and they need the details to be identified and taken care of for success. We all have aspects of each style within us. Some of us can easily move from one style to another and adapt our style to the needs of the situation at hand-whether the focus is on tasks or relationships. For others, a dominant style is very evident, and it is more challenging to see the situation from the perspective of another style. The work environment can influence communication styles either by the type of work that is required or by the predominance of one style reflected in that environment. Some people use one style at work and another at home. The good news about communication styles is that we have the ability to develop flexibility in our styles. The greater the flexibility we have, the more skilled we usually are at handling possible and actual conflicts. Usually it has to be relevant to us to do so, either because we think it is important or because there are incentives in our environment to encourage it. The key is that we have to want to become flexible with our communication style. As Henry Ford said, \"Whether you think you can or you can't, you're right!\""
   ],
   questions: [
-    { number: 1, globalNumber: 27, question: "Which paragraph discusses the historical origins of personality categorization?", type: "matching" },
-    { number: 2, globalNumber: 28, question: "Identify the section that explains how understanding communication styles resolves conflict.", type: "matching" },
-    { number: 3, globalNumber: 29, question: "Which paragraph describes the sanguine communication style?", type: "matching" },
-    { number: 4, globalNumber: 30, question: "The phlegmatic style is most closely described in which section?", type: "matching" },
-    { number: 5, globalNumber: 31, question: "Which paragraph focuses on the melancholic or considerate communication style?", type: "matching" },
-    { number: 6, globalNumber: 32, question: "The choleric or direct communication style is discussed in which section?", type: "matching" },
-    { number: 7, globalNumber: 33, question: "Which paragraph discusses the importance of combining different communication styles?", type: "matching" },
-    { number: 8, globalNumber: 34, question: "The concept of developing flexibility in communication styles appears in which section?", type: "matching" },
-    { number: 9, globalNumber: 35, question: "Sanguine people are uncomfortable with conflict and differences of opinion.", type: "true-false" },
-    { number: 10, globalNumber: 36, question: "Phlegmatic individuals prefer focusing on task details rather than relationships.", type: "true-false" },
-    { number: 11, globalNumber: 37, question: "All people naturally have the same dominant communication style at work and at home.", type: "true-false" },
-    { number: 12, globalNumber: 38, question: "Melancholic people are less likely to embrace change due to their concern for harmony.", type: "true-false" },
-    { number: 13, globalNumber: 39, question: "Choleric individuals are good at recognizing the time and effort required to complete tasks.", type: "true-false" },
-    { number: 14, globalNumber: 40, question: "Based on the passage, which team composition would be most effective?", options: ['All sanguine members', 'All analytical members', 'A mix of all four styles', 'Mostly choleric leaders'], type: "multiple-choice" }
+    { number: 1, globalNumber: 27, question: "Which paragraph discusses the historical origins of personality categorization?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 2, globalNumber: 28, question: "Identify the section that explains how understanding communication styles resolves conflict.", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 3, globalNumber: 29, question: "Which paragraph describes the sanguine communication style?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 4, globalNumber: 30, question: "The phlegmatic style is most closely described in which section?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 5, globalNumber: 31, question: "Which paragraph focuses on the melancholic or considerate communication style?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 6, globalNumber: 32, question: "The choleric or direct communication style is discussed in which section?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 7, globalNumber: 33, question: "Which paragraph discusses the importance of combining different communication styles?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 8, globalNumber: 34, question: "The concept of developing flexibility in communication styles appears in which section?", options: ['i','ii','iii','iv','v','vi','vii','viii','ix','x'], type: 'matching' },
+    { number: 9, globalNumber: 35, question: "Sanguine people are uncomfortable with conflict and differences of opinion.", options: ['TRUE','FALSE','NOT GIVEN'], type: 'true-false' },
+    { number: 10, globalNumber: 36, question: "Phlegmatic individuals prefer focusing on task details rather than relationships.", options: ['TRUE','FALSE','NOT GIVEN'], type: 'true-false' },
+    { number: 11, globalNumber: 37, question: "All people naturally have the same dominant communication style at work and at home.", options: ['TRUE','FALSE','NOT GIVEN'], type: 'true-false' },
+    { number: 12, globalNumber: 38, question: "Melancholic people are less likely to embrace change due to their concern for harmony.", options: ['TRUE','FALSE','NOT GIVEN'], type: 'true-false' },
+    { number: 13, globalNumber: 39, question: "Choleric individuals are good at recognizing the time and effort required to complete tasks.", options: ['TRUE','FALSE','NOT GIVEN'], type: 'true-false' },
+    { number: 14, globalNumber: 40, question: "Based on the passage, which team composition would be most effective?", options: ['A. All sanguine members', 'B. All analytical members', 'C. A mix of all four styles', 'D. Mostly choleric leaders'], type: 'multiple-choice' }
   ],
   totalQuestions: 14
 };

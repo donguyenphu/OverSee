@@ -98,13 +98,19 @@ const Results: React.FC<ResultsProps> = ({
       });
 
       if (result.ok) {
-        toast.success('✓ Kết quả đã được lưu thành công!');
+        toast.success('✓ Kết quả đã được lưu thành công!', {
+          style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
+        });
         setSubmitted(true);
       } else {
-        toast.error('✗ Lỗi khi lưu kết quả: ' + (result.message || 'Unknown error'));
+        toast.error('✗ Lỗi khi lưu kết quả: ' + (result.message || 'Unknown error'), {
+          style: { background: '#dc2626', color: '#ffffff', border: '1px solid #b91c1c' }
+        });
       }
     } catch (error) {
-      toast.error('Lỗi khi nộp kết quả');
+      toast.error('Lỗi khi nộp kết quả', {
+        style: { background: '#dc2626', color: '#ffffff', border: '1px solid #b91c1c' }
+      });
       console.error(error);
     } finally {
       setIsSubmitting(false);

@@ -89,13 +89,18 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
         </div>
       </div>
 
-      {/* 2-Column Layout */}
-      <div className="grid grid-cols-2 gap-6 min-h-[600px]">
-        {/* Left: Reading Passage */}
-        <div className="border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
+      {/* 2-Column Layout (left sandbox + reading + questions) */}
+      <div className="grid grid-cols-12 gap-6 min-h-[600px]">
+        {/* Left reserved space for listening & reading processing */}
+        <div className="hidden lg:block lg:col-span-2 border rounded-lg p-4 bg-muted text-muted-foreground">
+          <h3 className="text-sm font-semibold mb-2">Space for notes</h3>
+          <p className="text-xs leading-relaxed">Dành cho bạn paste/note câu hỏi Listening và Reading trước khi làm chính thức.</p>
+        </div>
+
+        {/* Passage area */}
+        <div className="col-span-12 lg:col-span-5 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">{section.title}</h2>
-            
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">{section.title}</h2>
             {section.subtitleOrImage && (
               <p className="text-sm italic text-muted-foreground">{section.subtitleOrImage}</p>
             )}
@@ -108,6 +113,13 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               />
             )}
 
+            {section.id === 2 && (
+              <div className="mb-4 p-3 border rounded-lg bg-slate-50">
+                <p className="font-semibold mb-2">Hình minh họa (Carbolic Smoke Ball)</p>
+                <img src="/images/preview_image.jpg" alt="Carbolic Smoke Ball diagram" className="w-full rounded-md" />
+              </div>
+            )}
+
             {section.passages.map((passage, idx) => (
               <p key={idx} className="text-base leading-relaxed text-foreground">
                 {passage}
@@ -117,7 +129,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
         </div>
 
         {/* Right: Questions */}
-        <div className="border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
+        <div className="col-span-12 lg:col-span-5 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
           <Card className="border-0 bg-transparent">
             <CardHeader>
               <CardTitle>Questions {section.questions[0].globalNumber}-{section.questions[section.questions.length - 1].globalNumber}</CardTitle>
@@ -125,37 +137,57 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
             <CardContent className="space-y-6">
               {section.questions.map(q => (
                 <div key={q.globalNumber} className="space-y-2">
-                  <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold">
+                  <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
                     {q.globalNumber}. {q.question}
                   </Label>
-                  
-                  {q.options ? (
-                    <div className="space-y-2">
-                      {q.options.map((option, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <input
-                            type="radio"
-                            id={`q-${q.globalNumber}-${idx}`}
-                            name={`q-${q.globalNumber}`}
-                            value={option}
-                            checked={answers[q.globalNumber] === option}
-                            onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                            className="w-4 h-4"
-                          />
-                          <label htmlFor={`q-${q.globalNumber}-${idx}`} className="text-sm cursor-pointer">
-                            {option}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
+
+                  {q.type === 'fill-blank' ? (
                     <Input
                       id={`q-${q.globalNumber}`}
                       value={answers[q.globalNumber] || ''}
                       onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                      placeholder="Enter your answer"
+                      placeholder="Type your answer"
                       className="text-base"
                     />
+                  ) : q.type === 'multiple-choice' ? (
+                    <div className="space-y-2">
+                      {q.options?.map((option, idx) => {
+                        const value = option.split('.')[0].trim();
+                        return (
+                          <div key={idx} className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              id={`q-${q.globalNumber}-${idx}`}
+                              name={`q-${q.globalNumber}`}
+                              value={value}
+                              checked={answers[q.globalNumber] === value}
+                              onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                              className="w-4 h-4"
+                            />
+                            <label htmlFor={`q-${q.globalNumber}-${idx}`} className="text-sm cursor-pointer">
+                              {option}
+                            </label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <select
+                      id={`q-${q.globalNumber}`}
+                      value={answers[q.globalNumber] || ''}
+                      onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                      className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <option value="">Chọn đáp án</option>
+                      {q.options?.map((option, idx) => {
+                        const value = option.split('.')[0].trim();
+                        return (
+                          <option key={idx} value={value}>
+                            {option}
+                          </option>
+                        );
+                      })}
+                    </select>
                   )}
                 </div>
               ))}
