@@ -6,7 +6,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/subpage/Footer";
-import { checkMockTestEligibility } from "@/lib/sheets";
 import { toast } from "sonner";
 import Listening, { ListeningResults } from "@/components/test/Listening";
 import Reading, { ReadingResults } from "@/components/test/Reading";
@@ -57,21 +56,10 @@ const IELTSMockTest = () => {
       return;
     }
 
-    try {
-      const result = await checkMockTestEligibility(email);
-      if (!result.eligible) {
-        setError(result.message);
-        errorToast(result.message);
-        return;
-      }
-
-      setUserEmail(email);
-      setStep("code");
-      successToast("Email đã được xác nhận");
-    } catch (err) {
-      setError("Lỗi kiểm tra email");
-      errorToast("Lỗi kiểm tra email");
-    }
+    // Tạm bỏ qua xác thực Google Sheets/eligible. Mọi email đều qua.
+    setUserEmail(email);
+    setStep("code");
+    successToast("Email đã được chấp nhận (mode bypass)");
   };
 
   const handleCodeSubmit = (e: React.FormEvent) => {
@@ -84,13 +72,9 @@ const IELTSMockTest = () => {
       return;
     }
 
-    if (code === "OverSeechucemhoctot") {
-      setStep("listening");
-      successToast("Mã code đúng! Bắt đầu thi thử");
-    } else {
-      setError("Mã code không hợp lệ");
-      errorToast("Mã code không chính xác");
-    }
+    // Tạm cho phép mọi code
+    setStep("listening");
+    successToast("Bypass code thành công! Bắt đầu thi thử");
   };
 
   const handleListeningComplete = (results: ListeningResults) => {

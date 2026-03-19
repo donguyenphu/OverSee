@@ -58,7 +58,7 @@ const Navbar = () => {
                       : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
                   }`}
                 >
-                  Thi thử <ChevronDown className="ml-1 h-4 w-4" />
+                  <h3 className = "transition-colors text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md">Thi thử</h3> <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
