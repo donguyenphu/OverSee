@@ -21,7 +21,7 @@ export interface ReadingQuestion {
 export const readingSection1: ReadingSection = {
   id: 1,
   title: "The Sweet Scent of Success",
-  imageUrl: "/images/reading-1.avif",
+  imageUrl: "/images/r1.jpg",
   passages: [
     "A Innovation and entrepreneurship, in the right mix, can bring spectacular results and propel a business ahead of the pack. Across a diverse range of commercial successes, from the Hills Hoist clothes line to the Cochlear ear implant, it is hard to generalize beyond saying the creators tapped into something consumers could not wait to get their hands on. However, most ideas never make it to the market. Some ideas that innovators are spruiking to potential investors include new water-saving shower heads, a keyless locking system, ping-pong balls that keep pollution out of rainwater tanks, making teeth grow from stemcells inserted in the gum, and technology to stop LPG tanks from exploding. Grant Kearney, chief executive of the Innovation Xchange, which connects businesses to innovation networks, says he hears of great business ideas that he knows will never get on the market. \"Ideas by themselves are absolutely useless,\"he says. \"An idea only becomes innovation when it is connected to the right resources and capabilities\".",
     
@@ -58,7 +58,7 @@ export const readingSection1: ReadingSection = {
 export const readingSection2: ReadingSection = {
   id: 2,
   title: "Mrs. Carlill and the Carbolic Smoke Ball",
-  imageUrl: "/images/reading-2.avif",
+  imageUrl: "/images/r2.jpg",
   passages: [
     "On 14 January 1892, Queen Victoria's grandson Prince Albert Victor, second in line to the British throne, died from flu. He had succumbed to the third and most lethal wave of the Russian flu pandemic sweeping the world. The nation was shocked. The people mourned. Albert was relegated to a footnote in history.",
     
@@ -118,7 +118,7 @@ export const readingSection3: ReadingSection = {
   id: 3,
   title: "Communicating Styles and Conflict",
   subtitleOrImage: "Knowing your communication style and having a mix of styles on your team can provide a positive force for resolving conflict.",
-  imageUrl: "/images/reading-3.avif",
+  imageUrl: "/images/r3.jpg",
   passages: [
     "A - Physical explanation: As far back as Hippocrates' time (460-370B.C.), people have tried to understand other people by characterizing them according to personality type or temperament. Hippocrates believed there were four different body fluids that influenced four basic types of temperament. His work was further developed 500 years later by Galen. These days there are any number of self-assessment tools that relate to the basic descriptions developed by Galen, although we no longer believe the source to be the types of body fluid that dominate our systems.",
     
