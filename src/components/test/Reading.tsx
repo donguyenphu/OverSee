@@ -89,16 +89,10 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
         </div>
       </div>
 
-      {/* 2-Column Layout (left sandbox + reading + questions) */}
+      {/* 2-Column Layout (reading + questions) */}
       <div className="grid grid-cols-12 gap-6 min-h-[600px]">
-        {/* Left reserved space for listening & reading processing */}
-        <div className="hidden lg:block lg:col-span-2 border rounded-lg p-4 bg-muted text-muted-foreground">
-          <h3 className="text-sm font-semibold mb-2">Space for notes</h3>
-          <p className="text-xs leading-relaxed">Dành cho bạn paste/note câu hỏi Listening và Reading trước khi làm chính thức.</p>
-        </div>
-
         {/* Passage area */}
-        <div className="col-span-12 lg:col-span-5 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
+        <div className="col-span-12 lg:col-span-6 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
           <div className="space-y-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">{section.title}</h2>
             {section.subtitleOrImage && (
@@ -111,13 +105,6 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                 alt={section.title}
                 className="w-full rounded-lg mb-4"
               />
-            )}
-
-            {section.id === 2 && (
-              <div className="mb-4 p-3 border rounded-lg bg-slate-50">
-                <p className="font-semibold mb-2">Hình minh họa (Carbolic Smoke Ball)</p>
-                <img src="/images/preview_image.jpg" alt="Carbolic Smoke Ball diagram" className="w-full rounded-md" />
-              </div>
             )}
 
             {section.passages.map((passage, idx) => (
@@ -135,62 +122,303 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               <CardTitle>Questions {section.questions[0].globalNumber}-{section.questions[section.questions.length - 1].globalNumber}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {section.questions.map(q => (
-                <div key={q.globalNumber} className="space-y-2">
-                  <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
-                    {q.globalNumber}. {q.question}
-                  </Label>
-
-                  {q.type === 'fill-blank' ? (
-                    <Input
-                      id={`q-${q.globalNumber}`}
-                      value={answers[q.globalNumber] || ''}
-                      onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                      placeholder="Type your answer"
-                      className="text-base"
-                    />
-                  ) : q.type === 'multiple-choice' ? (
-                    <div className="space-y-2">
-                      {q.options?.map((option, idx) => {
-                        const value = option.split('.')[0].trim();
-                        return (
-                          <div key={idx} className="flex items-center gap-2">
-                            <input
-                              type="radio"
-                              id={`q-${q.globalNumber}-${idx}`}
-                              name={`q-${q.globalNumber}`}
-                              value={value}
-                              checked={answers[q.globalNumber] === value}
-                              onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                              className="w-4 h-4"
-                            />
-                            <label htmlFor={`q-${q.globalNumber}-${idx}`} className="text-sm cursor-pointer">
-                              {option}
-                            </label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <select
-                      id={`q-${q.globalNumber}`}
-                      value={answers[q.globalNumber] || ''}
-                      onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                      className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Chọn đáp án</option>
-                      {q.options?.map((option, idx) => {
-                        const value = option.split('.')[0].trim();
-                        return (
-                          <option key={idx} value={value}>
+              {section.id === 1 && (
+                <>
+                  <div className="text-lg font-bold text-blue-700">Questions 1-7</div>
+                  <p>Reading Passage 1 has six paragraphs, A-G.</p>
+                  <p>Which paragraph contains the following information?</p>
+                  <p>Write the correct letter A-G, in boxes 1-7 on your answer sheet.</p>
+                  <p className="italic">NB You may use any letter more than once.</p>
+                  {section.questions.filter((q) => q.globalNumber <= 7).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
                             {option}
                           </option>
-                        );
-                      })}
-                    </select>
-                  )}
-                </div>
-              ))}
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Questions 8-11</div>
+                  <p>Look at the following people and list of statements below.</p>
+                  <p>Match each person with the correct statement.</p>
+                  <p>Write the correct letter A-E in boxes 8-11 on your answer sheet.</p>
+                  {section.questions.filter((q) => q.globalNumber >= 8 && q.globalNumber <= 11).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Questions 12-13</div>
+                  <p>Choose the correct letter A, B, C or D.</p>
+                  <p>Write your answers in boxes 12-13 on your answer sheet.</p>
+                  {section.questions.filter((q) => q.globalNumber >= 12 && q.globalNumber <= 13).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <div className="space-y-2">
+                        {q.options?.map((option, idx) => {
+                          const value = option.split('.')[0].trim();
+                          return (
+                            <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                              <input
+                                type="radio"
+                                name={`q-${q.globalNumber}`}
+                                value={value}
+                                checked={answers[q.globalNumber] === value}
+                                onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                                className="w-4 h-4"
+                              />
+                              {option}
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {section.id === 2 && (
+                <>
+                  <div className="text-lg font-bold text-blue-700">Questions 14-17</div>
+                  <p>Do the following statements agree with the claims of the writer in Reading Passage?</p>
+                  <p>In boxes 14-17 on your answer sheet write:</p>
+                  <div className="border rounded-lg p-3 bg-slate-50">
+                    <p>TRUE if the statement agrees with the information</p>
+                    <p>FALSE if the statement contradicts the information</p>
+                    <p>NOT GIVEN if there is no information on this</p>
+                  </div>
+                  {section.questions.filter((q) => q.globalNumber >= 14 && q.globalNumber <= 17).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Questions 18-21</div>
+                  <p>Complete the diagram below.</p>
+                  <p className="font-semibold text-red-600">Choose NO MORE THAN TWO WORDS from the passage for each answer.</p>
+                  <p>Write your answers in boxes 18-21 on your answer sheet.</p>
+                  <img src="/images/read18.jpg" alt="Reading 18 diagram" className="w-full rounded-lg border my-3" />
+                  {section.questions.filter((q) => q.globalNumber >= 18 && q.globalNumber <= 21).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <Input
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        placeholder="Type your answer here"
+                        className="text-base"
+                      />
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Questions 22-25</div>
+                  <p>Look at the following people (Questions 22-25) and the list of statements.</p>
+                  <p>Match each person with the correct statement.</p>
+                  <p>Write the correct letter A-F in boxes 22-25 on your answer sheet.</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                    <p>A: Filed a complaint which was never responded to</p>
+                    <p>B: Broke the contract made with Carbolic Smoke Ball Company</p>
+                    <p>C: Initiated a legal case</p>
+                    <p>D: Described the audience of advertisement</p>
+                    <p>E: Claimed that most advertisements are fraudulent</p>
+                    <p>F: Treated advertisement as a type of contract</p>
+                  </div>
+                  {section.questions.filter((q) => q.globalNumber >= 22 && q.globalNumber <= 25).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Question 26</div>
+                  <p>Choose the correct letter, A, B, C or D.</p>
+                  <p>Write your answer in box 26 on your answer sheet.</p>
+                  {section.questions.filter((q) => q.globalNumber === 26).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <div className="space-y-2">
+                        {q.options?.map((option, idx) => {
+                          const value = option.split('.')[0].trim();
+                          return (
+                            <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                              <input
+                                type="radio"
+                                name={`q-${q.globalNumber}`}
+                                value={value}
+                                checked={answers[q.globalNumber] === value}
+                                onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                                className="w-4 h-4"
+                              />
+                              {option}
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+
+              {section.id === 3 && (
+                <>
+                  <div className="text-lg font-bold text-blue-700">Questions 27-34</div>
+                  <p>Reading Passage 3 has eight sections A-H.</p>
+                  <p>Choose the correct heading for each section from the list of headings below.</p>
+                  <p>Write the correct number i-x in boxes 27-34 on your answer sheet.</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                    <p>i: Summarising personality types</p>
+                    <p>ii: Combined styles for workplace</p>
+                    <p>iii: Physical explanation</p>
+                    <p>iv: A lively person who encourages</p>
+                    <p>v: Demanding and unsympathetic personality</p>
+                    <p>vi: Lazy and careless personality</p>
+                    <p>vii: The benefits of understanding communication styles</p>
+                    <p>viii: Cautious and caring</p>
+                    <p>ix: Factual and analytical personality</p>
+                    <p>x: Self-assessment determines one’s temperament</p>
+                  </div>
+                  {section.questions.filter((q) => q.globalNumber >= 27 && q.globalNumber <= 34).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Questions 35-39</div>
+                  <p>Do the following statements agree with the information given in Reading Passage 3?</p>
+                  <p>In boxes 35-39 on your answer sheet, write:</p>
+                  <div className="border rounded-lg p-3 bg-slate-50">
+                    <p>TRUE if the statement agrees with the information</p>
+                    <p>FALSE if the statement contradicts the information</p>
+                    <p>NOT GIVEN if there is no information on this</p>
+                  </div>
+                  {section.questions.filter((q) => q.globalNumber >= 35 && q.globalNumber <= 39).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <select
+                        id={`q-${q.globalNumber}`}
+                        value={answers[q.globalNumber] || ''}
+                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Type your answer here</option>
+                        {q.options?.map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+
+                  <div className="text-lg font-bold text-blue-700 pt-4">Question 40</div>
+                  <p>Choose the correct letter A, B, C or D.</p>
+                  <p>Write your answer in box 40 on your answer sheet.</p>
+                  {section.questions.filter((q) => q.globalNumber === 40).map((q) => (
+                    <div key={q.globalNumber} className="space-y-2">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                        QUESTION {q.globalNumber}. {q.question}
+                      </Label>
+                      <div className="space-y-2">
+                        {q.options?.map((option, idx) => {
+                          const value = option.split('.')[0].trim();
+                          return (
+                            <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                              <input
+                                type="radio"
+                                name={`q-${q.globalNumber}`}
+                                value={value}
+                                checked={answers[q.globalNumber] === value}
+                                onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                                className="w-4 h-4"
+                              />
+                              {option}
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

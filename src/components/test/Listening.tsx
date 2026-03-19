@@ -319,108 +319,287 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
         </CardHeader>
         <CardContent className="space-y-6">
           {section.section === 1 && (
-            <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th className="border px-2 py-2 text-left">Example</th>
-                    <th className="border px-2 py-2 text-left">Answer</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="border px-2 py-2">Name:</td>
-                    <td className="border px-2 py-2 font-semibold">Barbara Hill</td>
-                  </tr>
-                  <tr>
-                    <td className="border px-2 py-2">Location:</td>
-                    <td className="border px-2 py-2">{answers[1] || 'Southwest'}</td>
-                  </tr>
-                  <tr>
-                    <td className="border px-2 py-2">Rooms:</td>
-                    <td className="border px-2 py-2">{answers[2] || 'double'}</td>
-                  </tr>
-                  <tr>
-                    <td className="border px-2 py-2">The other room used as:</td>
-                    <td className="border px-2 py-2">{answers[3] || 'office'}</td>
-                  </tr>
-                  <tr>
-                    <td className="border px-2 py-2">Downstairs:</td>
-                    <td className="border px-2 py-2">{answers[4] || 'lounge'}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <>
+              <div className="text-xl font-bold text-blue-700">QUESTION 1-4</div>
+              <p>Complete the form below.</p>
+              <p className="font-semibold text-red-600">Write ONE WORD ONLY for each answer.</p>
+              <p className="font-bold">HOUSE SERVICE INFORMATION</p>
+              <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="border px-2 py-2 text-left">Example</th>
+                      <th className="border px-2 py-2 text-left">Answer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border px-2 py-2">Name:</td>
+                      <td className="border px-2 py-2 font-semibold">Barbara Hill</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Location:</td>
+                      <td className="border px-2 py-2">
+                        <Input
+                          id="q-1"
+                          value={answers[1] || ''}
+                          onChange={(e) => handleAnswerChange(1, e.target.value)}
+                          placeholder="Type your answer here"
+                          className="text-base h-9"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Rooms:</td>
+                      <td className="border px-2 py-2">
+                        <Input
+                          id="q-2"
+                          value={answers[2] || ''}
+                          onChange={(e) => handleAnswerChange(2, e.target.value)}
+                          placeholder="Type your answer here"
+                          className="text-base h-9"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">The other room used as:</td>
+                      <td className="border px-2 py-2">
+                        <Input
+                          id="q-3"
+                          value={answers[3] || ''}
+                          onChange={(e) => handleAnswerChange(3, e.target.value)}
+                          placeholder="Type your answer here"
+                          className="text-base h-9"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Downstairs:</td>
+                      <td className="border px-2 py-2">
+                        <Input
+                          id="q-4"
+                          value={answers[4] || ''}
+                          onChange={(e) => handleAnswerChange(4, e.target.value)}
+                          placeholder="Type your answer here"
+                          className="text-base h-9"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="pt-4">
+                <div className="text-xl font-bold text-blue-700">QUESTION 5-7</div>
+                <p>Choose the correct letter, A, B, or C.</p>
+              </div>
+              {section.questions.filter((q) => q.number >= 5 && q.number <= 7).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <div className="grid gap-2">
+                    {(q.options || []).map((option, idx) => {
+                      const value = option.split('.')[0].trim();
+                      return (
+                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                          <input
+                            type="radio"
+                            name={`q-${q.number}`}
+                            value={value}
+                            checked={answers[q.number] === value}
+                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                            className="w-4 h-4"
+                          />
+                          {option}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div className="pt-4">
+                <div className="text-xl font-bold text-blue-700">QUESTION 8-10</div>
+                <p>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600">Write ONE WORD AND/OR A NUMBER for each answer.</p>
+              </div>
+              {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <Input
+                    id={`q-${q.number}`}
+                    value={answers[q.number] || ''}
+                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                    placeholder="Type your answer here"
+                    className="text-base h-10"
+                  />
+                </div>
+              ))}
+            </>
+          )}
+
+          {section.section === 2 && (
+            <>
+              <div className="text-xl font-bold text-blue-700">QUESTION 11-17</div>
+              <p>Choose the correct letter, A, B, or C.</p>
+              {section.questions.filter((q) => q.number >= 11 && q.number <= 17).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <div className="grid gap-2">
+                    {(q.options || []).map((option, idx) => {
+                      const value = option.split('.')[0].trim();
+                      return (
+                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                          <input
+                            type="radio"
+                            name={`q-${q.number}`}
+                            value={value}
+                            checked={answers[q.number] === value}
+                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                            className="w-4 h-4"
+                          />
+                          {option}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div className="pt-4">
+                <div className="text-xl font-bold text-blue-700">QUESTION 18-20</div>
+                <p>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
+              </div>
+              {section.questions.filter((q) => q.number >= 18 && q.number <= 20).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <Input
+                    id={`q-${q.number}`}
+                    value={answers[q.number] || ''}
+                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                    placeholder="Type your answer here"
+                    className="text-base h-10"
+                  />
+                </div>
+              ))}
+            </>
           )}
 
           {section.section === 3 && (
-            <div className="border rounded-lg p-3 bg-slate-50">
-              <div className="text-sm font-semibold mb-2">Match A-F</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-                <div>A: Video Resource Centre</div>
-                <div>B: Reading Room</div>
-                <div>C: Food Service Centre</div>
-                <div>D: Periodicals Section</div>
-                <div>E: Enquiry Desk</div>
-                <div>F: Satellite TV Station</div>
+            <>
+              <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
+              <p>Write the correct letter, A-F, next to questions 21-26.</p>
+              <img src="/images/lis21.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
+              <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                <div className="font-semibold">A: Video Resource Centre</div>
+                <div className="font-semibold">B: Reading Room</div>
+                <div className="font-semibold">C: Food Service Centre</div>
+                <div className="font-semibold">D: Periodicals Section</div>
+                <div className="font-semibold">E: Enquiry Desk</div>
+                <div className="font-semibold">F: Satellite TV Station</div>
               </div>
-            </div>
+              {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}.
+                  </Label>
+                  <select
+                    id={`q-${q.number}`}
+                    value={answers[q.number] || ''}
+                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                    className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select</option>
+                    {(q.options || []).map((option, idx) => (
+                      <option key={idx} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+
+              <div className="pt-4">
+                <div className="text-xl font-bold text-blue-700">QUESTION 27-30</div>
+                <p>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
+              </div>
+              {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <Input
+                    id={`q-${q.number}`}
+                    value={answers[q.number] || ''}
+                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                    placeholder="Type your answer here"
+                    className="text-base h-10"
+                  />
+                </div>
+              ))}
+            </>
           )}
 
-          {section.questions.map(q => (
-            <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-              <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
-                Q. {q.number}. {q.type === 'dropdown' ? '' : q.question}
-              </Label>
-
-              {q.type === 'text' && (
-                <Input
-                  id={`q-${q.number}`}
-                  value={answers[q.number] || ''}
-                  onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                  placeholder={q.placeholder || 'Type your answer here'}
-                  className="text-base h-10"
-                />
-              )}
-
-              {q.type === 'mcq' && q.options && (
-                <div className="grid gap-2">
-                  {q.options.map((option, idx) => {
-                    const value = option.split('.')[0].trim();
-                    return (
-                      <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
-                        <input
-                          type="radio"
-                          name={`q-${q.number}`}
-                          value={value}
-                          checked={answers[q.number] === value}
-                          onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                          className="w-4 h-4"
-                        />
-                        {option}
-                      </label>
-                    );
-                  })}
+          {section.section === 4 && (
+            <>
+              <div className="text-xl font-bold text-blue-700">QUESTION 31-35</div>
+              <p>Choose the correct letter, A, B, or C.</p>
+              {section.questions.filter((q) => q.number >= 31 && q.number <= 35).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <div className="grid gap-2">
+                    {(q.options || []).map((option, idx) => {
+                      const value = option.split('.')[0].trim();
+                      return (
+                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                          <input
+                            type="radio"
+                            name={`q-${q.number}`}
+                            value={value}
+                            checked={answers[q.number] === value}
+                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                            className="w-4 h-4"
+                          />
+                          {option}
+                        </label>
+                      );
+                    })}
+                  </div>
                 </div>
-              )}
+              ))}
 
-              {q.type === 'dropdown' && q.options && (
-                <select
-                  id={`q-${q.number}`}
-                  value={answers[q.number] || ''}
-                  onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                  className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Chọn đáp án</option>
-                  {q.options.map((option, idx) => (
-                    <option key={idx} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-          ))}
+              <div className="pt-4">
+                <div className="text-xl font-bold text-blue-700">QUESTION 36-40</div>
+                <p>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600">Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+              </div>
+              {section.questions.filter((q) => q.number >= 36 && q.number <= 40).map((q) => (
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    QUESTION {q.number}. {q.question}
+                  </Label>
+                  <Input
+                    id={`q-${q.number}`}
+                    value={answers[q.number] || ''}
+                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                    placeholder="Type your answer here"
+                    className="text-base h-10"
+                  />
+                </div>
+              ))}
+            </>
+          )}
         </CardContent>
       </Card>
 

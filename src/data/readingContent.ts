@@ -109,7 +109,7 @@ export const readingSection2: ReadingSection = {
     { number: 10, globalNumber: 23, question: "Mr. Carlill initiated legal action.", options: ['A','B','C','D','E','F'], type: 'matching' },
     { number: 11, globalNumber: 24, question: "Judge Hawkins described the audience of advertisement.", options: ['A','B','C','D','E','F'], type: 'matching' },
     { number: 12, globalNumber: 25, question: "Lord Justice Bowen treated advertisement as a type of contract.", options: ['A','B','C','D','E','F'], type: 'matching' },
-    { number: 13, globalNumber: 26, question: "This legal case demonstrates that...", options: ['A. It proved the untrustworthiness of advertisements.', 'B. It established the validity of one-sided contract.', 'C. It explained the nature of contract.', 'D. It defended the rights of consumers.'], type: 'multiple-choice' }
+    { number: 13, globalNumber: 26, question: "Why is Mrs. Carlill’s case often cited in present-day court trials?", options: ['A. It proves that promises in advertisements are not contracts.', 'B. It shows that unilateral offers can form a binding contract.', 'C. It demonstrates that defendants can avoid liability with vague terms.', 'D. It indicates that courts will only enforce bilateral contracts.'], type: 'multiple-choice' }
   ],
   totalQuestions: 13
 };
