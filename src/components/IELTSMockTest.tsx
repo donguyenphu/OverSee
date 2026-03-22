@@ -103,7 +103,7 @@ const IELTSMockTest = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
-      <div className="container mx-auto px-4 py-10 flex-grow">
+      <div className="w-full max-w-screen-2xl mx-auto px-6 py-10 flex-grow">
         {/* Email Verification */}
         {step === "email" && (
           <div className="max-w-md mx-auto">
@@ -124,11 +124,11 @@ const IELTSMockTest = () => {
                 <CardContent className="pt-6 space-y-4">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <ul className="text-sm space-y-2 text-foreground">
-                      <li>✓ 30 phút Listening (40 câu hỏi)</li>
-                      <li>✓ 60 phút Reading (40 câu hỏi)</li>
-                      <li>✓ 60 phút Writing (2 tasks)</li>
-                      <li>✓ Chấm điểm tự động</li>
-                      <li>✓ Feedback chi tiết</li>
+                      <li><strong>✓ 30 phút Listening (40 câu hỏi)</strong></li>
+                      <li><strong>✓ 60 phút Reading (40 câu hỏi)</strong></li>
+                      <li><strong>✓ 60 phút Writing (2 tasks)</strong></li>
+                      <li><strong>✓ Reading & Listening: Hệ thống chấm điểm tự động ngay sau khi bài thi kết thúc</strong></li>
+                      <li><strong>✓ Speaking & Writing: Chấm điểm trực tiếp theo hình thức buổi meet 1-1 với mentor 8.0+ IELTS</strong></li>
                     </ul>
                   </div>
 

@@ -29,10 +29,10 @@ const WritingTasksData: WritingTask[] = [
     taskNumber: 1,
     title: 'Task 1: Academic Writing (Graph Description)',
     timeMinutes: 20,
-    image: '/images/writing-task1.avif',
+    image: '/images/wri.jpg',
     content: `The graph shows the average Japanese monthly salary (Yen) from 1953 to 1973, and the prices of black and white televisions and color televisions during the same period.
 
-**Task:** Summarize the information by selecting and reporting the main features, and make comparisons where relevant.
+*Task: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.
 
 Write at least 150 words.`
   },
@@ -40,9 +40,9 @@ Write at least 150 words.`
     taskNumber: 2,
     title: 'Task 2: Academic Writing (Essay)',
     timeMinutes: 40,
-    content: `**Question:** Some people benefit from modern communication technology, but some have not been helped at all. Do you agree or disagree?
+    content: `*Question: Some people benefit from modern communication technology, but some have not been helped at all. Do you agree or disagree?
 
-**Task:** Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+*Task: Give reasons for your answer and include any relevant examples from your own knowledge or experience.
 
 Write at least 250 words.`
   }
@@ -95,7 +95,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
   const getTask2Words = () => task2.trim().split(/\s+/).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -139,16 +139,21 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
               <CardTitle>{WritingTasksData[0].title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {WritingTasksData[0].image && (
-                <img
-                  src={WritingTasksData[0].image}
-                  alt="Writing Task 1"
-                  className="w-full max-w-2xl rounded-lg"
-                />
-              )}
-
-              <div className="bg-muted p-4 rounded-lg">
-                <p className="text-foreground whitespace-pre-line">{WritingTasksData[0].content}</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="w-[100%]">
+                  {WritingTasksData[0].image && (
+                    <img
+                      src={WritingTasksData[0].image}
+                      alt="Writing Task 1"
+                      className="w-full max-w-2xl rounded-lg"
+                    />
+                  )}
+                </div>
+                <div className="w-[100%]">
+                  <div className="bg-muted p-4 rounded-lg">
+                    <p className="text-foreground whitespace-pre-line">{WritingTasksData[0].content}</p>
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-2">

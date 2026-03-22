@@ -75,7 +75,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -90,9 +90,9 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
       </div>
 
       {/* 2-Column Layout (reading + questions) */}
-      <div className="grid grid-cols-12 gap-6 min-h-[600px]">
+      <div className="grid grid-cols-12 gap-6 min-h-[600px] w-full">
         {/* Passage area */}
-        <div className="col-span-12 lg:col-span-6 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
+        <div className="col-span-12 lg:col-span-6 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px] w-full">
           <div className="space-y-4">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">{section.title}</h2>
             {section.subtitleOrImage && (
@@ -116,7 +116,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
         </div>
 
         {/* Right: Questions */}
-        <div className="col-span-12 lg:col-span-5 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px]">
+        <div className="col-span-12 lg:col-span-6 border rounded-lg p-6 bg-card overflow-y-auto max-h-[700px] w-full">
           <Card className="border-0 bg-transparent">
             <CardHeader>
               <CardTitle>Questions {section.questions[0].globalNumber}-{section.questions[section.questions.length - 1].globalNumber}</CardTitle>
@@ -154,6 +154,13 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   <p>Look at the following people and list of statements below.</p>
                   <p>Match each person with the correct statement.</p>
                   <p>Write the correct letter A-E in boxes 8-11 on your answer sheet.</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                    <p>A: Described his story of selling his product to a chain store</p>
+                    <p>B: Explained there was a shortage of money when sales suddenly increased</p>
+                    <p>C: Believe innovations need support to succeed</p>
+                    <p>D: Believes new products like Shower Power may incur risks</p>
+                    <p>E: Says business won’t succeed with innovations</p>
+                  </div>
                   {section.questions.filter((q) => q.globalNumber >= 8 && q.globalNumber <= 11).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
                       <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
@@ -241,22 +248,36 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   <p>Complete the diagram below.</p>
                   <p className="font-semibold text-red-600">Choose NO MORE THAN TWO WORDS from the passage for each answer.</p>
                   <p>Write your answers in boxes 18-21 on your answer sheet.</p>
-                  <img src="/images/read18.jpg" alt="Reading 18 diagram" className="w-full rounded-lg border my-3" />
-                  {section.questions.filter((q) => q.globalNumber >= 18 && q.globalNumber <= 21).map((q) => (
-                    <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
-                        QUESTION {q.globalNumber}. {q.question}
-                      </Label>
-                      <Input
-                        id={`q-${q.globalNumber}`}
-                        value={answers[q.globalNumber] || ''}
-                        onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
-                        placeholder="Type your answer here"
-                        className="text-base"
+                  <div className="flex gap-5">
+                    <div className="w-[70%]">
+                      <img 
+                        src="/images/read18.jpg" 
+                        alt="Reading 18 diagram" 
+                        className="w-full rounded-lg border my-3 w-full" 
                       />
                     </div>
-                  ))}
-
+                    <div className="flex flex-col gap-6 w-[30%]"> {/* Parent wrapper to space out the question blocks */}
+                      {section.questions
+                        .filter((q) => q.globalNumber >= 18 && q.globalNumber <= 21)
+                        .map((q) => (
+                          <div key={q.globalNumber} className="flex flex-col space-y-2">
+                            <Label 
+                              htmlFor={`q-${q.globalNumber}`} 
+                              className="font-semibold text-base block"
+                            >
+                              QUESTION {q.globalNumber}. {q.question}
+                            </Label>
+                            <Input
+                              id={`q-${q.globalNumber}`}
+                              value={answers[q.globalNumber] || ''}
+                              onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base w-full" 
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  </div>
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 22-25</div>
                   <p>Look at the following people (Questions 22-25) and the list of statements.</p>
                   <p>Match each person with the correct statement.</p>
@@ -328,6 +349,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   <p>Choose the correct heading for each section from the list of headings below.</p>
                   <p>Write the correct number i-x in boxes 27-34 on your answer sheet.</p>
                   <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                    <p className="font-semibold">List of Headings</p>
                     <p>i: Summarising personality types</p>
                     <p>ii: Combined styles for workplace</p>
                     <p>iii: Physical explanation</p>

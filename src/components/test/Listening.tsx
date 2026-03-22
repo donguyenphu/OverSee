@@ -43,7 +43,7 @@ const listeningQuestions: ListeningSection[] = [
       { number: 2, question: 'Rooms', type: 'text', placeholder: 'double' },
       { number: 3, question: 'The other room used as', type: 'text', placeholder: 'office' },
       { number: 4, question: 'Downstairs', type: 'text', placeholder: 'lounge' },
-      { number: 5, question: 'Which extra service does the customer agree to do?', type: 'mcq', options: ['A. Change the bed linen', 'B. Do some gardening work', 'C. Clean the glass'] },
+      { number: 5, question: 'Which of these extra service does the customer agree to do?', type: 'mcq', options: ['A. Change the bed linen', 'B. Do some gardening work', 'C. Clean the glass'] },
       { number: 6, question: 'What does the customer want cleaned every three months?', type: 'mcq', options: ['A. Curtains', 'B. Carpets', 'C. Mats'] },
       { number: 7, question: 'What does the customer want done with clothes?', type: 'mcq', options: ['A. Wash and iron the clothes', 'B. Iron the clothes', 'C. Clean and dry the clothes'] },
       { number: 8, question: "The agent's address is 12 ____ Amyes Road.", type: 'text', placeholder: 'Amyes' },
@@ -206,7 +206,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
   const section = listeningQuestions[currentSection];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
       {/* Header */}
       <div className="flex justify-between items-center border-b pb-4">
         <div>
@@ -328,62 +328,83 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                 <table className="w-full border-collapse">
                   <thead>
                     <tr>
-                      <th className="border px-2 py-2 text-left">Example</th>
+                      <th className="border px-2 py-2 text-left">Question: </th>
                       <th className="border px-2 py-2 text-left">Answer</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td className="border px-2 py-2">Name:</td>
-                      <td className="border px-2 py-2 font-semibold">Barbara Hill</td>
+                      <td className="border px-2 py-2">Barbara Hill</td>
                     </tr>
                     <tr>
                       <td className="border px-2 py-2">Location:</td>
                       <td className="border px-2 py-2">
-                        <Input
-                          id="q-1"
-                          value={answers[1] || ''}
-                          onChange={(e) => handleAnswerChange(1, e.target.value)}
-                          placeholder="Type your answer here"
-                          className="text-base h-9"
-                        />
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="q-1"
+                            value={answers[1] || ''}
+                            onChange={(e) => handleAnswerChange(1, e.target.value)}
+                            placeholder="Type your answer here"
+                            className="text-base h-9 w-40"
+                          /> 
+                          <span>London</span>
+                        </div>
                       </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Postcode:</td>
+                      <td className="border px-2 py-2">SW105</td>
                     </tr>
                     <tr>
                       <td className="border px-2 py-2">Rooms:</td>
                       <td className="border px-2 py-2">
-                        <Input
-                          id="q-2"
-                          value={answers[2] || ''}
-                          onChange={(e) => handleAnswerChange(2, e.target.value)}
-                          placeholder="Type your answer here"
-                          className="text-base h-9"
-                        />
+                        <div className="flex items-center gap-2">
+                          <span>two</span>
+                          <Input
+                            id="q-2"
+                            value={answers[2] || ''}
+                            onChange={(e) => handleAnswerChange(2, e.target.value)}
+                            placeholder="Type your answer here"
+                            className="text-base h-9 w-40"
+                          />
+                          <span>bedrooms</span>
+                        </div>
                       </td>
                     </tr>
                     <tr>
                       <td className="border px-2 py-2">The other room used as:</td>
                       <td className="border px-2 py-2">
-                        <Input
-                          id="q-3"
-                          value={answers[3] || ''}
-                          onChange={(e) => handleAnswerChange(3, e.target.value)}
-                          placeholder="Type your answer here"
-                          className="text-base h-9"
-                        />
+                        <div className="flex items-center gap-2">
+                          <span>an</span>
+                          <Input
+                            id="q-3"
+                            value={answers[3] || ''}
+                            onChange={(e) => handleAnswerChange(3, e.target.value)}
+                            placeholder="Type your answer here"
+                            className="text-base h-9 w-40"
+                          />
+                        </div>
                       </td>
                     </tr>
                     <tr>
                       <td className="border px-2 py-2">Downstairs:</td>
                       <td className="border px-2 py-2">
-                        <Input
-                          id="q-4"
-                          value={answers[4] || ''}
-                          onChange={(e) => handleAnswerChange(4, e.target.value)}
-                          placeholder="Type your answer here"
-                          className="text-base h-9"
-                        />
+                        <div className="flex items-center gap-2">
+                          <span>kitchen-diner, conservatory, and</span>
+                          <Input
+                            id="q-4"
+                            value={answers[4] || ''}
+                            onChange={(e) => handleAnswerChange(4, e.target.value)}
+                            placeholder="Type your answer here"
+                            className="text-base h-9 w-40"
+                          />
+                        </div>
                       </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Pets:</td>
+                      <td className="border px-2 py-2">2 dogs and 3 cats</td>
                     </tr>
                   </tbody>
                 </table>
@@ -497,36 +518,42 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
             <>
               <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
               <p>Write the correct letter, A-F, next to questions 21-26.</p>
-              <img src="/images/lis21.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
-              <div className="border rounded-lg p-3 bg-slate-50 text-sm">
-                <div className="font-semibold">A: Video Resource Centre</div>
-                <div className="font-semibold">B: Reading Room</div>
-                <div className="font-semibold">C: Food Service Centre</div>
-                <div className="font-semibold">D: Periodicals Section</div>
-                <div className="font-semibold">E: Enquiry Desk</div>
-                <div className="font-semibold">F: Satellite TV Station</div>
-              </div>
-              {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
-                    QUESTION {q.number}.
-                  </Label>
-                  <select
-                    id={`q-${q.number}`}
-                    value={answers[q.number] || ''}
-                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                    className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    <option value="">Select</option>
-                    {(q.options || []).map((option, idx) => (
-                      <option key={idx} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+              <div className="flex items-center gap-2">
+                <div className="w-1/2">
+                  <img src="/images/listeningup1.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
+                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                    <div className="font-semibold">A: Video Resource Centre</div>
+                    <div className="font-semibold">B: Reading Room</div>
+                    <div className="font-semibold">C: Food Service Centre</div>
+                    <div className="font-semibold">D: Periodicals Section</div>
+                    <div className="font-semibold">E: Enquiry Desk</div>
+                    <div className="font-semibold">F: Satellite TV Station</div>
+                  </div>
                 </div>
-              ))}
-
+                <div className="w-1/2">
+                  {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
+                    <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
+                      <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                        QUESTION {q.number}.
+                      </Label>
+                      <select
+                        id={`q-${q.number}`}
+                        value={answers[q.number] || ''}
+                        onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Select</option>
+                        {(q.options || []).map((option, idx) => (
+                          <option key={idx} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 27-30</div>
                 <p>Complete the sentences below.</p>
