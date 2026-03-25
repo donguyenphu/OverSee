@@ -226,8 +226,102 @@ function doPost(e) {
 
 ---
 
-### Bước 3: Kiểm tra file `.env`
+## 🎯 SETUP CHO MOCK TEST SHEETS
 
+### Mục tiêu
+Tạo 2 Google Sheets riêng biệt cho Mock Test:
+- **OverSee Able To Test** → Danh sách email được phép thi
+- **OverSee Mock Tested** → Kết quả thi thử đã nộp
+
+---
+
+### Bước 1: Tạo Google Sheets mới
+
+#### A. OverSee Able To Test Sheet
+1. Tạo Google Sheet mới
+2. Đặt tên: **OverSee Able To Test**
+3. Tạo 1 tab duy nhất: **IELTS**
+4. Paste header vào hàng 1:
+```
+Email
+```
+
+#### B. OverSee Mock Tested Sheet
+1. Tạo Google Sheet mới
+2. Đặt tên: **OverSee Mock Tested**
+3. Tạo 1 tab duy nhất: **IELTS**
+4. Paste header vào hàng 1:
+```
+Timestamp	Email	Listening Scores	Reading Scores	Writing Result
+```
+
+---
+
+### Bước 2: Setup Google Sheets Permissions
+
+Đảm bảo cả 2 sheets đều được chia sẻ **Anyone with link can view**:
+1. Mở sheet
+2. Click **Share**
+3. Change to **Anyone with the link**
+4. Permission: **Viewer**
+
+---
+
+### Bước 3: Cập nhật Environment Variables
+
+Trong file `.env` của project, thêm/update:
+
+```env
+# Google API Key (cần thiết cho Mock Test)
+VITE_GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
+
+# Mock Test Sheets
+VITE_ABLE_TO_TEST_SHEET_ID=YOUR_ABLE_TO_TEST_SHEET_ID
+VITE_MOCK_TESTED_SHEET_ID=YOUR_MOCK_TESTED_SHEET_ID
+```
+
+**Lưu ý:**
+- `VITE_GOOGLE_API_KEY`: Tạo từ [Google Cloud Console](https://console.cloud.google.com/)
+- `VITE_ABLE_TO_TEST_SHEET_ID`: Lấy từ URL của **OverSee Able To Test** Sheet
+- `VITE_MOCK_TESTED_SHEET_ID`: Lấy từ URL của **OverSee Mock Tested** Sheet
+
+**Cấp quyền cho Google API Key:**
+1. Vào [Google Cloud Console](https://console.cloud.google.com/)
+2. Chọn project của bạn
+3. **APIs & Services** → **Library**
+4. Enable **Google Sheets API**
+5. **APIs & Services** → **Credentials**
+6. Tạo API Key mới
+7. **Restrict key** → Chọn **Google Sheets API**
+
+---
+
+### Bước 4: Chia sẻ Google Sheets
+
+Đảm bảo cả 2 sheets đều được chia sẻ **Anyone with link can view**:
+1. Mở sheet
+2. Click **Share**
+3. Change to **Anyone with the link**
+4. Permission: **Viewer**
+
+---
+
+### Bước 5: Test Setup
+
+1. Thêm 1 email test vào **OverSee Able To Test** sheet (tab IELTS)
+2. Chạy mock test với email đó
+3. Kiểm tra kết quả có lưu vào **OverSee Mock Tested** không
+
+---
+
+## ✅ HOÀN THÀNH!
+
+Bây giờ bạn đã có:
+- ✅ Header ẩn khi scroll xuống
+- ✅ Audio player chỉ có play/pause và volume
+- ✅ Writing không highlight lỗi chính tả
+- ✅ Chi tiết đáp án đúng/sai cho từng section
+- ✅ 2 sheets Mock Test đã setup và sẵn sàng sử dụng
 File `.env` của bạn chỉ cần **2 URLs**:
 
 ```env

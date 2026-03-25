@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { readingSections } from '@/data/readingContent';
+import { readingAnswers as readingAnswerKey, isAnswerCorrect } from '@/data/answerKeys';
 import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle } from 'lucide-react';
 
@@ -21,7 +22,33 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [showReview, setShowReview] = useState(false);
   const [showScrollableContent, setShowScrollableContent] = useState(true);
+
+  const getReadingAnswers = (questionNumber: number) => {
+    const section = readingAnswerKey.sections.find(s =>
+      s.questions.some(q => q.question === questionNumber)
+    );
+    if (!section) return [];
+    const question = section.questions.find(q => q.question === questionNumber);
+    return question?.answers || [];
+  };
+
+  const renderReview = (questionNumber: number) => {
+    if (!showReview) return null;
+    const userAnswer = answers[questionNumber];
+    const correctAnswers = getReadingAnswers(questionNumber);
+    const isCorrect = userAnswer && isAnswerCorrect(userAnswer, correctAnswers);
+    return (
+      <p className={`mt-1 text-xs ${isCorrect ? 'text-emerald-600' : 'text-red-600'}`}>
+        {userAnswer
+          ? isCorrect
+            ? 'Correct'
+            : `Wrong. Correct: ${correctAnswers.join(' or ')}`
+          : `No answer. Correct: ${correctAnswers.join(' or ')}`}
+      </p>
+    );
+  };
 
   // Timer effect
   useEffect(() => {
@@ -86,6 +113,14 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
           <p className="text-lg font-semibold text-foreground">
             Time: {formatTime(timeLeft)}
           </p>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowReview(prev => !prev)}
+            className="mt-2"
+          >
+            {showReview ? 'Hide review' : 'Show correct answers'}
+          </Button>
         </div>
       </div>
 
@@ -147,6 +182,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -179,6 +215,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -208,6 +245,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           );
                         })}
                       </div>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
                 </>
@@ -241,6 +279,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -274,6 +313,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                               placeholder="Type your answer here"
                               className="text-base w-full" 
                             />
+                            {renderReview(q.globalNumber)}
                           </div>
                         ))}
                     </div>
@@ -308,6 +348,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -337,6 +378,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           );
                         })}
                       </div>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
                 </>
@@ -379,6 +421,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -408,6 +451,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
 
@@ -437,6 +481,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                           );
                         })}
                       </div>
+                      {renderReview(q.globalNumber)}
                     </div>
                   ))}
                 </>

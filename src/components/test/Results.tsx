@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Eye, EyeOff } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { isAnswerCorrect, listeningAnswers, readingAnswers, normalizeAnswer } from '@/data/answerKeys';
 import { submitMockTestResults } from '@/lib/sheets';
@@ -33,6 +34,7 @@ const Results: React.FC<ResultsProps> = ({
   const [readingScores, setReadingScores] = useState<SectionScore[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     // Calculate listening scores
@@ -80,21 +82,26 @@ const Results: React.FC<ResultsProps> = ({
     try {
       setIsSubmitting(true);
 
-      const listeningStr = listeningScores
-        .map(s => `S${s.sectionNumber}: ${s.correct}`)
-        .join(', ');
+      const p1 = listeningScores.find(s => s.sectionNumber === 1)?.correct ?? 0;
+      const p2 = listeningScores.find(s => s.sectionNumber === 2)?.correct ?? 0;
+      const p3 = listeningScores.find(s => s.sectionNumber === 3)?.correct ?? 0;
+      const p4 = listeningScores.find(s => s.sectionNumber === 4)?.correct ?? 0;
 
-      const readingStr = readingScores
-        .map(s => `S${s.sectionNumber}: ${s.correct}`)
-        .join(', ');
-
-      const writingStr = `${writingTask1}\n\n${writingTask2}`;
+      const r1 = readingScores.find(s => s.sectionNumber === 1)?.correct ?? 0;
+      const r2 = readingScores.find(s => s.sectionNumber === 2)?.correct ?? 0;
+      const r3 = readingScores.find(s => s.sectionNumber === 3)?.correct ?? 0;
 
       const result = await submitMockTestResults({
         email: userEmail,
-        listeningScores: listeningStr,
-        readingScores: readingStr,
-        writingResult: writingStr
+        listeningPart1: p1,
+        listeningPart2: p2,
+        listeningPart3: p3,
+        listeningPart4: p4,
+        readingSection1: r1,
+        readingSection2: r2,
+        readingSection3: r3,
+        writingSection1: writingTask1,
+        writingSection2: writingTask2
       });
 
       if (result.ok) {
@@ -216,6 +223,102 @@ const Results: React.FC<ResultsProps> = ({
             </div>
           </div>
         </CardContent>
+      </Card>
+
+      {/* Detailed Answer Review */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            ANSWER REVIEW
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowDetails(!showDetails)}
+              className="flex items-center gap-2"
+            >
+              {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              {showDetails ? 'Hide Details' : 'Show Details'}
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        {showDetails && (
+          <CardContent>
+            <Tabs defaultValue="listening" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="listening">Listening Details</TabsTrigger>
+                <TabsTrigger value="reading">Reading Details</TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="listening" className="space-y-6">
+                {listeningAnswers.sections.map((section, sectionIdx) => (
+                  <div key={sectionIdx} className="space-y-4">
+                    <h3 className="text-lg font-semibold text-blue-600">Section {section.sectionNumber}</h3>
+                    <div className="grid gap-3">
+                      {section.questions.map((q, qIdx) => {
+                        const userAnswer = userListeningAnswers[q.question];
+                        const isCorrect = userAnswer && isAnswerCorrect(userAnswer, q.answers);
+                        return (
+                          <div key={qIdx} className="flex items-center justify-between p-3 border rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <span className="font-medium">Q{q.question}:</span>
+                              <span className="text-sm">Your answer: <strong>{userAnswer || 'No answer'}</strong></span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {isCorrect ? (
+                                <CheckCircle className="w-5 h-5 text-green-600" />
+                              ) : (
+                                <XCircle className="w-5 h-5 text-red-600" />
+                              )}
+                              {!isCorrect && (
+                                <span className="text-sm text-red-600">
+                                  Correct: {q.answers.join(' or ')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="reading" className="space-y-6">
+                {readingAnswers.sections.map((section, sectionIdx) => (
+                  <div key={sectionIdx} className="space-y-4">
+                    <h3 className="text-lg font-semibold text-green-600">Section {section.sectionNumber}</h3>
+                    <div className="grid gap-3">
+                      {section.questions.map((q, qIdx) => {
+                        const userAnswer = userReadingAnswers[q.question];
+                        const isCorrect = userAnswer && isAnswerCorrect(userAnswer, q.answers);
+                        return (
+                          <div key={qIdx} className="flex items-center justify-between p-3 border rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <span className="font-medium">Q{q.question}:</span>
+                              <span className="text-sm">Your answer: <strong>{userAnswer || 'No answer'}</strong></span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {isCorrect ? (
+                                <CheckCircle className="w-5 h-5 text-green-600" />
+                              ) : (
+                                <XCircle className="w-5 h-5 text-red-600" />
+                              )}
+                              {!isCorrect && (
+                                <span className="text-sm text-red-600">
+                                  Correct: {q.answers.join(' or ')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        )}
       </Card>
 
       {/* Action Buttons */}

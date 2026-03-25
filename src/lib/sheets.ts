@@ -114,24 +114,44 @@ export async function addToMockTested(email: string): Promise<AppendResult> {
 
 export interface MockTestResult {
   email: string;
-  listeningScores: string; // Format: "Section 1: 8/10, Section 2: 9/10, etc"
-  readingScores: string;   // Format: "Section 1: 13/13, Section 2: 12/13, Section 3: 14/14"
-  writingResult: string;   // Tasks separated by double newline
+  listeningPart1: number;
+  listeningPart2: number;
+  listeningPart3: number;
+  listeningPart4: number;
+  readingSection1: number;
+  readingSection2: number;
+  readingSection3: number;
+  writingSection1: string;
+  writingSection2: string;
 }
 
 export async function submitMockTestResults(data: MockTestResult): Promise<AppendResult> {
   const sheetId = import.meta.env.VITE_MOCK_TESTED_SHEET_ID;
-  if (!sheetId) return { ok: false, message: 'Thiếu VITE_MOCK_TESTED_SHEET_ID' };
+  const webappUrl = import.meta.env.VITE_MOCK_TESTED_WEBAPP_URL;
+
+  if (!sheetId && !webappUrl) {
+    return { ok: false, message: 'Thiếu VITE_MOCK_TESTED_SHEET_ID hoặc VITE_MOCK_TESTED_WEBAPP_URL' };
+  }
 
   const values = [
     data.email,
-    data.listeningScores,
-    data.readingScores,
-    data.writingResult,
+    data.listeningPart1,
+    data.listeningPart2,
+    data.listeningPart3,
+    data.listeningPart4,
+    data.readingSection1,
+    data.readingSection2,
+    data.readingSection3,
+    data.writingSection1,
+    data.writingSection2,
     new Date().toISOString()
   ];
 
-  return appendViaApi(sheetId, values);
+  if (webappUrl) {
+    return appendViaWebApp(webappUrl, values);
+  }
+
+  return appendViaApi(sheetId!, values);
 }
 
 export async function appendStudent(category: string, data: RowData): Promise<AppendResult> {

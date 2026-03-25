@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
-import { isAnswerCorrect, normalizeAnswer } from '@/data/answerKeys';
+import { isAnswerCorrect, normalizeAnswer, listeningAnswers as listeningQuestionAnswers } from '@/data/answerKeys';
 
 type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
 
@@ -105,12 +105,40 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
   const [currentSection, setCurrentSection] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [showReview, setShowReview] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(100);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const getListeningAnswers = (questionNumber: number) => {
+    const section = listeningQuestionAnswers.sections.find(s =>
+      s.questions.some(q => q.question === questionNumber)
+    );
+    if (!section) return [];
+
+    const question = section.questions.find(q => q.question === questionNumber);
+    return question?.answers || [];
+  };
+
+  const renderReview = (questionNumber: number) => {
+    if (!showReview) return null;
+
+    const userAnswer = answers[questionNumber];
+    const correctAnswers = getListeningAnswers(questionNumber);
+    const isCorrect = userAnswer && isAnswerCorrect(userAnswer, correctAnswers);
+
+    return (
+      <p className={`mt-1 text-xs ${isCorrect ? 'text-emerald-600' : 'text-red-600'}`}>
+        {userAnswer
+          ? isCorrect
+            ? 'Correct'
+            : `Wrong. Correct: ${correctAnswers.join(' or ')}`
+          : `No answer. Correct: ${correctAnswers.join(' or ')}`}
+      </p>
+    );
+  };
   // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
@@ -221,6 +249,16 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
         </div>
       </div>
 
+      <div className="flex justify-end mb-2">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => setShowReview(prev => !prev)}
+        >
+          {showReview ? 'Hide review' : 'Show correct answers'}
+        </Button>
+      </div>
+
       {/* Audio Player Card */}
       <Card className="border-2">
         <CardHeader className="pb-3">
@@ -235,17 +273,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
 
           <div className="space-y-4">
             {/* Playback Controls */}
-            <div className="flex items-center gap-2 md:gap-4 flex-wrap">
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleSeek(-5)}
-                className="gap-1 text-xs md:text-sm"
-              >
-                <SkipBack className="w-4 h-4" />
-                -5s
-              </Button>
-
+            <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center">
               <Button
                 size="sm"
                 onClick={handlePlayPause}
@@ -264,38 +292,13 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                 )}
               </Button>
 
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => handleSeek(5)}
-                className="gap-1 text-xs md:text-sm"
-              >
-                +5s
-                <SkipForward className="w-4 h-4" />
-              </Button>
-
-              <div className="flex-1 min-w-[150px]">
-                <input
-                  type="range"
-                  min="0"
-                  max={duration}
-                  value={currentTime}
-                  onChange={(e) => {
-                    if (audioRef.current) {
-                      audioRef.current.currentTime = parseFloat(e.target.value);
-                    }
-                  }}
-                  className="w-full accent-blue-600"
-                />
-              </div>
-
-              <span className="text-xs md:text-sm text-muted-foreground w-20 text-right">
+              <span className="text-xs md:text-sm text-muted-foreground">
                 {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
 
             {/* Volume Control */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 justify-center">
               <Volume2 className="w-4 h-4" />
               <input
                 type="range"
@@ -303,7 +306,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                 max="100"
                 value={volume}
                 onChange={handleVolumeChange}
-                className="flex-1 accent-blue-600"
+                className="w-32 accent-blue-600"
               />
               <span className="text-sm w-10 text-right">{volume}%</span>
             </div>
@@ -319,7 +322,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
         </CardHeader>
         <CardContent className="space-y-6">
           {section.section === 1 && (
-            <>
+            <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 1-4</div>
               <p>Complete the form below.</p>
               <p className="font-semibold text-red-600">Write ONE WORD ONLY for each answer.</p>
@@ -350,6 +353,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                           /> 
                           <span>London</span>
                         </div>
+                        {renderReview(1)}
                       </td>
                     </tr>
                     <tr>
@@ -370,6 +374,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                           />
                           <span>bedrooms</span>
                         </div>
+                        {renderReview(2)}
                       </td>
                     </tr>
                     <tr>
@@ -385,6 +390,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             className="text-base h-9 w-40"
                           />
                         </div>
+                        {renderReview(3)}
                       </td>
                     </tr>
                     <tr>
@@ -400,6 +406,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             className="text-base h-9 w-40"
                           />
                         </div>
+                        {renderReview(4)}
                       </td>
                     </tr>
                     <tr>
@@ -437,13 +444,14 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                       );
                     })}
                   </div>
+                  {renderReview(q.number)}
                 </div>
               ))}
 
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 8-10</div>
                 <p>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600">Write ONE WORD AND/OR A NUMBER for each answer.</p>
+                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
               </div>
               {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
@@ -457,13 +465,15 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                     placeholder="Type your answer here"
                     className="text-base h-10"
                   />
+                  {renderReview(q.number)}
                 </div>
               ))}
-            </>
+
+            </div>
           )}
 
           {section.section === 2 && (
-            <>
+            <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 11-17</div>
               <p>Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 11 && q.number <= 17).map((q) => (
@@ -489,6 +499,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                       );
                     })}
                   </div>
+                  {renderReview(q.number)}
                 </div>
               ))}
 
@@ -509,13 +520,14 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                     placeholder="Type your answer here"
                     className="text-base h-10"
                   />
+                  {renderReview(q.number)}
                 </div>
               ))}
-            </>
+            </div>
           )}
 
           {section.section === 3 && (
-            <>
+            <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
               <p>Write the correct letter, A-F, next to questions 21-26.</p>
               <div className="flex items-center gap-2">
@@ -549,6 +561,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                           </option>
                         ))}
                       </select>
+                      {renderReview(q.number)}
                     </div>
                   ))}
                 </div>
@@ -571,13 +584,14 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                     placeholder="Type your answer here"
                     className="text-base h-10"
                   />
+                  {renderReview(q.number)}
                 </div>
               ))}
-            </>
+            </div>
           )}
 
           {section.section === 4 && (
-            <>
+            <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 31-35</div>
               <p>Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 31 && q.number <= 35).map((q) => (
@@ -603,6 +617,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                       );
                     })}
                   </div>
+                  {renderReview(q.number)}
                 </div>
               ))}
 
@@ -623,9 +638,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                     placeholder="Type your answer here"
                     className="text-base h-10"
                   />
+                  {renderReview(q.number)}
                 </div>
               ))}
-            </>
+            </div>
           )}
         </CardContent>
       </Card>

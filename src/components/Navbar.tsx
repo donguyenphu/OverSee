@@ -52,18 +52,19 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className={`transition-colors flex items-center ${
+                  className={`transition-colors flex items-center text-lg md:text-xl font-bold text-foreground ${
                     location.pathname.startsWith("/thi-thu")
                       ? "text-white font-semibold bg-blue-500 px-3 py-2 rounded-md"
                       : "text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md"
                   }`}
                 >
-                  <h3 className = "transition-colors text-foreground font-semibold hover:text-primary px-3 py-2 rounded-md">Thi thử</h3> <ChevronDown className="ml-1 h-4 w-4" />
+                  <span className="mr-1">Thi thử</span> 
+                  <ChevronDown className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                  <Link to="/thi-thu/ielts">IELTS</Link>
+                <DropdownMenuItem asChild className="text-base">
+                  <Link to="/thi-thu/ielts" className="text-md md:text-lg font-bold text-foreground">IELTS</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

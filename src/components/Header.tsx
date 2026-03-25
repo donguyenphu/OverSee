@@ -1,7 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const location = useLocation();
+  const [offsetY, setOffsetY] = useState(0);
+
+  const headerHeight = 80; // để giới hạn transform
 
   const navItems = [
     { path: '/', label: 'trang chủ' },
@@ -10,8 +14,18 @@ const Header = () => {
     { path: '/lien-he', label: 'liên hệ' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setOffsetY(Math.min(currentScrollY, headerHeight));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="bg-[hsl(var(--header-bg))] text-[hsl(var(--header-foreground))] py-4 header-shadow fixed top-0 w-full z-40">
+    <header className="bg-[hsl(var(--header-bg))] text-[hsl(var(--header-foreground))] py-4 header-shadow fixed top-0 w-full z-40 transition-transform duration-75" style={{ transform: `translateY(${-offsetY}px)` }}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">

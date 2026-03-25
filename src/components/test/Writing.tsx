@@ -164,6 +164,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                   onChange={(e) => setTask1(e.target.value)}
                   placeholder="Write your answer here..."
                   className="h-96 resize-none text-base"
+                  spellCheck={false}
                 />
                 <p className="text-sm text-muted-foreground">
                   Minimum: 150 words | Current: {getTask1Words()} words
@@ -195,6 +196,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                   onChange={(e) => setTask2(e.target.value)}
                   placeholder="Write your essay here..."
                   className="h-96 resize-none text-base"
+                  spellCheck={false}
                 />
                 <p className="text-sm text-muted-foreground">
                   Minimum: 250 words | Current: {getTask2Words()} words
