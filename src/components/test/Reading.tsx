@@ -131,14 +131,6 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
           <p className="text-lg font-semibold text-foreground">
             Time: {formatTime(timeLeft)}
           </p>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => setShowReview(prev => !prev)}
-            className="mt-2"
-          >
-            {showReview ? 'Hide review' : 'Show correct answers'}
-          </Button>
         </div>
       </div>
 

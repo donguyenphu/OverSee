@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import Logo from '@/assets/Logo_OverSee.png'
 const Navbar = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   
   const isActive = (path: string) => location.pathname === path;
   
@@ -23,9 +24,26 @@ const Navbar = () => {
     { to: "/tuyen-dung", label: "Tuyển dụng" }
   ];
   
+  useEffect(() => {
+    let lastY = typeof window !== 'undefined' ? window.scrollY : 0;
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      // if scrolling down and passed threshold hide, otherwise show
+      if (currentY > lastY && currentY > 50) {
+        setShowHeader(false);
+      } else {
+        setShowHeader(true);
+      }
+      lastY = currentY <= 0 ? 0 : currentY;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
 
-    <nav className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50" style={{ width: '100vw', marginLeft: '0.0vw' }}>
+    <nav className={`border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 transition-transform duration-300 ${showHeader ? 'translate-y-0' : '-translate-y-full'}`} style={{ width: '100vw', marginLeft: '0.0vw' }}>
       <div className="container mx-auto py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'lucide-react';
@@ -249,6 +250,20 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
 
   const section = listeningQuestions[currentSection];
 
+  // Notes / scratchpad highlight (preview mode)
+  const [notesText, setNotesText] = useState('');
+  const [showNotesPreview, setShowNotesPreview] = useState(false);
+  const {
+    highlights: notesHighlights,
+    selectedRange: notesSelectedRange,
+    textRef: notesRef,
+    handleTextSelection: notesHandleTextSelection,
+    addHighlight: notesAddHighlight,
+    removeHighlight: notesRemoveHighlight,
+    renderHighlightedText: notesRenderHighlightedText,
+    clearAllHighlights: notesClearAllHighlights
+  } = useTextHighlight();
+
   return (
     <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
       {/* Header */}
@@ -266,13 +281,64 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
       </div>
 
       <div className="flex justify-end mb-2">
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => setShowReview(prev => !prev)}
-        >
-          {showReview ? 'Hide review' : 'Show correct answers'}
-        </Button>
+        <p className="text-sm text-muted-foreground">Please complete the full mock test to access answer review.</p>
+      </div>
+
+      {/* Notes / Scratchpad with highlight preview */}
+      <div className="mb-4 border rounded-lg p-4 bg-slate-50">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="font-semibold">Notes & Highlights (scratchpad)</h3>
+          <div className="text-sm text-muted-foreground">Type notes then open preview to highlight</div>
+        </div>
+
+        {!showNotesPreview ? (
+          <div className="space-y-2">
+            <Textarea
+              value={notesText}
+              onChange={(e) => setNotesText(e.target.value)}
+              placeholder="Type or paste notes here..."
+              className="h-24"
+            />
+            <div className="flex gap-2">
+              <Button onClick={() => setShowNotesPreview(true)} disabled={!notesText.trim()}>
+                Open Preview
+              </Button>
+              <Button variant="outline" onClick={() => setNotesText('')}>Clear</Button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex gap-2">
+                {notesSelectedRange && (
+                  <>
+                    <Button size="sm" onClick={notesAddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
+                      <Highlighter className="w-4 h-4 mr-1" />Highlight
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={notesRemoveHighlight} className="text-sm">
+                      <X className="w-4 h-4 mr-1" />Remove
+                    </Button>
+                  </>
+                )}
+                <Button size="sm" variant="ghost" onClick={notesClearAllHighlights} className="text-sm">
+                  Clear all
+                </Button>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => setShowNotesPreview(false)}>Edit</Button>
+                <Button variant="ghost" size="sm" onClick={() => { setNotesText(''); notesClearAllHighlights(); setShowNotesPreview(false); }}>Close</Button>
+              </div>
+            </div>
+
+            <div className="p-3 bg-white rounded border max-h-40 overflow-y-auto" ref={notesRef} onMouseUp={notesHandleTextSelection}>
+              <div className="whitespace-pre-wrap text-sm text-foreground">
+                {notesRenderHighlightedText(notesText).map((part) => typeof part === 'string' ? part : (
+                  <span key={part.id} className="bg-yellow-300">{notesText.slice(part.start, part.end)}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Audio Player Card */}
@@ -439,7 +505,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 5 && q.number <= 7).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-[18px]">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <div className="grid gap-2">
@@ -455,7 +521,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          {option}
+                          <span className="text-xl">{option}</span>
                         </label>
                       );
                     })}
@@ -470,8 +536,8 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                 <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
               </div>
               {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-[18px]">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <Input

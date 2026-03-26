@@ -77,31 +77,35 @@ export const useTextHighlight = () => {
     });
   };
 
+  const normalizeHighlights = (items: Highlight[]) => {
+    if (!items || items.length === 0) return [] as Highlight[];
+    const sorted = [...items].sort((a, b) => a.start - b.start);
+    const out: Highlight[] = [];
+    let cur = sorted[0];
+    for (let i = 1; i < sorted.length; i++) {
+      const next = sorted[i];
+      if (next.start <= cur.end) {
+        // overlap or contiguous -> merge
+        cur = { start: Math.min(cur.start, next.start), end: Math.max(cur.end, next.end), id: `${cur.start}-${Math.max(cur.end, next.end)}-${Date.now()}` };
+      } else {
+        out.push(cur);
+        cur = next;
+      }
+    }
+    out.push(cur);
+    return out;
+  };
+
   const addHighlight = () => {
     if (!selectedRange) return;
-    
-    const newHighlight: Highlight = {
-      start: selectedRange.start,
-      end: selectedRange.end,
-      id: `${selectedRange.start}-${selectedRange.end}-${Date.now()}`
-    };
+
+    const newStart = Math.min(selectedRange.start, selectedRange.end);
+    const newEnd = Math.max(selectedRange.start, selectedRange.end);
+    if (newStart === newEnd) return;
 
     setHighlights(prev => {
-      // Check for overlapping highlights
-      const hasOverlap = prev.some(h => 
-        (selectedRange.start >= h.start && selectedRange.start < h.end) ||
-        (selectedRange.end > h.start && selectedRange.end <= h.end)
-      );
-      
-      if (hasOverlap) {
-        // Remove overlapping
-        return prev.filter(h => 
-          !(selectedRange.start >= h.start && selectedRange.start < h.end) &&
-          !(selectedRange.end > h.start && selectedRange.end <= h.end)
-        );
-      }
-      
-      return [...prev, newHighlight];
+      const withNew = [...prev, { start: newStart, end: newEnd, id: `${newStart}-${newEnd}-${Date.now()}` }];
+      return normalizeHighlights(withNew);
     });
 
     setSelectedRange(null);
@@ -111,12 +115,31 @@ export const useTextHighlight = () => {
   const removeHighlight = () => {
     if (!selectedRange) return;
 
-    setHighlights(prev => 
-      prev.filter(h => 
-        !(selectedRange.start >= h.start && selectedRange.start < h.end) ||
-        !(selectedRange.end > h.start && selectedRange.end <= h.end)
-      )
-    );
+    const selStart = Math.min(selectedRange.start, selectedRange.end);
+    const selEnd = Math.max(selectedRange.start, selectedRange.end);
+
+    setHighlights(prev => {
+      const normalized = normalizeHighlights(prev);
+      const out: Highlight[] = [];
+
+      for (const h of normalized) {
+        if (h.end <= selStart || h.start >= selEnd) {
+          // no overlap
+          out.push(h);
+        } else {
+          // overlap exists -> keep left part if any
+          if (h.start < selStart) {
+            out.push({ start: h.start, end: selStart, id: `${h.start}-${selStart}-${Date.now()}` });
+          }
+          // keep right part if any
+          if (h.end > selEnd) {
+            out.push({ start: selEnd, end: h.end, id: `${selEnd}-${h.end}-${Date.now()}` });
+          }
+        }
+      }
+
+      return normalizeHighlights(out);
+    });
 
     setSelectedRange(null);
     window.getSelection()?.removeAllRanges();

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { useTextHighlight } from '@/hooks/useTextHighlight';
+import { Highlighter, X } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -54,6 +56,30 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
   const [task1, setTask1] = useState('');
   const [task2, setTask2] = useState('');
   const [showWarning, setShowWarning] = useState(false);
+
+  // Preview + highlight for tasks
+  const [showPreview1, setShowPreview1] = useState(false);
+  const [showPreview2, setShowPreview2] = useState(false);
+  const {
+    highlights: t1Highlights,
+    selectedRange: t1SelectedRange,
+    textRef: t1TextRef,
+    handleTextSelection: t1HandleTextSelection,
+    addHighlight: t1AddHighlight,
+    removeHighlight: t1RemoveHighlight,
+    renderHighlightedText: t1RenderHighlightedText,
+    clearAllHighlights: t1ClearAllHighlights
+  } = useTextHighlight();
+  const {
+    highlights: t2Highlights,
+    selectedRange: t2SelectedRange,
+    textRef: t2TextRef,
+    handleTextSelection: t2HandleTextSelection,
+    addHighlight: t2AddHighlight,
+    removeHighlight: t2RemoveHighlight,
+    renderHighlightedText: t2RenderHighlightedText,
+    clearAllHighlights: t2ClearAllHighlights
+  } = useTextHighlight();
 
   // Timer effect
   useEffect(() => {
@@ -166,6 +192,40 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                   className="h-96 resize-none text-base"
                   spellCheck={false}
                 />
+                <div className="flex gap-2 mt-2">
+                  <Button onClick={() => setShowPreview1(!showPreview1)}>
+                    {showPreview1 ? 'Hide Preview' : 'Preview & Highlight'}
+                  </Button>
+                  <Button variant="outline" onClick={() => { setTask1(''); t1ClearAllHighlights(); }}>
+                    Clear
+                  </Button>
+                </div>
+
+                {showPreview1 && (
+                  <div className="mt-3 p-3 bg-white border rounded" ref={t1TextRef} onMouseUp={t1HandleTextSelection}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex gap-2">
+                        {t1SelectedRange && (
+                          <>
+                            <Button size="sm" onClick={t1AddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
+                              <Highlighter className="w-4 h-4 mr-1" />Highlight
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={t1RemoveHighlight} className="text-sm">
+                              <X className="w-4 h-4 mr-1" />Remove
+                            </Button>
+                          </>
+                        )}
+                        <Button size="sm" variant="ghost" onClick={t1ClearAllHighlights} className="text-sm">Clear all</Button>
+                      </div>
+                      <Button size="sm" variant="outline" onClick={() => setShowPreview1(false)}>Close</Button>
+                    </div>
+                    <div className="whitespace-pre-wrap text-sm">
+                      {t1RenderHighlightedText(task1).map((part) => typeof part === 'string' ? part : (
+                        <span key={part.id} className="bg-yellow-300">{task1.slice(part.start, part.end)}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <p className="text-sm text-muted-foreground">
                   Minimum: 150 words | Current: {getTask1Words()} words
                   {getTask1Words() < 150 && (
@@ -198,6 +258,40 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                   className="h-96 resize-none text-base"
                   spellCheck={false}
                 />
+                <div className="flex gap-2 mt-2">
+                  <Button onClick={() => setShowPreview2(!showPreview2)}>
+                    {showPreview2 ? 'Hide Preview' : 'Preview & Highlight'}
+                  </Button>
+                  <Button variant="outline" onClick={() => { setTask2(''); t2ClearAllHighlights(); }}>
+                    Clear
+                  </Button>
+                </div>
+
+                {showPreview2 && (
+                  <div className="mt-3 p-3 bg-white border rounded" ref={t2TextRef} onMouseUp={t2HandleTextSelection}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex gap-2">
+                        {t2SelectedRange && (
+                          <>
+                            <Button size="sm" onClick={t2AddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
+                              <Highlighter className="w-4 h-4 mr-1" />Highlight
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={t2RemoveHighlight} className="text-sm">
+                              <X className="w-4 h-4 mr-1" />Remove
+                            </Button>
+                          </>
+                        )}
+                        <Button size="sm" variant="ghost" onClick={t2ClearAllHighlights} className="text-sm">Clear all</Button>
+                      </div>
+                      <Button size="sm" variant="outline" onClick={() => setShowPreview2(false)}>Close</Button>
+                    </div>
+                    <div className="whitespace-pre-wrap text-sm">
+                      {t2RenderHighlightedText(task2).map((part) => typeof part === 'string' ? part : (
+                        <span key={part.id} className="bg-yellow-300">{task2.slice(part.start, part.end)}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <p className="text-sm text-muted-foreground">
                   Minimum: 250 words | Current: {getTask2Words()} words
                   {getTask2Words() < 250 && (
