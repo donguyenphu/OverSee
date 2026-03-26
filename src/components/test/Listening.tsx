@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'lucide-react';
 import { isAnswerCorrect, normalizeAnswer, listeningAnswers as listeningQuestionAnswers } from '@/data/answerKeys';
+import { useTextHighlight } from '@/hooks/useTextHighlight';
 
 type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
 
@@ -129,14 +130,29 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
     const correctAnswers = getListeningAnswers(questionNumber);
     const isCorrect = userAnswer && isAnswerCorrect(userAnswer, correctAnswers);
 
+    if (!userAnswer) {
+      return (
+        <div className="mt-2 p-2 bg-red-50 border-l-4 border-red-500 rounded">
+          <p className="text-sm font-semibold text-red-700">❌ No answer</p>
+          <p className="text-sm text-red-600">✓ Correct: <span className="font-bold text-green-600">{correctAnswers.join(' or ')}</span></p>
+        </div>
+      );
+    }
+
+    if (isCorrect) {
+      return (
+        <div className="mt-2 p-2 bg-green-50 border-l-4 border-green-500 rounded">
+          <p className="text-sm font-semibold text-green-700">✓ Correct!</p>
+        </div>
+      );
+    }
+
     return (
-      <p className={`mt-1 text-xs ${isCorrect ? 'text-emerald-600' : 'text-red-600'}`}>
-        {userAnswer
-          ? isCorrect
-            ? 'Correct'
-            : `Wrong. Correct: ${correctAnswers.join(' or ')}`
-          : `No answer. Correct: ${correctAnswers.join(' or ')}`}
-      </p>
+      <div className="mt-2 p-2 bg-red-50 border-l-4 border-red-500 rounded">
+        <p className="text-sm font-semibold text-red-700">❌ Wrong</p>
+        <p className="text-sm text-red-600">Your answer: <span className="font-semibold">{userAnswer}</span></p>
+        <p className="text-sm text-red-600">✓ Correct: <span className="font-bold text-green-600">{correctAnswers.join(' or ')}</span></p>
+      </div>
     );
   };
   // Timer effect

@@ -335,6 +335,83 @@ Chỉ cần update Apps Script code ở Bước 2.
 
 ---
 
+## 🎯 SETUP APPS SCRIPT CHO MOCK TESTED SHEET
+
+### Bước 1: Deploy Apps Script cho Mock Tested Sheet
+
+1. Mở **OverSee Mock Tested** Google Sheet
+2. Click **Extensions** → **Apps Script**
+3. **XÓA HẾT** code cũ (nếu có)
+4. Paste code mới:
+
+```javascript
+function doPost(e) {
+  try {
+    // Parse dữ liệu từ request
+    var data = JSON.parse(e.postData.contents);
+    var values = data.values;
+    
+    // Lấy sheet IELTS
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('IELTS');
+    
+    if (!sheet) {
+      throw new Error('Sheet IELTS not found');
+    }
+    
+    // Thêm dòng mới với đúng thứ tự:
+    // values[0] = email
+    // values[1] = listeningPart1
+    // values[2] = listeningPart2
+    // values[3] = listeningPart3
+    // values[4] = listeningPart4
+    // values[5] = readingSection1
+    // values[6] = readingSection2
+    // values[7] = readingSection3
+    // values[8] = writingSection1
+    // values[9] = writingSection2
+    // values[10] = timestamp
+    
+    sheet.appendRow(values);
+    
+    // Trả về success
+    return ContentService
+      .createTextOutput(JSON.stringify({status: 'success', message: 'Mock test result saved'}))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch(error) {
+    // Log lỗi
+    Logger.log('Error: ' + error.toString());
+    
+    // Trả về error
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        status: 'error', 
+        message: error.toString()
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
+
+5. Click **Save** (Ctrl+S)
+6. **Deploy:**
+   - Click **Deploy** → **New deployment**
+   - Select type → **Web app**
+   - Execute as: **Me** (your Google account)
+   - Who has access: **Anyone**
+   - Click **Deploy**
+   - Copy URL và paste vào `.env` → `VITE_MOCK_TESTED_WEBAPP_URL`
+
+### Bước 2: Cập nhật Mock Tested Sheet Headers
+
+Mở **OverSee Mock Tested** Sheet và cập nhật hàng 1 với headers:
+
+```
+Email	Listening Part 1	Listening Part 2	Listening Part 3	Listening Part 4	Reading Section 1	Reading Section 2	Reading Section 3	Writing Section 1	Writing Section 2	Timestamp
+```
+
+---
+
 ### Bước 4: Restart Dev Server (nếu cần)
 
 Nếu bạn vừa update `.env`:

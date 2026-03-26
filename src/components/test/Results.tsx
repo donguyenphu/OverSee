@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, XCircle, Eye, EyeOff } from 'lucide-react';
+import { CheckCircle, XCircle, Eye, EyeOff, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { isAnswerCorrect, listeningAnswers, readingAnswers, normalizeAnswer } from '@/data/answerKeys';
 import { submitMockTestResults } from '@/lib/sheets';
+import { listeningTranscripts } from '@/data/listeningTranscripts';
 
 interface ResultsProps {
   userEmail: string;
@@ -35,6 +36,7 @@ const Results: React.FC<ResultsProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [activeReview, setActiveReview] = useState<'listening' | 'reading' | null>(null);
 
   useEffect(() => {
     // Calculate listening scores
@@ -158,6 +160,12 @@ const Results: React.FC<ResultsProps> = ({
               </span>
             </div>
           </div>
+          <Button 
+            onClick={() => setActiveReview('listening')}
+            className="w-full mt-4 bg-blue-600 hover:bg-blue-700"
+          >
+            ĐÁP ÁN ĐỀ LISTENING
+          </Button>
         </CardContent>
       </Card>
 
@@ -188,6 +196,12 @@ const Results: React.FC<ResultsProps> = ({
               </span>
             </div>
           </div>
+          <Button 
+            onClick={() => setActiveReview('reading')}
+            className="w-full mt-4 bg-green-600 hover:bg-green-700"
+          >
+            ĐÁP ÁN ĐỀ READING
+          </Button>
         </CardContent>
       </Card>
 
@@ -225,29 +239,199 @@ const Results: React.FC<ResultsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Detailed Answer Review */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            ANSWER REVIEW
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowDetails(!showDetails)}
-              className="flex items-center gap-2"
-            >
-              {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-              {showDetails ? 'Hide Details' : 'Show Details'}
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        {showDetails && (
-          <CardContent>
-            <Tabs defaultValue="listening" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="listening">Listening Details</TabsTrigger>
-                <TabsTrigger value="reading">Reading Details</TabsTrigger>
-              </TabsList>
+      {/* Listening Answer Review */}
+      {activeReview === 'listening' && (
+        <Card className="border-2 border-blue-500">
+          <CardHeader className="flex flex-row justify-between items-center bg-blue-50">
+            <CardTitle>ĐÁP ÁN ĐỀ LISTENING</CardTitle>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline"
+                onClick={() => setActiveReview('reading')}
+                className="flex items-center gap-2"
+              >
+                Xem Reading <ChevronRight className="w-4 h-4" />
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => setActiveReview(null)}
+              >
+                Đóng
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left: Questions with User Answers */}
+              <div className="space-y-4 max-h-[800px] overflow-y-auto pr-4">
+                <h3 className="font-bold text-lg mb-4">Bài làm của bạn</h3>
+                {listeningAnswers.sections.map((section) => (
+                  <div key={section.sectionNumber} className="space-y-3 pb-6 border-b">
+                    <h4 className="font-semibold text-blue-600">Section {section.sectionNumber}</h4>
+                    {section.questions.map((q) => {
+                      const userAnswer = userListeningAnswers[q.question];
+                      const isCorrect = userAnswer && isAnswerCorrect(userAnswer, q.answers);
+                      return (
+                        <div key={q.question} className="p-3 border-l-4 border-slate-200">
+                          <div className="flex items-start gap-3">
+                            <div>
+                              {isCorrect ? (
+                                <div className="text-green-600 font-bold text-lg">✓</div>
+                              ) : (
+                                <div className="text-red-600 font-bold text-lg">✗</div>
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm font-medium">Q{q.question}</p>
+                              <p className="text-sm mt-1"><span className="font-semibold">{userAnswer || '(No answer)'}</span></p>
+                              {!isCorrect && userAnswer && (
+                                <p className="text-sm text-green-600 mt-1">Correct: <span className="font-semibold">{q.answers.join(' / ')}</span></p>
+                              )}
+                              {!userAnswer && (
+                                <p className="text-sm text-green-600 mt-1">Correct: <span className="font-semibold">{q.answers.join(' / ')}</span></p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+
+              {/* Right: Transcripts */}
+              <div className="space-y-6 max-h-[800px] overflow-y-auto pl-4 border-l-2">
+                <h3 className="font-bold text-lg">Transcripts</h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-blue-600 mb-2">Part 1</h4>
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                      {listeningTranscripts.part1}
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t">
+                    <h4 className="font-semibold text-blue-600 mb-2">Part 2</h4>
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                      {listeningTranscripts.part2}
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t">
+                    <h4 className="font-semibold text-blue-600 mb-2">Part 3</h4>
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                      {listeningTranscripts.part3}
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t">
+                    <h4 className="font-semibold text-blue-600 mb-2">Part 4</h4>
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                      {listeningTranscripts.part4}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Reading Answer Review */}
+      {activeReview === 'reading' && (
+        <Card className="border-2 border-green-500">
+          <CardHeader className="flex flex-row justify-between items-center bg-green-50">
+            <CardTitle>ĐÁP ÁN ĐỀ READING</CardTitle>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline"
+                onClick={() => setActiveReview('listening')}
+                className="flex items-center gap-2"
+              >
+                <ChevronLeft className="w-4 h-4" /> Xem Listening
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => setActiveReview(null)}
+              >
+                Đóng
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="mt-6">
+            <div className="space-y-8">
+              {readingAnswers.sections.map((section) => (
+                <div key={section.sectionNumber} className="border-t pt-6">
+                  <h3 className="font-bold text-lg text-green-600 mb-4">Section {section.sectionNumber}</h3>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Passage (placeholder) */}
+                    <div className="p-4 bg-slate-50 rounded-lg max-h-[600px] overflow-y-auto">
+                      <p className="font-medium mb-3">Reading Passage</p>
+                      <p className="text-sm leading-relaxed text-slate-700">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+                      </p>
+                    </div>
+
+                    {/* Questions */}
+                    <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                      <p className="font-medium">Your Answers</p>
+                      {section.questions.map((q) => {
+                        const userAnswer = userReadingAnswers[q.question];
+                        const isCorrect = userAnswer && isAnswerCorrect(userAnswer, q.answers);
+                        return (
+                          <div key={q.question} className="p-3 border rounded-lg">
+                            <div className="flex items-start gap-3">
+                              <div>
+                                {isCorrect ? (
+                                  <div className="text-green-600 font-bold text-lg">✓</div>
+                                ) : (
+                                  <div className="text-red-600 font-bold text-lg">✗</div>
+                                )}
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-sm font-medium">Q{q.question}</p>
+                                <p className="text-sm mt-1"><span className="font-semibold">{userAnswer || '(No answer)'}</span></p>
+                                {!isCorrect && userAnswer && (
+                                  <p className="text-sm text-green-600 mt-1">Correct: <span className="font-semibold">{q.answers.join(' / ')}</span></p>
+                                )}
+                                {!userAnswer && (
+                                  <p className="text-sm text-green-600 mt-1">Correct: <span className="font-semibold">{q.answers.join(' / ')}</span></p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Detailed Answer Review - Hidden when in review mode */}
+      {!activeReview && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              ANSWER REVIEW
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowDetails(!showDetails)}
+                className="flex items-center gap-2"
+              >
+                {showDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showDetails ? 'Hide Details' : 'Show Details'}
+              </Button>
+            </CardTitle>
+          </CardHeader>
+          {showDetails && (
+            <CardContent>
+              <Tabs defaultValue="listening" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="listening">Listening Details</TabsTrigger>
+                  <TabsTrigger value="reading">Reading Details</TabsTrigger>
+                </TabsList>
 
               <TabsContent value="listening" className="space-y-6">
                 {listeningAnswers.sections.map((section, sectionIdx) => (
@@ -317,9 +501,10 @@ const Results: React.FC<ResultsProps> = ({
                 ))}
               </TabsContent>
             </Tabs>
-          </CardContent>
-        )}
-      </Card>
+            </CardContent>
+          )}
+        </Card>
+      )}
 
       {/* Action Buttons */}
       <div className="flex gap-4 justify-center">

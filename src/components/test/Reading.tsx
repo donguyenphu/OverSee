@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { readingSections } from '@/data/readingContent';
 import { readingAnswers as readingAnswerKey, isAnswerCorrect } from '@/data/answerKeys';
 import { Label } from '@/components/ui/label';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, Highlighter, X } from 'lucide-react';
+import { useTextHighlight } from '@/hooks/useTextHighlight';
 
 interface ReadingProps {
   userEmail: string;
@@ -24,6 +25,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showReview, setShowReview] = useState(false);
   const [showScrollableContent, setShowScrollableContent] = useState(true);
+  const { highlights, selectedRange, textRef, handleTextSelection, addHighlight, removeHighlight, renderHighlightedText, clearAllHighlights } = useTextHighlight();
 
   const getReadingAnswers = (questionNumber: number) => {
     const section = readingAnswerKey.sections.find(s =>
@@ -39,14 +41,30 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
     const userAnswer = answers[questionNumber];
     const correctAnswers = getReadingAnswers(questionNumber);
     const isCorrect = userAnswer && isAnswerCorrect(userAnswer, correctAnswers);
+    
+    if (!userAnswer) {
+      return (
+        <div className="mt-2 p-2 bg-red-50 border-l-4 border-red-500 rounded">
+          <p className="text-sm font-semibold text-red-700">❌ No answer</p>
+          <p className="text-sm text-red-600">✓ Correct: <span className="font-bold text-green-600">{correctAnswers.join(' or ')}</span></p>
+        </div>
+      );
+    }
+    
+    if (isCorrect) {
+      return (
+        <div className="mt-2 p-2 bg-green-50 border-l-4 border-green-500 rounded">
+          <p className="text-sm font-semibold text-green-700">✓ Correct!</p>
+        </div>
+      );
+    }
+    
     return (
-      <p className={`mt-1 text-xs ${isCorrect ? 'text-emerald-600' : 'text-red-600'}`}>
-        {userAnswer
-          ? isCorrect
-            ? 'Correct'
-            : `Wrong. Correct: ${correctAnswers.join(' or ')}`
-          : `No answer. Correct: ${correctAnswers.join(' or ')}`}
-      </p>
+      <div className="mt-2 p-2 bg-red-50 border-l-4 border-red-500 rounded">
+        <p className="text-sm font-semibold text-red-700">❌ Wrong</p>
+        <p className="text-sm text-red-600">Your answer: <span className="font-semibold">{userAnswer}</span></p>
+        <p className="text-sm text-red-600">✓ Correct: <span className="font-bold text-green-600">{correctAnswers.join(' or ')}</span></p>
+      </div>
     );
   };
 
@@ -142,11 +160,67 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               />
             )}
 
-            {section.passages.map((passage, idx) => (
-              <p key={idx} className="text-base leading-relaxed text-foreground">
-                {passage}
-              </p>
-            ))}
+            {/* Highlight buttons */}
+            {selectedRange && (
+              <div className="flex gap-2 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+                <Button 
+                  size="sm"
+                  onClick={addHighlight}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-sm"
+                >
+                  <Highlighter className="w-4 h-4 mr-1" />Highlight
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={removeHighlight}
+                  variant="outline"
+                  className="text-sm"
+                >
+                  <X className="w-4 h-4 mr-1" />Remove
+                </Button>
+              </div>
+            )}
+
+            {highlights.length > 0 && (
+              <div className="flex gap-2 p-2 bg-slate-50 rounded">
+                <span className="text-xs text-muted-foreground">
+                  {highlights.length} highlight(s)
+                </span>
+                <Button 
+                  size="sm"
+                  variant="ghost"
+                  onClick={clearAllHighlights}
+                  className="text-xs h-6"
+                >
+                  Clear all
+                </Button>
+              </div>
+            )}
+
+            {/* Passages with highlight support */}
+            <div 
+              ref={textRef}
+              onMouseUp={handleTextSelection}
+              className="select-text"
+            >
+              {section.passages.map((passage, idx) => {
+                const parts = renderHighlightedText(passage);
+                return (
+                  <p key={idx} className="text-base leading-relaxed text-foreground mb-4">
+                    {parts.map((part, pIdx) => {
+                      if (typeof part === 'string') {
+                        return part;
+                      }
+                      return (
+                        <span key={part.id} className="bg-yellow-300">
+                          {passage.slice(part.start, part.end)}
+                        </span>
+                      );
+                    })}
+                  </p>
+                );
+              })}
+            </div>
           </div>
         </div>
 
