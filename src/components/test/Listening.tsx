@@ -257,21 +257,17 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
           <p className="text-sm md:text-base text-muted-foreground">Section {section.section} of 4 • {section.startQuestion + 9 - section.startQuestion + 1} Questions</p>
         </div>
         <div className="text-right">
-          <p className={`text-lg md:text-xl font-bold ${timeLeft < 5 * 60 ? 'text-red-600' : 'text-foreground'}`}>
+          <p className={`text-xl md:text-xl font-bold ${timeLeft < 5 * 60 ? 'text-red-600' : 'text-foreground'}`}>
             {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
           </p>
-          <p className="text-xs text-muted-foreground">Time Remaining</p>
+          <p className="text-xl text-muted-foreground">Time Remaining</p>
         </div>
-      </div>
-
-      <div className="flex justify-end mb-2">
-        <p className="text-sm text-muted-foreground">Please complete the full mock test to access answer review.</p>
       </div>
 
       {/* Audio Player Card */}
       <Card className="border-2">
         <CardHeader className="pb-3">
-          <CardTitle className="text-base md:text-lg">Audio Player</CardTitle>
+          <CardTitle className="text-lg md:text-xl">Audio Player</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <audio
@@ -327,16 +323,16 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
       <Card>
         <CardHeader>
           <CardTitle>Questions {section.startQuestion}-{section.startQuestion + 9}</CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">Listen and answer the questions below</p>
+          <p className="text-lg text-muted-foreground mt-2">Listen and answer the questions below</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {section.section === 1 && (
             <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 1-4</div>
               <p>Complete the form below.</p>
-              <p className="font-semibold text-red-600">Write ONE WORD ONLY for each answer.</p>
-              <p className="font-bold">HOUSE SERVICE INFORMATION</p>
-              <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50">
+              <p className="font-semibold text-red-600 text-xl">Write ONE WORD ONLY for each answer.</p>
+              <p className="font-bold text-xl">HOUSE SERVICE INFORMATION</p>
+              <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50 mt-2">
                 <table className="w-full border-collapse">
                   <thead>
                     <tr>
@@ -428,11 +424,11 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
 
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 5-7</div>
-                <p>Choose the correct letter, A, B, or C.</p>
+                <p className='text-xl'>Choose the correct letter, A, B, or C.</p>
               </div>
               {section.questions.filter((q) => q.number >= 5 && q.number <= 7).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-[18px]">
+                <div key={q.number} className="space-y-1 border-l-4 border-blue-200 pl-4 py-1">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <div className="grid gap-2">
@@ -448,7 +444,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          <span className="text-xl">{option}</span>
+                          <span className="text-lg">{option}</span>
                         </label>
                       );
                     })}
@@ -464,7 +460,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-[18px]">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <Input
@@ -486,11 +482,11 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               <div className="text-xl font-bold text-blue-700">QUESTION 11-17</div>
               <p>Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 11 && q.number <= 17).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
-                  <div className="grid gap-2">
+                  <div className="grid gap-2 py-2">
                     {(q.options || []).map((option, idx) => {
                       const value = option.split('.')[0].trim();
                       return (
@@ -503,7 +499,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          {option}
+                          <span className="text-lg">{option}</span>
                         </label>
                       );
                     })}
@@ -514,12 +510,12 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
 
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 18-20</div>
-                <p>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
+                <p className="text-lg">Complete the sentences below.</p>
+                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
               </div>
               {section.questions.filter((q) => q.number >= 18 && q.number <= 20).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <Input
@@ -538,30 +534,30 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
           {section.section === 3 && (
             <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
-              <p>Write the correct letter, A-F, next to questions 21-26.</p>
+              <p className='text-xl'>Write the correct letter, A-F, next to questions 21-26.</p>
               <div className="flex items-center gap-2">
                 <div className="w-1/2">
                   <img src="/images/listeningup1.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
                   <div className="border rounded-lg p-3 bg-slate-50 text-sm">
-                    <div className="font-semibold">A: Video Resource Centre</div>
-                    <div className="font-semibold">B: Reading Room</div>
-                    <div className="font-semibold">C: Food Service Centre</div>
-                    <div className="font-semibold">D: Periodicals Section</div>
-                    <div className="font-semibold">E: Enquiry Desk</div>
-                    <div className="font-semibold">F: Satellite TV Station</div>
+                    <div className="font-semibold text-lg">A: Video Resource Centre</div>
+                    <div className="font-semibold text-lg">B: Reading Room</div>
+                    <div className="font-semibold text-lg">C: Food Service Centre</div>
+                    <div className="font-semibold text-lg">D: Periodicals Section</div>
+                    <div className="font-semibold text-lg">E: Enquiry Desk</div>
+                    <div className="font-semibold text-lg">F: Satellite TV Station</div>
                   </div>
                 </div>
                 <div className="w-1/2">
                   {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
-                    <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                      <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                    <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
+                      <Label htmlFor={`q-${q.number}`} className="font-semibold text-lg">
                         QUESTION {q.number}.
                       </Label>
                       <select
                         id={`q-${q.number}`}
                         value={answers[q.number] || ''}
                         onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                        className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full rounded-md border bg-background p-2 m-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary"
                       >
                         <option value="">Select</option>
                         {(q.options || []).map((option, idx) => (
@@ -578,12 +574,12 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 27-30</div>
-                <p>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
+                <p className='text-xl'>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
               </div>
               {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <Input
@@ -591,7 +587,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                     value={answers[q.number] || ''}
                     onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                     placeholder="Type your answer here"
-                    className="text-base h-10"
+                    className="h-10 py-2"
                   />
                   {renderReview(q.number)}
                 </div>
@@ -602,10 +598,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
           {section.section === 4 && (
             <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 31-35</div>
-              <p>Choose the correct letter, A, B, or C.</p>
+              <p className="text-xl">Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 31 && q.number <= 35).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <div className="grid gap-2">
@@ -621,7 +617,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          {option}
+                          <span className='text-lg'>{option}</span>
                         </label>
                       );
                     })}
@@ -632,12 +628,12 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
 
               <div className="pt-4">
                 <div className="text-xl font-bold text-blue-700">QUESTION 36-40</div>
-                <p>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600">Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+                <p className='text-xl'>Complete the sentences below.</p>
+                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
               </div>
               {section.questions.filter((q) => q.number >= 36 && q.number <= 40).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-base">
+                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
                     QUESTION {q.number}. {q.question}
                   </Label>
                   <Input
@@ -663,16 +659,16 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
           variant="outline"
           className="flex-1"
         >
-          ← Back
+          <span className='text-lg'>← Back</span>
         </Button>
 
         {currentSection < listeningQuestions.length - 1 ? (
           <Button onClick={handleNextSection} className="flex-1">
-            Next Section →
+            <span className='text-lg'>Next Section →</span>
           </Button>
         ) : (
           <Button onClick={handleComplete} className="flex-1 bg-green-600 hover:bg-green-700">
-            Finish Listening
+            <span className='text-lg'>Finish Listening</span>
           </Button>
         )}
       </div>

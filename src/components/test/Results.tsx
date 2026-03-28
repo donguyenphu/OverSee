@@ -241,7 +241,7 @@ const Results: React.FC<ResultsProps> = ({
             onClick={() => setActiveReview('listening')}
             className="w-full mt-4 bg-blue-600 hover:bg-blue-700"
           >
-            ĐÁP ÁN ĐỀ LISTENING
+            <strong>ĐÁP ÁN ĐỀ LISTENING</strong>
           </Button>
         </CardContent>
       </Card>
@@ -277,7 +277,7 @@ const Results: React.FC<ResultsProps> = ({
             onClick={() => setActiveReview('reading')}
             className="w-full mt-4 bg-green-600 hover:bg-green-700"
           >
-            ĐÁP ÁN ĐỀ READING
+            <strong>ĐÁP ÁN ĐỀ READING</strong>
           </Button>
         </CardContent>
       </Card>
@@ -365,13 +365,13 @@ const Results: React.FC<ResultsProps> = ({
                 onClick={() => setActiveReview('reading')}
                 className="flex items-center gap-2"
               >
-                Xem Reading <ChevronRight className="w-4 h-4" />
+                <span className="text-lg">Xem Reading </span><ChevronRight className="w-4 h-4" />
               </Button>
               <Button 
                 variant="outline"
                 onClick={() => setActiveReview(null)}
               >
-                Đóng
+                <span className="text-lg">Đóng</span>
               </Button>
             </div>
           </CardHeader>
@@ -435,25 +435,25 @@ const Results: React.FC<ResultsProps> = ({
                 <div className="space-y-4" ref={lTextRef} onMouseUp={(e) => { lHandleTextSelection(); setLSelectionPos({ x: e.clientX, y: e.clientY }); }}>
                   <div>
                     <h4 className="font-semibold text-blue-600 mb-2">Part 1</h4>
-                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap text-lg">
                       {renderRange(lRanges[0].start, lRanges[0].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 2</h4>
-                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap text-lg">
                       {renderRange(lRanges[1].start, lRanges[1].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 3</h4>
-                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap text-lg">
                       {renderRange(lRanges[2].start, lRanges[2].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 4</h4>
-                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap text-lg">
                       {renderRange(lRanges[3].start, lRanges[3].end)}
                     </p>
                   </div>
@@ -475,13 +475,13 @@ const Results: React.FC<ResultsProps> = ({
                 onClick={() => setActiveReview('listening')}
                 className="flex items-center gap-2"
               >
-                <ChevronLeft className="w-4 h-4" /> Xem Listening
+                <ChevronLeft className="w-4 h-4" /> <span className="text-lg">Xem Listening</span>
               </Button>
               <Button 
                 variant="outline"
                 onClick={() => setActiveReview(null)}
               >
-                Đóng
+                <span className="text-lg">Đóng</span>
               </Button>
             </div>
           </CardHeader>
@@ -516,7 +516,7 @@ const Results: React.FC<ResultsProps> = ({
                           const readingSection = readingSections.find(s => s.id === section.sectionNumber);
                           if (!readingSection) return <p>Passage not found</p>;
                           return readingSection.passages.map((passage, idx) => (
-                            <p key={idx} className="whitespace-pre-wrap">{passage}</p>
+                            <p key={idx} className="whitespace-pre-wrap text-lg">{passage}</p>
                           ));
                         })()}
                       </div>
@@ -666,7 +666,7 @@ const Results: React.FC<ResultsProps> = ({
           variant="outline"
           size="lg"
         >
-          Back to Home
+          <span className="text-lg">Về trang chủ</span>
         </Button>
         <Button
           onClick={handleSubmitResults}
@@ -674,7 +674,7 @@ const Results: React.FC<ResultsProps> = ({
           className="bg-blue-600 hover:bg-blue-700"
           size="lg"
         >
-          {isSubmitting ? 'Đang lưu...' : submitted ? '✓ Submitted' : 'Submit Results'}
+          <span className="text-lg">{isSubmitting ? 'Đang lưu...' : submitted ? '✓ Đã gửi' : 'Gửi kết quả'}</span>
         </Button>
       </div>
 

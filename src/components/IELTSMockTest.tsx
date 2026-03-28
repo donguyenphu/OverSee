@@ -11,6 +11,7 @@ import Listening, { ListeningResults } from "@/components/test/Listening";
 import Reading, { ReadingResults } from "@/components/test/Reading";
 import Writing, { WritingResults } from "@/components/test/Writing";
 import Results from "@/components/test/Results";
+import { NotebookPen, LeafyGreenIcon, MessageCircleWarning } from 'lucide-react';
 
 const IELTSMockTest = () => {
   const [email, setEmail] = useState("");
@@ -158,19 +159,51 @@ const IELTSMockTest = () => {
                 <div>
                   <Card>
                     <CardContent className="pt-6 space-y-4">
-                      <div className="grid grid-cols-1 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
                           <ul className="text-md space-y-2 text-foreground">
-                            <li><strong>✅ 30 phút Listening (40 câu hỏi)</strong></li>
-                            <li><strong>✅ 60 phút Reading (40 câu hỏi)</strong></li>
-                            <li><strong>✅ 60 phút Writing (2 tasks)</strong></li>
-                            <li><strong>✅ Reading & Listening: Hệ thống chấm điểm tự động ngay sau khi bài thi kết thúc</strong></li>
-                            <li><strong>✅ Speaking & Writing: Chấm điểm trực tiếp theo hình thức buổi meet 1-1 với mentor 8.0+ IELTS</strong></li>
+                            <li className="flex items-center gap-2">
+                              <LeafyGreenIcon className="w-6 h-6 text-green-600 shrink-0" />
+                              <strong>30 phút Listening (40 câu hỏi)</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <LeafyGreenIcon className="w-6 h-6 text-green-600 shrink-0" /> 
+                              <strong>60 phút Reading (40 câu hỏi)</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <LeafyGreenIcon className="w-6 h-6 text-green-600 shrink-0" />
+                              <strong>60 phút Writing (2 tasks)</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <LeafyGreenIcon className="w-6 h-6 text-green-600 shrink-0" />
+                              <strong>Reading & Listening: Hệ thống chấm điểm tự động ngay sau khi bài thi kết thúc</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <LeafyGreenIcon className="w-6 h-6 text-green-600 shrink-0" />
+                              <strong>Speaking & Writing: Chấm trực tiếp theo hình thức buổi meet 1-1 với mentor</strong>
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
+                          <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Hướng dẫn chức năng highlight</span>
+                          <ul className="text-md space-y-2 text-foreground mt-2">
+                            <li className="flex items-center gap-2">
+                              <NotebookPen className="w-6 h-6 text-blue-600 shrink-0" />
+                              <strong>Di con trỏ chuột theo đoạn văn bản bạn muốn tô đậm</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <NotebookPen className="w-6 h-6 text-blue-600 shrink-0" />
+                              <strong>Sau khi chọn đoạn văn bản, thả tay khỏi chuột hoặc pad, màn hình sẽ xuất hiện 2 nút Highlight và Remove</strong>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <NotebookPen className="w-6 h-6 text-blue-600 shrink-0" />
+                              <strong>Nhấn Highlight để tô đậm đoạn văn bản, Remove để xóa dấu (ở trên cùng passage có nút Clear all để xóa hết dấu của passage đó)</strong>
+                            </li>
                           </ul>
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="email" className="font-semibold text-base">
+                        <Label htmlFor="email" className="font-semibold text-xl">
                           Nhập email của bạn
                         </Label>
                         <Input
@@ -180,10 +213,10 @@ const IELTSMockTest = () => {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
                           required
-                          className="text-base h-11"
+                          className="text-base h-10 mt-2"
                         />
                       </div>
-                      <Button type="submit" className="w-full h-10 text-base font-semibold">
+                      <Button type="submit" className="w-full h-10 text-xl font-semibold">
                         Tiếp tục
                       </Button>
                       {error && (
@@ -215,13 +248,13 @@ const IELTSMockTest = () => {
               <Card>
                 <CardContent className="pt-6 space-y-4">
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                    <p className="text-sm text-amber-900">
-                      💡 Hãy nhập code đã được trung tâm cung cấp để bắt đầu bài thi thử. Nếu bạn chưa có code, hãy nhắn tin cho page trung tâm để nhận được code thi thử.
+                    <p className="text-lg text-amber-900 flex items-center gap-2">
+                      <MessageCircleWarning className="h-20 w-20" /> Hãy nhập code đã được trung tâm cung cấp để bắt đầu bài thi thử. Nếu bạn chưa có code, hãy nhắn tin cho page trung tâm để nhận được code thi thử.
                     </p>
                   </div>
 
                   <div>
-                    <Label htmlFor="code" className="font-semibold text-base">
+                    <Label htmlFor="code" className="font-semibold text-lg">
                       Mã code
                     </Label>
                     <Input
@@ -230,16 +263,16 @@ const IELTSMockTest = () => {
                       onChange={(e) => setCode(e.target.value)}
                       placeholder="Nhập mã code tại đây"
                       required
-                      className="text-base h-11 font-mono text-center text-lg tracking-widest"
+                      className="text-lg h-11 font-roboto text-center text-lg tracking-widest mt-2"
                     />
                   </div>
-                  <Button type="submit" className="w-full h-10 text-base font-semibold">
+                  <Button type="submit" className="w-full h-10 text-lg font-semibold">
                     Xác nhận
                   </Button>
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full"
+                    className="w-full h-10 text-lg font-semibold"
                     onClick={() => setStep("email")}
                   >
                     ← Quay lại

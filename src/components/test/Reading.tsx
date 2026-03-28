@@ -213,11 +213,11 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">READING</h1>
-          <p className="text-sm text-muted-foreground">Passage {section.id} of 3</p>
+          <h1 className="text-4xl font-bold text-foreground">READING</h1>
+          <p className="text-lg text-muted-foreground">Passage {section.id} of 3</p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-semibold text-foreground">
+          <p className="text-xl font-semibold text-foreground">
             Time: {formatTime(timeLeft)}
           </p>
         </div>
@@ -263,15 +263,15 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
             )}
 
             {currentHighlights.filter(h => h).length > 0 && (
-              <div className="flex gap-2 p-2 bg-slate-50 rounded">
-                <span className="text-xs text-muted-foreground">
+              <div className="flex gap-2 p-2 bg-red-50 rounded">
+                {/* <span className="text-xs text-muted-foreground">
                   {currentHighlights.filter(h => h).length} character(s) highlighted
-                </span>
+                </span> */}
                 <Button 
-                  size="sm"
+                  size="lg"
                   variant="ghost"
                   onClick={clearAllHighlights}
-                  className="text-xs h-6"
+                  className="text-lg h-6 font-semibold"
                 >
                   Clear all
                 </Button>
@@ -310,7 +310,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   }
 
                   return (
-                    <p key={idx} className="text-base leading-relaxed text-foreground">
+                    <p key={idx} className="text-lg leading-relaxed text-foreground">
                       {content}
                     </p>
                   );
@@ -326,17 +326,17 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
             <CardHeader>
               <CardTitle>Questions {section.questions[0].globalNumber}-{section.questions[section.questions.length - 1].globalNumber}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-2">
               {section.id === 1 && (
                 <>
                   <div className="text-lg font-bold text-blue-700">Questions 1-7</div>
-                  <p>Reading Passage 1 has six paragraphs, A-G.</p>
-                  <p>Which paragraph contains the following information?</p>
-                  <p>Write the correct letter A-G, in boxes 1-7 on your answer sheet.</p>
-                  <p className="italic">NB You may use any letter more than once.</p>
+                  <p className="text-lg">Reading Passage 1 has six paragraphs, A-G.</p>
+                  <p className="text-lg">Which paragraph contains the following information?</p>
+                  <p className="text-lg">Write the correct letter A-G, in boxes 1-7 on your answer sheet.</p>
+                  <p className="italic font-semibold text-lg">*NB You may use any letter more than once.</p>
                   {section.questions.filter((q) => q.globalNumber <= 7).map((q) => (
-                    <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                    <div key={q.globalNumber} className="space-y-1">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <select
@@ -357,10 +357,10 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 8-11</div>
-                  <p>Look at the following people and list of statements below.</p>
-                  <p>Match each person with the correct statement.</p>
-                  <p>Write the correct letter A-E in boxes 8-11 on your answer sheet.</p>
-                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                  <p className="text-lg">Look at the following people and list of statements below.</p>
+                  <p className="text-lg">Match each person with the correct statement.</p>
+                  <p className="text-lg">Write the correct letter A-E in boxes 8-11 on your answer sheet.</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-lg">
                     <p>A: Described his story of selling his product to a chain store</p>
                     <p>B: Explained there was a shortage of money when sales suddenly increased</p>
                     <p>C: Believe innovations need support to succeed</p>
@@ -369,7 +369,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   </div>
                   {section.questions.filter((q) => q.globalNumber >= 8 && q.globalNumber <= 11).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <select
@@ -390,11 +390,11 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 12-13</div>
-                  <p>Choose the correct letter A, B, C or D.</p>
-                  <p>Write your answers in boxes 12-13 on your answer sheet.</p>
+                  <p className="text-lg">Choose the correct letter A, B, C or D.</p>
+                  <p className="text-lg">Write your answers in boxes 12-13 on your answer sheet.</p>
                   {section.questions.filter((q) => q.globalNumber >= 12 && q.globalNumber <= 13).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <div className="space-y-2">
@@ -410,7 +410,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                                 onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
                                 className="w-4 h-4"
                               />
-                              {option}
+                              <span className="text-lg">{option}</span>
                             </label>
                           );
                         })}
@@ -424,16 +424,16 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               {section.id === 2 && (
                 <>
                   <div className="text-lg font-bold text-blue-700">Questions 14-17</div>
-                  <p>Do the following statements agree with the claims of the writer in Reading Passage?</p>
-                  <p>In boxes 14-17 on your answer sheet write:</p>
+                  <p className="text-lg">Do the following statements agree with the claims of the writer in Reading Passage?</p>
+                  <p className="text-lg">In boxes 14-17 on your answer sheet write:</p>
                   <div className="border rounded-lg p-3 bg-slate-50">
-                    <p>TRUE if the statement agrees with the information</p>
-                    <p>FALSE if the statement contradicts the information</p>
-                    <p>NOT GIVEN if there is no information on this</p>
+                    <p className="text-lg"><strong>TRUE</strong> if the statement agrees with the information</p>
+                    <p className="text-lg"><strong>FALSE</strong> if the statement contradicts the information</p>
+                    <p className="text-lg"><strong>NOT GIVEN</strong> if there is no information on this</p>
                   </div>
                   {section.questions.filter((q) => q.globalNumber >= 14 && q.globalNumber <= 17).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <select
@@ -454,22 +454,22 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 18-21</div>
-                  <p>Complete the diagram below.</p>
-                  <p className="font-semibold text-red-600">Choose NO MORE THAN TWO WORDS from the passage for each answer.</p>
-                  <p>Write your answers in boxes 18-21 on your answer sheet.</p>
+                  <p className="text-lg">Complete the diagram below.</p>
+                  <p className="font-semibold text-red-600 text-lg">Choose NO MORE THAN TWO WORDS from the passage for each answer.</p>
+                  <p className="text-lg">Write your answers in boxes 18-21 on your answer sheet.</p>
                   <div className="flex gap-5">
-                    <div className="w-[70%]">
+                    <div className="w-[65%]">
                       <img 
                         src="/images/read18.jpg" 
                         alt="Reading 18 diagram" 
                         className="w-full rounded-lg border my-3 w-full" 
                       />
                     </div>
-                    <div className="flex flex-col gap-6 w-[30%]"> {/* Parent wrapper to space out the question blocks */}
+                    <div className="flex flex-col gap-6 w-[35%]"> {/* Parent wrapper to space out the question blocks */}
                       {section.questions
                         .filter((q) => q.globalNumber >= 18 && q.globalNumber <= 21)
                         .map((q) => (
-                          <div key={q.globalNumber} className="flex flex-col space-y-2">
+                          <div key={q.globalNumber} className="flex flex-col space-y-1">
                             <Label 
                               htmlFor={`q-${q.globalNumber}`} 
                               className="font-semibold text-base block"
@@ -489,20 +489,20 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                     </div>
                   </div>
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 22-25</div>
-                  <p>Look at the following people (Questions 22-25) and the list of statements.</p>
-                  <p>Match each person with the correct statement.</p>
-                  <p>Write the correct letter A-F in boxes 22-25 on your answer sheet.</p>
+                  <p className="text-lg">Look at the following people (Questions 22-25) and the list of statements.</p>
+                  <p className="text-lg">Match each person with the correct statement.</p>
+                  <p className="text-lg">Write the correct letter A-F in boxes 22-25 on your answer sheet.</p>
                   <div className="border rounded-lg p-3 bg-slate-50 text-sm">
-                    <p>A: Filed a complaint which was never responded to</p>
-                    <p>B: Broke the contract made with Carbolic Smoke Ball Company</p>
-                    <p>C: Initiated a legal case</p>
-                    <p>D: Described the audience of advertisement</p>
-                    <p>E: Claimed that most advertisements are fraudulent</p>
-                    <p>F: Treated advertisement as a type of contract</p>
+                    <p className="text-lg">A: Filed a complaint which was never responded to</p>
+                    <p className="text-lg">B: Broke the contract made with Carbolic Smoke Ball Company</p>
+                    <p className="text-lg">C: Initiated a legal case</p>
+                    <p className="text-lg">D: Described the audience of advertisement</p>
+                    <p className="text-lg">E: Claimed that most advertisements are fraudulent</p>
+                    <p className="text-lg">F: Treated advertisement as a type of contract</p>
                   </div>
                   {section.questions.filter((q) => q.globalNumber >= 22 && q.globalNumber <= 25).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <select
@@ -523,11 +523,11 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Question 26</div>
-                  <p>Choose the correct letter, A, B, C or D.</p>
-                  <p>Write your answer in box 26 on your answer sheet.</p>
+                  <p className="text-lg">Choose the correct letter, A, B, C or D.</p>
+                  <p className="text-lg">Write your answer in box 26 on your answer sheet.</p>
                   {section.questions.filter((q) => q.globalNumber === 26).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <div className="space-y-2">
@@ -543,7 +543,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                                 onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
                                 className="w-4 h-4"
                               />
-                              {option}
+                              <span className="text-lg">{option}</span>
                             </label>
                           );
                         })}
@@ -557,10 +557,10 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               {section.id === 3 && (
                 <>
                   <div className="text-lg font-bold text-blue-700">Questions 27-34</div>
-                  <p>Reading Passage 3 has eight sections A-H.</p>
-                  <p>Choose the correct heading for each section from the list of headings below.</p>
-                  <p>Write the correct number i-x in boxes 27-34 on your answer sheet.</p>
-                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                  <p className="text-lg">Reading Passage 3 has eight sections A-H.</p>
+                  <p className="text-lg">Choose the correct heading for each section from the list of headings below.</p>
+                  <p className="text-lg">Write the correct number i-x in boxes 27-34 on your answer sheet.</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-lg">
                     <p className="font-semibold">List of Headings</p>
                     <p>i: Summarising personality types</p>
                     <p>ii: Combined styles for workplace</p>
@@ -596,12 +596,12 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Questions 35-39</div>
-                  <p>Do the following statements agree with the information given in Reading Passage 3?</p>
-                  <p>In boxes 35-39 on your answer sheet, write:</p>
-                  <div className="border rounded-lg p-3 bg-slate-50">
-                    <p>TRUE if the statement agrees with the information</p>
-                    <p>FALSE if the statement contradicts the information</p>
-                    <p>NOT GIVEN if there is no information on this</p>
+                  <p className="text-lg">Do the following statements agree with the information given in Reading Passage 3?</p>
+                  <p className="text-lg">In boxes 35-39 on your answer sheet, write:</p>
+                  <div className="border rounded-lg p-3 bg-slate-50 text-lg">
+                    <p><strong>TRUE</strong> if the statement agrees with the information</p>
+                    <p><strong>FALSE</strong> if the statement contradicts the information</p>
+                    <p><strong>NOT GIVEN</strong> if there is no information on this</p>
                   </div>
                   {section.questions.filter((q) => q.globalNumber >= 35 && q.globalNumber <= 39).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
@@ -626,11 +626,11 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                   ))}
 
                   <div className="text-lg font-bold text-blue-700 pt-4">Question 40</div>
-                  <p>Choose the correct letter A, B, C or D.</p>
-                  <p>Write your answer in box 40 on your answer sheet.</p>
+                  <p className="text-lg">Choose the correct letter A, B, C or D.</p>
+                  <p className="text-lg">Write your answer in box 40 on your answer sheet.</p>
                   {section.questions.filter((q) => q.globalNumber === 40).map((q) => (
                     <div key={q.globalNumber} className="space-y-2">
-                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-base">
+                      <Label htmlFor={`q-${q.globalNumber}`} className="font-semibold text-lg">
                         QUESTION {q.globalNumber}. {q.question}
                       </Label>
                       <div className="space-y-2">
@@ -646,7 +646,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
                                 onChange={(e) => handleAnswerChange(q.globalNumber, e.target.value)}
                                 className="w-4 h-4"
                               />
-                              {option}
+                              <span className="text-lg">{option}</span>
                             </label>
                           );
                         })}

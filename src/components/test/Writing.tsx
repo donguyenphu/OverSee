@@ -33,20 +33,20 @@ const WritingTasksData: WritingTask[] = [
     timeMinutes: 20,
     image: '/images/wri.jpg',
     content: `The graph shows the average Japanese monthly salary (Yen) from 1953 to 1973, and the prices of black and white televisions and color televisions during the same period.
-
-*Task: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.
-
-Write at least 150 words.`
+              
+              Task: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.
+              
+              Write at least 150 words.`
   },
   {
     taskNumber: 2,
     title: 'Task 2: Academic Writing (Essay)',
     timeMinutes: 40,
-    content: `*Question: Some people benefit from modern communication technology, but some have not been helped at all. Do you agree or disagree?
+    content: `Question: Some people benefit from modern communication technology, but some have not been helped at all. Do you agree or disagree?
 
-*Task: Give reasons for your answer and include any relevant examples from your own knowledge or experience.
+              Task: Give reasons for your answer and include any relevant examples from your own knowledge or experience.
 
-Write at least 250 words.`
+              Write at least 250 words.`
   }
 ];
 
@@ -125,15 +125,15 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">WRITING</h1>
-          <p className="text-sm text-muted-foreground">Task 1 + Task 2</p>
+          <h1 className="text-4xl font-bold text-foreground">WRITING</h1>
+          <p className="text-lg text-muted-foreground">Task 1 + Task 2</p>
         </div>
         <div className="text-right">
-          <p className={`text-lg font-semibold ${showWarning ? 'text-red-600' : 'text-foreground'}`}>
+          <p className={`text-xl font-semibold ${showWarning ? 'text-red-600' : 'text-foreground'}`}>
             Time: {formatTime(timeLeft)}
           </p>
           {showWarning && (
-            <p className="text-sm text-red-600 font-semibold">5 minutes remaining!</p>
+            <p className="text-xl text-red-600 font-semibold">5 minutes remaining!</p>
           )}
         </div>
       </div>
@@ -141,7 +141,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
       {/* Warning Alert */}
       {showWarning && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800 font-semibold">⚠️ Warning: 5 minutes remaining. Please finish and submit your answers.</p>
+          <p className="text-red-800 font-semibold text-lg">⚠️ Warning: 5 minutes remaining. Please finish and submit your answers.</p>
         </div>
       )}
 
@@ -177,13 +177,13 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                 </div>
                 <div className="w-[100%]">
                   <div className="bg-muted p-4 rounded-lg">
-                    <p className="text-foreground whitespace-pre-line">{WritingTasksData[0].content}</p>
+                    <p className="text-foreground whitespace-pre-line font-semibold">{WritingTasksData[0].content}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="task1-textarea">Your Answer</Label>
+                <Label htmlFor="task1-textarea"><span className="text-lg">Your Answer</span></Label>
                 <Textarea
                   id="task1-textarea"
                   value={task1}
@@ -249,11 +249,11 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="bg-muted p-4 rounded-lg">
-                <p className="text-foreground whitespace-pre-line">{WritingTasksData[1].content}</p>
+                <p className="text-foreground whitespace-pre-line font-semibold">{WritingTasksData[1].content}</p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="task2-textarea">Your Answer</Label>
+                <Label htmlFor="task2-textarea"><span className="text-lg">Your Answer</span></Label>
                 <Textarea
                   id="task2-textarea"
                   value={task2}
@@ -264,17 +264,17 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                 />
                 <div className="flex gap-2 mt-2">
                   <Button onClick={() => setShowPreview2(!showPreview2)}>
-                    {showPreview2 ? 'Hide Preview' : 'Preview & Highlight'}
+                    <span className="text-lg">{showPreview2 ? 'Hide Preview' : 'Preview & Highlight'}</span>
                   </Button>
                   <Button variant="outline" onClick={() => { setTask2(''); t2ClearAllHighlights(); }}>
-                    Clear
+                    <span className="text-lg">Clear</span>
                   </Button>
                 </div>
 
                 {showPreview2 && (
                   <div className="mt-3 p-3 bg-white border rounded" ref={t2TextRef} onMouseUp={t2HandleTextSelection}>
                     <div className="flex items-center justify-between mb-2">
-                      <div className="flex gap-2">
+                      {/* <div className="flex gap-2">
                         {t2SelectedRange && (
                           <>
                             <Button size="sm" onClick={t2AddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
@@ -286,8 +286,8 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                           </>
                         )}
                         <Button size="sm" variant="ghost" onClick={t2ClearAllHighlights} className="text-sm">Clear all</Button>
-                      </div>
-                      <Button size="sm" variant="outline" onClick={() => setShowPreview2(false)}>Close</Button>
+                      </div> */}
+                      <Button size="sm" variant="outline" onClick={() => setShowPreview2(false)}><span className='text-lg'>Close</span></Button>
                     </div>
                     <div className="whitespace-pre-wrap text-sm">
                       {t2RenderHighlightedText(task2).map((part, idx) => (
@@ -327,7 +327,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
           className="bg-green-600 hover:bg-green-700"
           size="lg"
         >
-          Submit Writing
+          <span className="text-lg font-semibold">Submit Writing</span>
         </Button>
       </div>
     </div>

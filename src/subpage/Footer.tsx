@@ -4,9 +4,9 @@ import { Route } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className="bg-foreground text-background py-8">
+        <footer className="bg-foreground text-background py-4">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-20 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-20 max-w-4xl mx-auto items-center">
             <div className="flex flex-col">
               <div className="flex items-center gap-2 w-16 h-16 rounded-full bg-white px-2 space-x-2 mb-3">
                 <img src={ Logo } alt="OverSee logo" className="w-16 h-16" />
@@ -25,7 +25,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-background/10 text-center text-background/70">
+          <div className="mt-8 pt-4 border-t border-background/10 text-center text-background/70">
             <p><strong>&copy; 2025 OverSee. All rights reserved.</strong></p>
           </div>
         </div>
