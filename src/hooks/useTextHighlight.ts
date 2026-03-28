@@ -150,33 +150,38 @@ export const useTextHighlight = () => {
     setSelectedRange(null);
   };
 
-  const renderHighlightedText = (text: string): (string | {type: 'highlight', id: string, start: number, end: number})[] => {
-    if (highlights.length === 0) return [text];
+  type Part =
+    | { type: 'text'; start: number; end: number; text: string }
+    | { type: 'highlight'; id: string; start: number; end: number };
 
-    const sorted = [...highlights].sort((a, b) => a.start - b.start);
-    const parts: (string | {type: 'highlight', id: string, start: number, end: number})[] = [];
-    let lastEnd = 0;
+  const renderHighlightedText = (text: string): Part[] => {
+    const out: Part[] = [];
+    if (!text) return out;
 
-    sorted.forEach((h, idx) => {
-      if (h.start >= lastEnd) {
-        if (h.start > lastEnd) {
-          parts.push(text.slice(lastEnd, h.start));
-        }
-        parts.push({
-          type: 'highlight',
-          id: h.id,
-          start: h.start,
-          end: h.end
-        });
-        lastEnd = h.end;
-      }
-    });
-
-    if (lastEnd < text.length) {
-      parts.push(text.slice(lastEnd));
+    if (!highlights || highlights.length === 0) {
+      out.push({ type: 'text', start: 0, end: text.length, text });
+      return out;
     }
 
-    return parts;
+    const sorted = normalizeHighlights(highlights).sort((a, b) => a.start - b.start);
+    let last = 0;
+    for (const h of sorted) {
+      const hStart = Math.max(0, Math.min(text.length, h.start));
+      const hEnd = Math.max(0, Math.min(text.length, h.end));
+      if (hStart > last) {
+        out.push({ type: 'text', start: last, end: hStart, text: text.slice(last, hStart) });
+      }
+      if (hEnd > hStart) {
+        out.push({ type: 'highlight', id: h.id, start: hStart, end: hEnd });
+      }
+      last = Math.max(last, hEnd);
+    }
+
+    if (last < text.length) {
+      out.push({ type: 'text', start: last, end: text.length, text: text.slice(last) });
+    }
+
+    return out;
   };
 
   return {

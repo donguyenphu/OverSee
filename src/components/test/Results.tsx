@@ -39,6 +39,8 @@ const Results: React.FC<ResultsProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [activeReview, setActiveReview] = useState<'listening' | 'reading' | null>(null);
+  const [lSelectionPos, setLSelectionPos] = useState<{ x: number; y: number } | null>(null);
+  const [rSelectionPos, setRSelectionPos] = useState<{ x: number; y: number } | null>(null);
 
   // Highlight hooks for review areas
   const {
@@ -109,6 +111,45 @@ const Results: React.FC<ResultsProps> = ({
     });
     setReadingScores(readingCalc);
   }, [userListeningAnswers, userReadingAnswers]);
+
+  // Precompute listening full text and parts for highlight rendering
+  const lFullText = (lTextRef.current && lTextRef.current.innerText)
+    ? lTextRef.current.innerText
+    : [listeningTranscripts.part1, listeningTranscripts.part2, listeningTranscripts.part3, listeningTranscripts.part4].join('\n\n');
+
+  const lParts = lRenderHighlightedText(lFullText);
+
+  const computeRanges = (texts: string[]) => {
+    const ranges: { start: number; end: number }[] = [];
+    let pos = 0;
+    for (const t of texts) {
+      const idx = lFullText.indexOf(t, pos);
+      const start = idx === -1 ? pos : idx;
+      const end = start + t.length;
+      ranges.push({ start, end });
+      pos = end;
+    }
+    return ranges;
+  };
+
+  const lRanges = computeRanges([listeningTranscripts.part1, listeningTranscripts.part2, listeningTranscripts.part3, listeningTranscripts.part4]);
+
+  const renderRange = (start: number, end: number) => {
+    const nodes: React.ReactNode[] = [];
+    for (const part of lParts) {
+      if (part.end <= start) continue;
+      if (part.start >= end) break;
+      const s = Math.max(part.start, start);
+      const e = Math.min(part.end, end);
+      const substr = lFullText.slice(s, e);
+      if (part.type === 'text') {
+        nodes.push(<span key={`txt-${s}`}>{substr}</span>);
+      } else {
+        nodes.push(<span key={`hl-${s}`} className="bg-yellow-300">{substr}</span>);
+      }
+    }
+    return nodes;
+  };
 
   const getTotalListeningScore = () =>
     listeningScores.reduce((sum, s) => sum + s.correct, 0);
@@ -251,7 +292,7 @@ const Results: React.FC<ResultsProps> = ({
             <div>
               <div className="flex items-start justify-between">
                 <h3 className="font-semibold mb-2">Task 1 (150+ words)</h3>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Button size="sm" onClick={wAddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
                     <Highlighter className="w-4 h-4 mr-1" />Highlight
                   </Button>
@@ -261,12 +302,16 @@ const Results: React.FC<ResultsProps> = ({
                   <Button size="sm" variant="ghost" onClick={wClearAllHighlights} className="text-sm">
                     Clear all
                   </Button>
-                </div>
+                </div> */}
               </div>
               <div className="bg-muted p-4 rounded-lg max-h-48 overflow-y-auto" ref={wTextRef} onMouseUp={wHandleTextSelection}>
                 <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-                  {wRenderHighlightedText(writingTask1).map((part) => typeof part === 'string' ? part : (
-                    <span key={part.id} className="bg-yellow-300">{writingTask1.slice(part.start, part.end)}</span>
+                  {wRenderHighlightedText(writingTask1).map((part, idx) => (
+                    part.type === 'text' ? (
+                      <span key={`w1-text-${idx}`}>{part.text}</span>
+                    ) : (
+                      <span key={part.id} className="bg-yellow-300">{writingTask1.slice(part.start, part.end)}</span>
+                    )
                   ))}
                 </p>
               </div>
@@ -278,7 +323,7 @@ const Results: React.FC<ResultsProps> = ({
             <div>
               <div className="flex items-start justify-between">
                 <h3 className="font-semibold mb-2">Task 2 (250+ words)</h3>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Button size="sm" onClick={wAddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
                     <Highlighter className="w-4 h-4 mr-1" />Highlight
                   </Button>
@@ -288,12 +333,16 @@ const Results: React.FC<ResultsProps> = ({
                   <Button size="sm" variant="ghost" onClick={wClearAllHighlights} className="text-sm">
                     Clear all
                   </Button>
-                </div>
+                </div> */}
               </div>
               <div className="bg-muted p-4 rounded-lg max-h-48 overflow-y-auto" ref={wTextRef} onMouseUp={wHandleTextSelection}>
                 <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-                  {wRenderHighlightedText(writingTask2).map((part) => typeof part === 'string' ? part : (
-                    <span key={part.id} className="bg-yellow-300">{writingTask2.slice(part.start, part.end)}</span>
+                  {wRenderHighlightedText(writingTask2).map((part, idx) => (
+                    part.type === 'text' ? (
+                      <span key={`w2-text-${idx}`}>{part.text}</span>
+                    ) : (
+                      <span key={part.id} className="bg-yellow-300">{writingTask2.slice(part.start, part.end)}</span>
+                    )
                   ))}
                 </p>
               </div>
@@ -369,49 +418,43 @@ const Results: React.FC<ResultsProps> = ({
               <div className="space-y-6 max-h-[800px] overflow-y-auto pl-4 border-l-2">
                 <div className="flex items-center justify-between">
                   <h3 className="font-bold text-lg">Transcripts</h3>
-                  <div className="flex items-center gap-2">
-                    <Button size="sm" onClick={lAddHighlight} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
-                      <Highlighter className="w-4 h-4 mr-1" />Highlight
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={lRemoveHighlight} className="text-sm">
-                      <X className="w-4 h-4 mr-1" />Remove
-                    </Button>
-                    <Button size="sm" variant="ghost" onClick={lClearAllHighlights} className="text-sm">
-                      Clear all
-                    </Button>
-                  </div>
+                  {/* {lSelectedRange && lSelectionPos && (
+                    <div style={{ position: 'fixed', left: lSelectionPos.x + 8, top: lSelectionPos.y - 40, zIndex: 9999 }} className="flex gap-2 p-2 bg-white border rounded-lg shadow-lg">
+                      <Button size="sm" onClick={() => { lAddHighlight(); setLSelectionPos(null); }} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
+                        <Highlighter className="w-4 h-4 mr-1" />Highlight
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={() => { lRemoveHighlight(); setLSelectionPos(null); }} className="text-sm">
+                        <X className="w-4 h-4 mr-1" />Remove
+                      </Button>
+                    </div>
+                  )}
+                  {lHighlights.length > 0 && (
+                    <Button size="sm" variant="ghost" onClick={lClearAllHighlights} className="text-sm">Clear all</Button>
+                  )} */}
                 </div>
-                <div className="space-y-4" ref={lTextRef} onMouseUp={lHandleTextSelection}>
+                <div className="space-y-4" ref={lTextRef} onMouseUp={(e) => { lHandleTextSelection(); setLSelectionPos({ x: e.clientX, y: e.clientY }); }}>
                   <div>
                     <h4 className="font-semibold text-blue-600 mb-2">Part 1</h4>
                     <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
-                      {lRenderHighlightedText(listeningTranscripts.part1).map((part, i) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{listeningTranscripts.part1.slice(part.start, part.end)}</span>
-                      ))}
+                      {renderRange(lRanges[0].start, lRanges[0].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 2</h4>
                     <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
-                      {lRenderHighlightedText(listeningTranscripts.part2).map((part, i) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{listeningTranscripts.part2.slice(part.start, part.end)}</span>
-                      ))}
+                      {renderRange(lRanges[1].start, lRanges[1].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 3</h4>
                     <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
-                      {lRenderHighlightedText(listeningTranscripts.part3).map((part, i) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{listeningTranscripts.part3.slice(part.start, part.end)}</span>
-                      ))}
+                      {renderRange(lRanges[2].start, lRanges[2].end)}
                     </p>
                   </div>
                   <div className="pt-4 border-t">
                     <h4 className="font-semibold text-blue-600 mb-2">Part 4</h4>
                     <p className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
-                      {lRenderHighlightedText(listeningTranscripts.part4).map((part, i) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{listeningTranscripts.part4.slice(part.start, part.end)}</span>
-                      ))}
+                      {renderRange(lRanges[3].start, lRanges[3].end)}
                     </p>
                   </div>
                 </div>
@@ -448,12 +491,35 @@ const Results: React.FC<ResultsProps> = ({
                 <div key={section.sectionNumber} className="border-t pt-6">
                   <h3 className="font-bold text-lg text-green-600 mb-4">Section {section.sectionNumber}</h3>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Passage (placeholder) */}
-                    <div className="p-4 bg-slate-50 rounded-lg max-h-[600px] overflow-y-auto">
-                      <p className="font-medium mb-3">Reading Passage</p>
-                      <p className="text-sm leading-relaxed text-slate-700">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
-                      </p>
+                    {/* Passage from readingSections */}
+                    <div className="p-4 bg-slate-50 rounded-lg max-h-[600px] overflow-y-auto" ref={rTextRef} onMouseUp={(e) => { rHandleTextSelection(); setRSelectionPos({ x: e.clientX, y: e.clientY }); }}>
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="font-medium">Reading Passage</p>
+                        {/* {rSelectedRange && rSelectionPos && (
+                          <div style={{ position: 'fixed', left: rSelectionPos.x + 8, top: rSelectionPos.y - 40, zIndex: 9999 }} className="flex gap-2 p-2 bg-white border rounded-lg shadow-lg">
+                            <Button size="sm" onClick={() => { rAddHighlight(); setRSelectionPos(null); }} className="bg-yellow-500 hover:bg-yellow-600 text-sm">
+                              <Highlighter className="w-4 h-4 mr-1" />Highlight
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={() => { rRemoveHighlight(); setRSelectionPos(null); }} className="text-sm">
+                              <X className="w-4 h-4 mr-1" />Remove
+                            </Button>
+                          </div>
+                        )} */}
+                      </div>
+                      {/* {rHighlights.length > 0 && (
+                        <div className="mb-2">
+                          <Button size="sm" variant="ghost" onClick={rClearAllHighlights} className="text-xs">Clear all</Button>
+                        </div>
+                      )} */}
+                      <div className="text-sm leading-relaxed text-slate-700 space-y-4">
+                        {(() => {
+                          const readingSection = readingSections.find(s => s.id === section.sectionNumber);
+                          if (!readingSection) return <p>Passage not found</p>;
+                          return readingSection.passages.map((passage, idx) => (
+                            <p key={idx} className="whitespace-pre-wrap">{passage}</p>
+                          ));
+                        })()}
+                      </div>
                     </div>
 
                     {/* Questions */}
@@ -616,9 +682,6 @@ const Results: React.FC<ResultsProps> = ({
         <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-center">
           <p className="text-green-800 font-semibold">
             ✓ Kết quả của bạn đã được lưu thành công!
-          </p>
-          <p className="text-sm text-green-700 mt-1">
-            Email xác nhận sẽ được gửi tới {userEmail}
           </p>
         </div>
       )}

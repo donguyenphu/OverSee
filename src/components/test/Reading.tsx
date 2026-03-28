@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,7 +6,6 @@ import { readingSections } from '@/data/readingContent';
 import { readingAnswers as readingAnswerKey, isAnswerCorrect } from '@/data/answerKeys';
 import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle, Highlighter, X } from 'lucide-react';
-import { useTextHighlight } from '@/hooks/useTextHighlight';
 
 interface ReadingProps {
   userEmail: string;
@@ -25,7 +24,99 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
   const [showReview, setShowReview] = useState(false);
   const [showScrollableContent, setShowScrollableContent] = useState(true);
-  const { highlights, selectedRange, textRef, handleTextSelection, addHighlight, removeHighlight, renderHighlightedText, clearAllHighlights } = useTextHighlight();
+  const [selectionPos, setSelectionPos] = useState<{ x: number; y: number } | null>(null);
+  const [selectedRange, setSelectedRange] = useState<{ start: number; end: number; text: string } | null>(null);
+  
+  // Section-specific highlight states (boolean array for each character)
+  const [sectionHighlights, setSectionHighlights] = useState<{
+    [sectionId: number]: boolean[];
+  }>({
+    1: [],
+    2: [],
+    3: []
+  });
+
+  const textRef = useRef<HTMLDivElement>(null);
+
+  const section = readingSections[currentSectionIndex];
+  const currentSectionId = section.id;
+  const fullText = section.passages.join('\n');
+  const currentHighlights = sectionHighlights[currentSectionId] || new Array(fullText.length).fill(false);
+
+  // Initialize highlights for current section if not already done
+  useEffect(() => {
+    if (!sectionHighlights[currentSectionId] || sectionHighlights[currentSectionId].length === 0) {
+      setSectionHighlights(prev => ({
+        ...prev,
+        [currentSectionId]: new Array(fullText.length).fill(false)
+      }));
+    }
+  }, [currentSectionId, fullText.length]);
+
+  const handleTextSelection = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.toString().length === 0 || !textRef.current) {
+      setSelectedRange(null);
+      return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const preCaretRange = range.cloneRange();
+    preCaretRange.selectNodeContents(textRef.current);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+    
+    const start = preCaretRange.toString().length - selection.toString().length;
+    const end = start + selection.toString().length;
+
+    setSelectedRange({
+      start,
+      end,
+      text: selection.toString()
+    });
+  };
+
+  const addHighlight = () => {
+    if (!selectedRange) return;
+    const start = Math.min(selectedRange.start, selectedRange.end);
+    const end = Math.max(selectedRange.start, selectedRange.end);
+    if (start === end) return;
+
+    setSectionHighlights(prev => {
+      const newHighlights = [...(prev[currentSectionId] || new Array(fullText.length).fill(false))];
+      for (let i = start; i < end && i < newHighlights.length; i++) {
+        newHighlights[i] = true;
+      }
+      return { ...prev, [currentSectionId]: newHighlights };
+    });
+
+    setSelectedRange(null);
+    window.getSelection()?.removeAllRanges();
+  };
+
+  const removeHighlight = () => {
+    if (!selectedRange) return;
+    const start = Math.min(selectedRange.start, selectedRange.end);
+    const end = Math.max(selectedRange.start, selectedRange.end);
+
+    setSectionHighlights(prev => {
+      const newHighlights = [...(prev[currentSectionId] || new Array(fullText.length).fill(false))];
+      for (let i = start; i < end && i < newHighlights.length; i++) {
+        newHighlights[i] = false;
+      }
+      return { ...prev, [currentSectionId]: newHighlights };
+    });
+
+    setSelectedRange(null);
+    window.getSelection()?.removeAllRanges();
+  };
+
+  const clearAllHighlights = () => {
+    setSectionHighlights(prev => ({
+      ...prev,
+      [currentSectionId]: new Array(fullText.length).fill(false)
+    }));
+    setSelectedRange(null);
+  };
 
   const getReadingAnswers = (questionNumber: number) => {
     const section = readingAnswerKey.sections.find(s =>
@@ -111,8 +202,6 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
     onComplete(results);
   };
 
-  const section = readingSections[currentSectionIndex];
-
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -152,19 +241,19 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               />
             )}
 
-            {/* Highlight buttons */}
-            {selectedRange && (
-              <div className="flex gap-2 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
+            {/* Highlight buttons - floating at cursor */}
+            {selectedRange && selectionPos && (
+              <div style={{ position: 'fixed', left: selectionPos.x + 8, top: selectionPos.y - 40, zIndex: 9999 }} className="flex gap-2 p-2 bg-white border rounded-lg shadow-lg">
                 <Button 
                   size="sm"
-                  onClick={addHighlight}
+                  onClick={() => { addHighlight(); setSelectionPos(null); }}
                   className="bg-yellow-500 hover:bg-yellow-600 text-sm"
                 >
                   <Highlighter className="w-4 h-4 mr-1" />Highlight
                 </Button>
                 <Button 
                   size="sm"
-                  onClick={removeHighlight}
+                  onClick={() => { removeHighlight(); setSelectionPos(null); }}
                   variant="outline"
                   className="text-sm"
                 >
@@ -173,10 +262,10 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
               </div>
             )}
 
-            {highlights.length > 0 && (
+            {currentHighlights.filter(h => h).length > 0 && (
               <div className="flex gap-2 p-2 bg-slate-50 rounded">
                 <span className="text-xs text-muted-foreground">
-                  {highlights.length} highlight(s)
+                  {currentHighlights.filter(h => h).length} character(s) highlighted
                 </span>
                 <Button 
                   size="sm"
@@ -192,26 +281,41 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
             {/* Passages with highlight support */}
             <div 
               ref={textRef}
-              onMouseUp={handleTextSelection}
+              onMouseUp={(e) => { handleTextSelection(); setSelectionPos({ x: e.clientX, y: e.clientY }); }}
               className="select-text"
             >
-              {section.passages.map((passage, idx) => {
-                const parts = renderHighlightedText(passage);
-                return (
-                  <p key={idx} className="text-base leading-relaxed text-foreground mb-4">
-                    {parts.map((part, pIdx) => {
-                      if (typeof part === 'string') {
-                        return part;
+              <div className="text-base leading-relaxed text-foreground space-y-4">
+                {section.passages.map((passage, idx) => {
+                  const passageStart = fullText.indexOf(passage);
+                  const passageEnd = passageStart + passage.length;
+                  const highlights = sectionHighlights[currentSectionId] || new Array(fullText.length).fill(false);
+                  
+                  let content: React.ReactNode[] = [];
+                  for (let i = 0; i < passage.length; i++) {
+                    const globalIdx = passageStart + i;
+                    if (i === 0 || highlights[globalIdx] !== highlights[globalIdx - 1]) {
+                      // Start of a new highlighted/unhighlighted section
+                      let j = i;
+                      while (j < passage.length && highlights[globalIdx + (j - i)] === highlights[globalIdx]) {
+                        j++;
                       }
-                      return (
-                        <span key={part.id} className="bg-yellow-300">
-                          {passage.slice(part.start, part.end)}
-                        </span>
-                      );
-                    })}
-                  </p>
-                );
-              })}
+                      const substr = passage.slice(i, j);
+                      if (highlights[globalIdx]) {
+                        content.push(<span key={`hl-${idx}-${i}`} className="bg-yellow-300">{substr}</span>);
+                      } else {
+                        content.push(<span key={`txt-${idx}-${i}`}>{substr}</span>);
+                      }
+                      i = j - 1;
+                    }
+                  }
+
+                  return (
+                    <p key={idx} className="text-base leading-relaxed text-foreground">
+                      {content}
+                    </p>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

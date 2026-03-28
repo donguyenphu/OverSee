@@ -220,8 +220,12 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                       <Button size="sm" variant="outline" onClick={() => setShowPreview1(false)}>Close</Button>
                     </div>
                     <div className="whitespace-pre-wrap text-sm">
-                      {t1RenderHighlightedText(task1).map((part) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{task1.slice(part.start, part.end)}</span>
+                      {t1RenderHighlightedText(task1).map((part, idx) => (
+                        part.type === 'text' ? (
+                          <span key={`t1-text-${idx}`}>{part.text}</span>
+                        ) : (
+                          <span key={part.id} className="bg-yellow-300">{task1.slice(part.start, part.end)}</span>
+                        )
                       ))}
                     </div>
                   </div>
@@ -286,8 +290,12 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                       <Button size="sm" variant="outline" onClick={() => setShowPreview2(false)}>Close</Button>
                     </div>
                     <div className="whitespace-pre-wrap text-sm">
-                      {t2RenderHighlightedText(task2).map((part) => typeof part === 'string' ? part : (
-                        <span key={part.id} className="bg-yellow-300">{task2.slice(part.start, part.end)}</span>
+                      {t2RenderHighlightedText(task2).map((part, idx) => (
+                        part.type === 'text' ? (
+                          <span key={`t2-text-${idx}`}>{part.text}</span>
+                        ) : (
+                          <span key={part.id} className="bg-yellow-300">{task2.slice(part.start, part.end)}</span>
+                        )
                       ))}
                     </div>
                   </div>

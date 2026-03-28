@@ -119,10 +119,10 @@ const IELTSMockTest = () => {
                   Đánh giá kỹ năng của bạn trong điều kiện thi thực
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
                   <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Phần thi trên website OverSee:</span>
-                  <ul className="text-md space-y-2 text-foreground leading-[30px]">
+                  <ul className="text-md space-y-2 text-foreground leading-[26px]">
                     <li><strong>- Kỹ năng Listening, Reading, Writing sẽ thi trên website này. Các bài thi liên tục theo đúng thứ tự trên, với giao diện mô phỏng 90% thi thật.</strong></li>
                     <li><strong>- Học viên nhập email sau đó nhập code trung tâm cung cấp để bắt đầu bài thi.</strong></li>
                     <li><strong>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</strong></li>
@@ -133,6 +133,28 @@ const IELTSMockTest = () => {
                   </ul>
                 </div>
                 {/* input đăng ký thi thử */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
+                  <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Phần thi 1-1 cùng mentor:</span>
+                  <ul className="text-md space-y-2 text-foreground leading-[23px]">
+                    <li><strong>- Nội dung: </strong></li>
+                    <ul className="text-md space-y-2 text-foreground">
+                      <li><strong>+ Mentor phân tích điểm mạnh, điểm yếu, cách khắc phục và chiến thuật làm bài hay đối với kỹ năng Reading và Listening đã thi.</strong></li>
+                      <li><strong>+ Chấm chữa chi tiết bài thi Writing</strong></li>
+                      <li><strong>+ Thi thử và chấm chữa chi tiết kỹ năng Speaking. </strong></li>
+                    </ul>
+                    <li><strong>- Thời gian: 02 tiếng</strong></li>
+                    <li><strong>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</strong></li>
+                    <li><strong>- Hình thức: Online qua nền tảng Google Meet</strong></li>
+                    <li><strong>- Lưu ý:</strong></li>
+                    <ul className="text-md space-y-2 text-foreground">
+                      <li><strong>+ Chuẩn bị sẵn bút chì, giấy nháp cho phần thi Speaking</strong></li>
+                      <li><strong>+ Bật cam, mic trong suốt quá trình thi.</strong></li>
+                      <li><strong>+ Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</strong></li>
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 mb-6">
                 <div>
                   <Card>
                     <CardContent className="pt-6 space-y-4">
@@ -171,26 +193,6 @@ const IELTSMockTest = () => {
                       )}
                     </CardContent>
                   </Card>
-                </div>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
-                  <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Phần thi 1-1 cùng mentor:</span>
-                  <ul className="text-md space-y-2 text-foreground leading-[25px]">
-                    <li><strong>- Nội dung: </strong></li>
-                    <ul className="text-md space-y-2 text-foreground">
-                      <li><strong>+ Mentor phân tích điểm mạnh, điểm yếu, cách khắc phục và chiến thuật làm bài hay đối với kỹ năng Reading và Listening đã thi.</strong></li>
-                      <li><strong>+ Chấm chữa chi tiết bài thi Writing</strong></li>
-                      <li><strong>+ Thi thử và chấm chữa chi tiết kỹ năng Speaking. </strong></li>
-                    </ul>
-                    <li><strong>- Thời gian: 02 tiếng</strong></li>
-                    <li><strong>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</strong></li>
-                    <li><strong>- Hình thức: Online qua nền tảng Google Meet</strong></li>
-                    <li><strong>- Lưu ý:</strong></li>
-                    <ul className="text-md space-y-2 text-foreground">
-                      <li><strong>+ Chuẩn bị sẵn bút chì, giấy nháp cho phần thi Speaking</strong></li>
-                      <li><strong>+ Bật cam, mic trong suốt quá trình thi.</strong></li>
-                      <li><strong>+ Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</strong></li>
-                    </ul>
-                  </ul>
                 </div>
               </div>
             </form>
