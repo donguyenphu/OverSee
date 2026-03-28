@@ -147,33 +147,33 @@ const IELTSMockTest = () => {
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
                   <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Phần thi trên website OverSee:</span>
                   <ul className="text-md space-y-2 text-foreground leading-[26px]">
-                    <li><strong>- Kỹ năng Listening, Reading, Writing sẽ thi trên website này. Các bài thi liên tục theo đúng thứ tự trên, với giao diện mô phỏng 90% thi thật.</strong></li>
-                    <li><strong>- Học viên nhập email sau đó nhập code trung tâm cung cấp để bắt đầu bài thi.</strong></li>
-                    <li><strong>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</strong></li>
-                    <li><strong>- Không có thời gian giải lao giữa các kỹ năng, không thể dừng bài thi khi chưa nộp bài.</strong></li>
-                    <li><strong>- Mỗi học viên được làm bài thi 1 lần duy nhất.</strong></li>
-                    <li><strong>- Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</strong></li>
-                    <li><strong>- Sau khi đã thi xong 3 kỹ năng, học viên nhắn cho page OverSee để nhận link buổi thi 1-1 cùng mentor</strong></li>
+                    <li>- Kỹ năng Listening, Reading, Writing sẽ thi trên website này. Các bài thi liên tục theo đúng thứ tự trên, với giao diện mô phỏng 90% thi thật.</li>
+                    <li>- Học viên nhập email sau đó nhập code trung tâm cung cấp để bắt đầu bài thi.</li>
+                    <li>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</li>
+                    <li>- Không có thời gian giải lao giữa các kỹ năng, không thể dừng bài thi khi chưa nộp bài.</li>
+                    <li>- Mỗi học viên được làm bài thi 1 lần duy nhất.</li>
+                    <li>- Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</li>
+                    <li>- Sau khi đã thi xong 3 kỹ năng, học viên nhắn cho page OverSee để nhận link buổi thi 1-1 cùng mentor</li>
                   </ul>
                 </div>
                 {/* input đăng ký thi thử */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:opacity-100">
                   <span className="text-2xl space-y-2 text-foreground font-semibold text-orange-500">* Phần thi 1-1 cùng mentor:</span>
-                  <ul className="text-md space-y-2 text-foreground leading-[23px]">
-                    <li><strong>- Nội dung: </strong></li>
+                  <ul className="text-md space-y-2 text-foreground leading-[21px]">
+                    <li>- Nội dung: </li>
                     <ul className="text-md space-y-2 text-foreground">
-                      <li><strong>+ Mentor phân tích điểm mạnh, điểm yếu, cách khắc phục và chiến thuật làm bài hay đối với kỹ năng Reading và Listening đã thi.</strong></li>
-                      <li><strong>+ Chấm chữa chi tiết bài thi Writing</strong></li>
-                      <li><strong>+ Thi thử và chấm chữa chi tiết kỹ năng Speaking. </strong></li>
+                      <li>+ Mentor phân tích điểm mạnh, điểm yếu, cách khắc phục và chiến thuật làm bài hay đối với kỹ năng Reading và Listening đã thi.</li>
+                      <li>+ Chấm chữa chi tiết bài thi Writing</li>
+                      <li>+ Thi thử và chấm chữa chi tiết kỹ năng Speaking.</li>
                     </ul>
-                    <li><strong>- Thời gian: 02 tiếng</strong></li>
-                    <li><strong>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</strong></li>
-                    <li><strong>- Hình thức: Online qua nền tảng Google Meet</strong></li>
-                    <li><strong>- Lưu ý:</strong></li>
+                    <li>- Thời gian: 02 tiếng</li>
+                    <li>- Vì đây là bài thi mô phỏng thi thật nên một khi bắt đầu, học viên sẽ thi liên tục 3 kỹ năng.</li>
+                    <li>- Hình thức: Online qua nền tảng Google Meet</li>
+                    <li>- Lưu ý:</li>
                     <ul className="text-md space-y-2 text-foreground">
-                      <li><strong>+ Chuẩn bị sẵn bút chì, giấy nháp cho phần thi Speaking</strong></li>
-                      <li><strong>+ Bật cam, mic trong suốt quá trình thi.</strong></li>
-                      <li><strong>+ Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</strong></li>
+                      <li>+ Chuẩn bị sẵn bút chì, giấy nháp cho phần thi Speaking</li>
+                      <li>+ Bật cam, mic trong suốt quá trình thi.</li>
+                      <li>+ Không sử dụng tài liệu, từ điển để đảm bảo kết quả chính xác nhất.</li>
                     </ul>
                   </ul>
                 </div>

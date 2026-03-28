@@ -421,7 +421,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               <Button
                 size="sm"
                 onClick={handlePlayPause}
-                className="gap-2 bg-blue-600 hover:bg-blue-700 text-xs md:text-sm px-4 md:px-6"
+                className={`gap-2 bg-blue-600 hover:bg-blue-700 text-xs md:text-sm px-4 md:px-6 ${isPlaying ? 'hidden' : ''}`}
               >
                 {isPlaying ? (
                   <>

@@ -264,7 +264,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                 />
                 <div className="flex gap-2 mt-2">
                   <Button onClick={() => setShowPreview2(!showPreview2)}>
-                    <span className="text-lg">{showPreview2 ? 'Hide Preview' : 'Preview & Highlight'}</span>
+                    <span className="text-lg">{showPreview2 ? 'Hide Preview' : 'Show Preview'}</span>
                   </Button>
                   <Button variant="outline" onClick={() => { setTask2(''); t2ClearAllHighlights(); }}>
                     <span className="text-lg">Clear</span>
