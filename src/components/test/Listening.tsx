@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'lucide-react';
 import { isAnswerCorrect, normalizeAnswer, listeningAnswers as listeningQuestionAnswers } from '@/data/answerKeys';
 
 type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
@@ -46,7 +46,7 @@ const listeningQuestions: ListeningSection[] = [
       { number: 5, question: 'Which of these extra service does the customer agree to do?', type: 'mcq', options: ['A. Change the bed linen', 'B. Do some gardening work', 'C. Clean the glass'] },
       { number: 6, question: 'What does the customer want cleaned every three months?', type: 'mcq', options: ['A. Curtains', 'B. Carpets', 'C. Mats'] },
       { number: 7, question: 'What does the customer want done with clothes?', type: 'mcq', options: ['A. Wash and iron the clothes', 'B. Iron the clothes', 'C. Clean and dry the clothes'] },
-      { number: 8, question: "The agent's address is 12 ____ Amyes Road.", type: 'text', placeholder: 'Amyes' },
+      { number: 8, question: "The agent's address is 12 ____ Road.", type: 'text', placeholder: 'Amyes' },
       { number: 9, question: 'Her house will get cleaned next ____.', type: 'text', placeholder: 'Thursday' },
       { number: 10, question: 'The maximum time of cleaning service is ____ hours.', type: 'text', placeholder: '3' }
     ]
@@ -64,7 +64,7 @@ const listeningQuestions: ListeningSection[] = [
       { number: 17, question: 'What is the proper security protocol for a pocket knife found in a carry-on suitcase?', type: 'mcq', options: ['A. It is returned to the passenger after examination', 'B. It is thrown away in a safe receptacle', 'C. It is passed on to higher-level authorities'] },
       { number: 18, question: 'The acceptable material for packing goods in Australia is ____.', type: 'text', placeholder: 'paper' },
       { number: 19, question: 'The belongings most of the time are refused due to problems with the ____.', type: 'text', placeholder: 'labels' },
-      { number: 20, question: 'The customs must be given notice of the goods from 2-10 ____ days before it arrives in Australia.', type: 'text', placeholder: 'days' }
+      { number: 20, question: 'The customs must be given notice of the goods from ____ days before it arrives in Australia.', type: 'text', placeholder: '2-10' }
     ]
   },
   {
@@ -78,9 +78,9 @@ const listeningQuestions: ListeningSection[] = [
       { number: 25, question: '25', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
       { number: 26, question: '26', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
       { number: 27, question: 'If you need to find information on a certain book, you can use ____ check-out cards.', type: 'text', placeholder: 'pink and yellow' },
-      { number: 28, question: 'If you want to find information in a specific field, use the ____ subject guides.', type: 'text', placeholder: 'subject' },
-      { number: 29, question: 'Computers in some ____ universities cannot be linked to the network.', type: 'text', placeholder: 'universities' },
-      { number: 30, question: 'You can find more information in a ____ blue folder on my desk.', type: 'text', placeholder: 'blue folder' }
+      { number: 28, question: 'If you want to find information in a specific field, use the ____ guides.', type: 'text', placeholder: 'subject' },
+      { number: 29, question: 'Computers in some ____ cannot be linked to the network.', type: 'text', placeholder: 'universities' },
+      { number: 30, question: 'You can find more information in a ____ on my desk.', type: 'text', placeholder: 'blue folder' }
     ]
   },
   {
@@ -94,7 +94,7 @@ const listeningQuestions: ListeningSection[] = [
       { number: 35, question: 'What change caused changes in crocodile populations in North Africa?', type: 'mcq', options: ['A. They were driven away by a fierce predator', 'B. Crocodiles evolved from desert creatures to wetland creatures', 'C. North Africa used to be wetland but slowly turned to desert over time'] },
       { number: 36, question: 'Desert crocodiles sometimes live in places with dry periods that last up to ____ months.', type: 'text', placeholder: '8' },
       { number: 37, question: 'A hole dug by a female crocodile in which to lay eggs can have a ____ of up to 60cm.', type: 'text', placeholder: 'depth' },
-      { number: 38, question: 'Local people are not ____ of crocodiles.', type: 'text', placeholder: 'afraid of' },
+      { number: 38, question: 'Local people are not ____ crocodiles.', type: 'text', placeholder: 'afraid of' },
       { number: 39, question: 'Crocodiles ____ out of fear when humans populate their habitat.', type: 'text', placeholder: 'attack' },
       { number: 40, question: 'Researchers want to study more about population size, ____ , and relations to other populations of crocodiles.', type: 'text', placeholder: 'migration patterns' }
     ]
@@ -111,6 +111,12 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(100);
   const audioRef = useRef<HTMLAudioElement>(null);
+  
+  // Highlight states: each question/option element has its own highlight array
+  const [questionHighlights, setQuestionHighlights] = useState<{ [elementId: string]: boolean[] }>({});
+  const [selectedRange, setSelectedRange] = useState<{ start: number; end: number; text: string; elementId: string } | null>(null);
+  const [selectionPos, setSelectionPos] = useState<{ x: number; y: number } | null>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   const getListeningAnswers = (questionNumber: number) => {
     const section = listeningQuestionAnswers.sections.find(s =>
@@ -153,6 +159,139 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
         <p className="text-sm text-red-600">✓ Correct: <span className="font-bold text-green-600">{correctAnswers.join(' or ')}</span></p>
       </div>
     );
+  };
+
+  // Find parent element with data-element-id attribute
+  const findParentElementId = (node: Node | null): string | null => {
+    let current: any = node;
+    while (current) {
+      if (current.nodeType === Node.ELEMENT_NODE) {
+        const elementId = current.getAttribute?.('data-element-id');
+        if (elementId) return elementId;
+      }
+      current = current.parentElement || current.parentNode;
+    }
+    return null;
+  };
+
+  // Handle text selection
+  const handleTextSelection = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.toString().length === 0 || !textRef.current) {
+      setSelectedRange(null);
+      return;
+    }
+
+    // Find which element is being selected
+    const elementId = findParentElementId(selection.anchorNode);
+    if (!elementId) {
+      setSelectedRange(null);
+      return;
+    }
+
+    // Find container with data-element-id to calculate offset
+    let container: any = selection.anchorNode;
+    while (container && !container.getAttribute?.('data-element-id')) {
+      container = container.parentNode || container.parentElement;
+    }
+    if (!container) {
+      setSelectedRange(null);
+      return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const preCaretRange = range.cloneRange();
+    preCaretRange.selectNodeContents(container);
+    preCaretRange.setEnd(range.endContainer, range.endOffset);
+
+    const start = preCaretRange.toString().length - selection.toString().length;
+    const end = start + selection.toString().length;
+
+    setSelectedRange({
+      start,
+      end,
+      text: selection.toString(),
+      elementId
+    });
+  };
+
+  // Add highlight for selected range
+  const addHighlight = () => {
+    if (!selectedRange) return;
+    const { start, end, elementId } = selectedRange;
+
+    setQuestionHighlights(prev => {
+      const highlights = prev[elementId] || new Array(end).fill(false);
+      const newHighlights = [...highlights];
+      for (let i = Math.min(start, end); i < Math.max(start, end) && i < newHighlights.length; i++) {
+        newHighlights[i] = true;
+      }
+      return { ...prev, [elementId]: newHighlights };
+    });
+
+    setSelectedRange(null);
+    window.getSelection()?.removeAllRanges();
+  };
+
+  // Remove highlight for selected range
+  const removeHighlight = () => {
+    if (!selectedRange) return;
+    const { start, end, elementId } = selectedRange;
+
+    setQuestionHighlights(prev => {
+      const highlights = prev[elementId] || new Array(end).fill(false);
+      const newHighlights = [...highlights];
+      for (let i = Math.min(start, end); i < Math.max(start, end) && i < newHighlights.length; i++) {
+        newHighlights[i] = false;
+      }
+      return { ...prev, [elementId]: newHighlights };
+    });
+
+    setSelectedRange(null);
+    window.getSelection()?.removeAllRanges();
+  };
+
+  // Clear all highlights in current section
+  const clearSectionHighlights = () => {
+    const newHighlights = { ...questionHighlights };
+    const section = listeningQuestions[currentSection];
+    section.questions.forEach(q => {
+      delete newHighlights[`q${q.number}`];
+      if (q.type === 'mcq' && q.options) {
+        delete newHighlights[`q${q.number}_optionA`];
+        delete newHighlights[`q${q.number}_optionB`];
+        delete newHighlights[`q${q.number}_optionC`];
+      }
+    });
+    setQuestionHighlights(newHighlights);
+    setSelectedRange(null);
+  };
+
+  // Render text with highlights for a specific element
+  const renderTextWithHighlight = (text: string, elementId: string) => {
+    const highlights = questionHighlights[elementId] || new Array(text.length).fill(false);
+
+    let content: React.ReactNode[] = [];
+    for (let i = 0; i < text.length; i++) {
+      if (i === 0 || highlights[i] !== highlights[i - 1]) {
+        let j = i;
+        while (j < text.length && highlights[j] === highlights[i]) {
+          j++;
+        }
+        const segment = text.substring(i, j);
+        if (highlights[i]) {
+          content.push(
+            <span key={i} className="bg-yellow-300">
+              {segment}
+            </span>
+          );
+        } else {
+          content.push(segment);
+        }
+        i = j - 1;
+      }
+    }
+    return content;
   };
   // Timer effect
   useEffect(() => {
@@ -326,6 +465,48 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
           <p className="text-lg text-muted-foreground mt-2">Listen and answer the questions below</p>
         </CardHeader>
         <CardContent className="space-y-6">
+          <div
+            ref={textRef}
+            onMouseUp={(e) => { handleTextSelection(); setSelectionPos({ x: e.clientX, y: e.clientY }); }}
+            className="select-text"
+          >
+            {/* Floating highlight toolbar */}
+            {selectedRange && selectionPos && (
+              <div style={{ position: 'fixed', left: selectionPos.x + 8, top: selectionPos.y - 40, zIndex: 9999 }} className="flex gap-2 p-2 bg-white border rounded-lg shadow-lg">
+                <Button 
+                  size="sm"
+                  onClick={() => { addHighlight(); setSelectionPos(null); }}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-sm"
+                >
+                  <Highlighter className="w-4 h-4 mr-1" />Highlight
+                </Button>
+                <Button 
+                  size="sm"
+                  onClick={() => { removeHighlight(); setSelectionPos(null); }}
+                  variant="outline"
+                  className="text-sm"
+                >
+                  <X className="w-4 h-4 mr-1" />Remove
+                </Button>
+              </div>
+            )}
+
+            {/* Clear all button - show when highlights exist in section */}
+            {Object.keys(questionHighlights).some(key => {
+              const qNum = parseInt(key.replace(/[^\d]/g, ''));
+              return section.questions.some(q => q.number === qNum) && questionHighlights[key]?.some(h => h);
+            }) && (
+              <div className="flex gap-2 p-2 bg-red-50 rounded">
+                <Button 
+                  size="lg"
+                  variant="ghost"
+                  onClick={clearSectionHighlights}
+                  className="text-lg h-6 font-semibold"
+                >
+                  Clear all
+                </Button>
+              </div>
+            )}
           {section.section === 1 && (
             <div>
               <div className="text-xl font-bold text-blue-700">QUESTION 1-4</div>
@@ -428,12 +609,15 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 5 && q.number <= 7).map((q) => (
                 <div key={q.number} className="space-y-1 border-l-4 border-blue-200 pl-4 py-1">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <div className="grid gap-2">
                     {(q.options || []).map((option, idx) => {
                       const value = option.split('.')[0].trim();
+                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
                       return (
                         <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
                           <input
@@ -444,7 +628,9 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          <span className="text-lg">{option}</span>
+                          <span className="text-lg" data-element-id={optionKey}>
+                            {renderTextWithHighlight(option, optionKey)}
+                          </span>
                         </label>
                       );
                     })}
@@ -460,8 +646,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <Input
                     id={`q-${q.number}`}
@@ -483,12 +671,15 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               <p>Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 11 && q.number <= 17).map((q) => (
                 <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <div className="grid gap-2 py-2">
                     {(q.options || []).map((option, idx) => {
                       const value = option.split('.')[0].trim();
+                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
                       return (
                         <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
                           <input
@@ -499,7 +690,9 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          <span className="text-lg">{option}</span>
+                          <span className="text-lg" data-element-id={optionKey}>
+                            {renderTextWithHighlight(option, optionKey)}
+                          </span>
                         </label>
                       );
                     })}
@@ -515,8 +708,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 18 && q.number <= 20).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <Input
                     id={`q-${q.number}`}
@@ -550,8 +745,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                 <div className="w-1/2">
                   {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
                     <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
-                      <Label htmlFor={`q-${q.number}`} className="font-semibold text-lg">
-                        QUESTION {q.number}.
+                      <Label className="font-semibold text-lg">
+                        <div data-element-id={`q${q.number}`}>
+                          {renderTextWithHighlight(`QUESTION ${q.number}.`, `q${q.number}`)}
+                        </div>
                       </Label>
                       <select
                         id={`q-${q.number}`}
@@ -579,8 +776,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
                 <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <Input
                     id={`q-${q.number}`}
@@ -601,12 +800,15 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               <p className="text-xl">Choose the correct letter, A, B, or C.</p>
               {section.questions.filter((q) => q.number >= 31 && q.number <= 35).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <div className="grid gap-2">
                     {(q.options || []).map((option, idx) => {
                       const value = option.split('.')[0].trim();
+                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
                       return (
                         <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
                           <input
@@ -617,7 +819,9 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
                             onChange={(e) => handleAnswerChange(q.number, e.target.value)}
                             className="w-4 h-4"
                           />
-                          <span className='text-lg'>{option}</span>
+                          <span className='text-lg' data-element-id={optionKey}>
+                            {renderTextWithHighlight(option, optionKey)}
+                          </span>
                         </label>
                       );
                     })}
@@ -633,8 +837,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               </div>
               {section.questions.filter((q) => q.number >= 36 && q.number <= 40).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label htmlFor={`q-${q.number}`} className="font-semibold text-xl">
-                    QUESTION {q.number}. {q.question}
+                  <Label className="font-semibold text-xl">
+                    <div data-element-id={`q${q.number}`}>
+                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                    </div>
                   </Label>
                   <Input
                     id={`q-${q.number}`}
@@ -648,6 +854,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
               ))}
             </div>
           )}
+            </div>
         </CardContent>
       </Card>
 

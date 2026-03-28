@@ -12,6 +12,7 @@ import Reading, { ReadingResults } from "@/components/test/Reading";
 import Writing, { WritingResults } from "@/components/test/Writing";
 import Results from "@/components/test/Results";
 import { NotebookPen, LeafyGreenIcon, MessageCircleWarning } from 'lucide-react';
+import { checkMockTestEligibility } from "@/lib/sheets";
 
 const IELTSMockTest = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ const IELTSMockTest = () => {
   const [step, setStep] = useState<"email" | "code" | "listening" | "reading" | "writing" | "results">("email");
   const [error, setError] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [listeningAnswers, setListeningAnswers] = useState<{ [key: number]: string }>({});
   const [readingAnswers, setReadingAnswers] = useState<{ [key: number]: string }>({});
   const [writingTask1, setWritingTask1] = useState("");
@@ -44,23 +46,39 @@ const IELTSMockTest = () => {
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setIsCheckingEmail(true);
 
     if (!email.trim()) {
       setError("Vui lòng nhập email");
       errorToast("Email không được để trống");
+      setIsCheckingEmail(false);
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Định dạng email không phù hợp");
       errorToast("Email không hợp lệ");
+      setIsCheckingEmail(false);
       return;
     }
 
-    // Tạm bỏ qua xác thực Google Sheets/eligible. Mọi email đều qua.
-    setUserEmail(email);
-    setStep("code");
-    successToast("Email đã được chấp nhận (mode bypass)");
+    try {
+      const result = await checkMockTestEligibility(email);
+      
+      if (result.eligible) {
+        setUserEmail(email);
+        setStep("code");
+        successToast("Email thỏa mãn. Hãy nhập mã code");
+      } else {
+        setError(result.message);
+        errorToast(result.message);
+      }
+    } catch (err: any) {
+      setError("Lỗi kiểm tra email: " + err.message);
+      errorToast("Lỗi kiểm tra email");
+    } finally {
+      setIsCheckingEmail(false);
+    }
   };
 
   const handleCodeSubmit = (e: React.FormEvent) => {
@@ -73,9 +91,14 @@ const IELTSMockTest = () => {
       return;
     }
 
-    // Tạm cho phép mọi code
+    if (code !== "OverSeechucemhoctot") {
+      setError("Mã code không chính xác");
+      errorToast("Mã code không chính xác");
+      return;
+    }
+
     setStep("listening");
-    successToast("Bypass code thành công! Bắt đầu thi thử");
+    successToast("Mã code chính xác! Bắt đầu thi thử");
   };
 
   const handleListeningComplete = (results: ListeningResults) => {
@@ -216,8 +239,12 @@ const IELTSMockTest = () => {
                           className="text-base h-10 mt-2"
                         />
                       </div>
-                      <Button type="submit" className="w-full h-10 text-xl font-semibold">
-                        Tiếp tục
+                      <Button 
+                        type="submit" 
+                        disabled={isCheckingEmail}
+                        className="w-full h-10 text-xl font-semibold"
+                      >
+                        {isCheckingEmail ? "Đang kiểm tra..." : "Tiếp tục"}
                       </Button>
                       {error && (
                         <Alert variant="destructive">

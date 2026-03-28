@@ -7,7 +7,7 @@ import { readingSections } from '@/data/readingContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { isAnswerCorrect, listeningAnswers, readingAnswers, normalizeAnswer } from '@/data/answerKeys';
-import { submitMockTestResults } from '@/lib/sheets';
+import { submitMockTestResults, addToMockTested } from '@/lib/sheets';
 import { listeningTranscripts } from '@/data/listeningTranscripts';
 
 interface ResultsProps {
@@ -184,10 +184,19 @@ const Results: React.FC<ResultsProps> = ({
       });
 
       if (result.ok) {
-        toast.success('✓ Kết quả đã được lưu thành công!', {
-          style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
-        });
-        setSubmitted(true);
+        // Add email to Mock Tested list after successful submission
+        const addResult = await addToMockTested(userEmail);
+        if (addResult.ok) {
+          toast.success('✓ Kết quả đã được lưu thành công!', {
+            style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
+          });
+          setSubmitted(true);
+        } else {
+          toast.error('⚠ Kết quả lưu nhưng có lỗi cập nhật danh sách: ' + (addResult.message || 'Unknown error'), {
+            style: { background: '#f59e0b', color: '#ffffff', border: '1px solid #d97706' }
+          });
+          setSubmitted(true);
+        }
       } else {
         toast.error('✗ Lỗi khi lưu kết quả: ' + (result.message || 'Unknown error'), {
           style: { background: '#dc2626', color: '#ffffff', border: '1px solid #b91c1c' }
