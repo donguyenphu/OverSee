@@ -22,7 +22,7 @@ const MentorRecruitSwitcher: React.FC = () => {
             type='button'
             variant={active === t.key ? 'default' : 'outline'}
             onClick={() => setActive(t.key)}
-            className='font-semibold'
+            className='font-semibold text-lg'
           >
             {t.label}
           </Button>

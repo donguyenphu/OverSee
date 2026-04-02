@@ -14,10 +14,10 @@ const Register = () => {
       <section className="py-10 bg-background">
         <div className="container mx-auto px-2 md:px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-3 md:mb-4">
               Đăng ký tư vấn <span className="text-primary">cá nhân hóa</span>
             </h1>
-            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl font-semibold text-primary">
               Để nhận được tư vấn sớm nhất
             </p>
           </div>

@@ -60,16 +60,16 @@ const MentorSATForm: React.FC = () => {
     <form onSubmit={handleSubmit} className='space-y-6 p-6 rounded-lg border bg-white shadow'>
       {submitError && <p className='text-sm text-red-600'>{submitError}</p>}
       <div className='grid md:grid-cols-2 gap-4'>
-        <div><label className='text-sm font-medium mb-1 block'>Họ và tên *</label><Input name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Số điện thoại *</label><Input type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Email *</label><Input type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Châm ngôn *</label><Input name='quote' required value={data.quote} onChange={handleChange} placeholder='Châm ngôn yêu thích' maxLength={200} /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Điểm chuyên Anh</label><Input type='number' name='englishSpec' value={data.englishSpec} onChange={handleChange} placeholder='Điểm chuyên Anh (nếu có, không bắt buộc)' min='0' max='10' step='0.1' /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Giải HSG Tiếng Anh</label><Input name='englishAward' value={data.englishAward} onChange={handleChange} placeholder='Giải HSG Tiếng Anh (nếu có, không bắt buộc)' maxLength={100} /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Link drive ảnh minh chứng giải HSG *</label><Input type='url' name='awardDriveLink' value={data.awardDriveLink} onChange={handleChange} placeholder='Link drive ảnh giải thưởng (chú ý mở quyền truy cập)' required /></div>
-        <div><label className='text-sm font-medium mb-1 block'>Link ảnh cá nhân (chú ý mở quyền truy cập) *</label><Input type='url' name='driveImg' value={data.driveImg} onChange={handleChange} required placeholder='Link drive ảnh' /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Họ và tên *</label><Input className='text-lg' name='name' value={data.name} onChange={handleChange} placeholder='Họ và tên' required minLength={2} maxLength={100} pattern="[\p{L}\s]+" title="Vui lòng nhập tên hợp lệ (chỉ chữ cái và khoảng trắng)" /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Số điện thoại *</label><Input className='text-lg' type='tel' name='phone' value={data.phone} onChange={handleChange} placeholder='Số điện thoại' required pattern="[0-9]{10,11}" title="Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)" /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Email *</label><Input className='text-lg' type='email' name='email' value={data.email} onChange={handleChange} placeholder='Email' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Vui lòng nhập email hợp lệ" /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Châm ngôn *</label><Input className='text-lg' name='quote' required value={data.quote} onChange={handleChange} placeholder='Châm ngôn yêu thích' maxLength={200} /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Điểm chuyên Anh</label><Input className='text-lg' type='number' name='englishSpec' value={data.englishSpec} onChange={handleChange} placeholder='Điểm chuyên Anh (nếu có, không bắt buộc)' min='0' max='10' step='0.1' /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Giải HSG Tiếng Anh</label><Input className='text-lg' name='englishAward' value={data.englishAward} onChange={handleChange} placeholder='Giải HSG Tiếng Anh (nếu có, không bắt buộc)' maxLength={100} /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Link drive ảnh minh chứng giải HSG *</label><Input className='text-lg' type='url' name='awardDriveLink' value={data.awardDriveLink} onChange={handleChange} placeholder='Link drive ảnh giải thưởng (chú ý mở quyền truy cập)' required /></div>
+        <div><label className='text-lg font-medium mb-1 block'>Link ảnh cá nhân (chú ý mở quyền truy cập) *</label><Input className='text-lg' type='url' name='driveImg' value={data.driveImg} onChange={handleChange} required placeholder='Link drive ảnh' /></div>
       </div>
-      <div><label className='text-sm font-medium mb-1 block'>Kinh nghiệm giảng dạy *</label><Textarea name='experience' value={data.experience} onChange={handleChange} placeholder='Kinh nghiệm giảng dạy SAT' maxLength={500} required /></div>
+      <div><label className='text-lg font-medium mb-1 block'>Kinh nghiệm giảng dạy *</label><Textarea className='text-lg' name='experience' value={data.experience} onChange={handleChange} placeholder='Kinh nghiệm giảng dạy SAT' maxLength={500} required /></div>
       <div className='grid md:grid-cols-3 gap-3'>
         <Select value={data.rw} onValueChange={(val) => handleSelectChange('rw', val)}>
           <SelectTrigger><SelectValue placeholder='Reading & Writing' /></SelectTrigger>
@@ -84,8 +84,8 @@ const MentorSATForm: React.FC = () => {
           <SelectContent>{Array.from({length: 121}, (_, i) => 400 + i * 10).map(s => <SelectItem key={s} value={s.toString()}>{s}</SelectItem>)}</SelectContent>
         </Select>
       </div>
-      <div><label className='text-sm font-medium mb-1 block'>Mảng muốn giảng dạy chuyên sâu *</label><Textarea name='focusArea' value={data.focusArea} onChange={handleChange} placeholder='Bạn có mong muốn giảng dạy chuyên sâu mảng Reading & Writing hoặc Math không?' maxLength={500} required /></div>
-      <Button type='submit' className='w-full'>Gửi đơn</Button>
+      <div><label className='text-lg font-medium mb-1 block'>Mảng muốn giảng dạy chuyên sâu *</label><Textarea name='focusArea' value={data.focusArea} onChange={handleChange} placeholder='Bạn có mong muốn giảng dạy chuyên sâu mảng Reading & Writing hoặc Math không?' maxLength={500} required /></div>
+      <Button type='submit' className='w-full'><span className='text-lg'>Gửi đơn</span></Button>
     </form>
   );
 };
