@@ -225,6 +225,20 @@ const IELTSMockTest = () => {
                           </ul>
                         </div>
                       </div>
+                      <div className="bg-amber-50 border border-amber-300 rounded-lg p-4 shadow-md opacity-90 transition duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl hover:opacity-100 animate-pulse">
+                        <div className="flex items-start gap-3">
+                          <MessageCircleWarning className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
+                          <div className="space-y-1 text-amber-800 font-semibold">
+                            <div>Lưu ý:</div>
+                            <div>
+                              Sau khi đã hiển thị điểm bài thi, học viên cần ấn vào nút: <span className="text-red-600 font-bold underline decoration-2">NỘP KẾT QUẢ</span> thì trung tâm mới ghi nhận bài thi
+                            </div>
+                            <div>
+                              Nếu chưa ấn vào nút <span className="text-red-600 font-bold underline decoration-2">NỘP KẾT QUẢ</span> thì kể cả đã hiển thị điểm, trung tâm cũng chưa ghi nhận bài làm.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div>
                         <Label htmlFor="email" className="font-semibold text-xl">
                           Nhập email của bạn
@@ -266,7 +280,7 @@ const IELTSMockTest = () => {
               <div className="text-center mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
                   Xác nhận mã code
-                </h1>
+                </h1>      
                 <p className="text-base md:text-lg text-muted-foreground">
                   Mã code đã được gửi đến {userEmail}
                 </p>
