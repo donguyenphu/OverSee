@@ -11,6 +11,7 @@ import { submitMockTestResults, addToMockTested } from '@/lib/sheets';
 import { listeningTranscripts } from '@/data/listeningTranscripts';
 
 interface ResultsProps {
+  testId: string;
   userEmail: string;
   listeningAnswers: { [key: number]: string };
   readingAnswers: { [key: number]: string };
@@ -26,6 +27,7 @@ interface SectionScore {
 }
 
 const Results: React.FC<ResultsProps> = ({
+  testId,
   userEmail,
   listeningAnswers: userListeningAnswers,
   readingAnswers: userReadingAnswers,
@@ -171,6 +173,7 @@ const Results: React.FC<ResultsProps> = ({
       const r3 = readingScores.find(s => s.sectionNumber === 3)?.correct ?? 0;
 
       const result = await submitMockTestResults({
+        testId,
         email: userEmail,
         listeningPart1: p1,
         listeningPart2: p2,
@@ -185,7 +188,7 @@ const Results: React.FC<ResultsProps> = ({
 
       if (result.ok) {
         // Add email to Mock Tested list after successful submission
-        const addResult = await addToMockTested(userEmail);
+        const addResult = await addToMockTested(testId, userEmail);
         if (addResult.ok) {
           toast.success('✓ Kết quả đã được lưu thành công!', {
             style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }

@@ -13,6 +13,8 @@ import Recruitment from "./pages/Recruitment";
 import Test from "./pages/Test";
 import MockTest from "./pages/MockTest";
 import IELTSMockTest from "./components/IELTSMockTest";
+import IELTSMockTestAccess from "./components/IELTSMockTestAccess";
+import IELTSMockTestRunner from "./components/IELTSMockTestRunner";
 import Preloader from "./components/Preloader";
 import ZoomControl from "./components/ZoomControl";
 
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/tuyen-dung" element={<Recruitment />} />
           <Route path="/thi-thu" element={<MockTest />} />
           <Route path="/thi-thu/ielts" element={<IELTSMockTest />} />
+          <Route path="/thi-thu/ielts/:testId/dang-nhap" element={<IELTSMockTestAccess />} />
+          <Route path="/thi-thu/ielts/:testId/lam-bai" element={<IELTSMockTestRunner />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
