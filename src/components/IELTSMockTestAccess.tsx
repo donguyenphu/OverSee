@@ -12,8 +12,7 @@ import { checkMockTestEligibility } from '@/lib/sheets';
 import { getIELTSMockTest } from '@/data/ieltsMockTests';
 
 const IELTSMockTestAccess = () => {
-  // Temporary local testing switch. Set to true to restore email/code validation.
-  const ENABLE_ACCESS_VALIDATION = false;
+  const ENABLE_ACCESS_VALIDATION = true;
   const { testId = '' } = useParams();
   const test = getIELTSMockTest(testId);
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const IELTSMockTestAccess = () => {
 
     setIsCheckingEmail(false);
     setStep('code');
-    toast.success('Email được chấp nhận trong chế độ test');
+    toast.success('Email được chấp nhận');
   };
 
   const handleCodeSubmit = (event: React.FormEvent) => {
@@ -82,7 +81,7 @@ const IELTSMockTestAccess = () => {
         return;
       }
     }
-    navigate(`/thi-thu/ielts/${testId}/lam-bai`, { state: { userEmail: email } });
+    navigate(`/thi-thu/ielts/${testId}/lam-bai`, { state: { userEmail: email.trim() } });
   };
 
   if (!test) return null;

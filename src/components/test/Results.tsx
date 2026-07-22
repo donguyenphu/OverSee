@@ -3,12 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle, Eye, EyeOff, ChevronRight, ChevronLeft, Highlighter, X } from 'lucide-react';
 import { useTextHighlight } from '@/hooks/useTextHighlight';
-import { readingSections } from '@/data/readingContent';
+import { ReadingSection } from '@/data/readingContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { isAnswerCorrect, listeningAnswers, readingAnswers, normalizeAnswer } from '@/data/answerKeys';
-import { submitMockTestResults, addToMockTested } from '@/lib/sheets';
-import { listeningTranscripts } from '@/data/listeningTranscripts';
+import { isAnswerCorrect, SkillAnswers, normalizeAnswer } from '@/data/answerKeys';
+import { submitMockTestResults } from '@/lib/sheets';
 
 interface ResultsProps {
   testId: string;
@@ -17,6 +16,10 @@ interface ResultsProps {
   readingAnswers: { [key: number]: string };
   writingTask1: string;
   writingTask2: string;
+  listeningAnswerKey: SkillAnswers;
+  readingAnswerKey: SkillAnswers;
+  listeningTranscript: { part1: string; part2: string; part3: string; part4: string };
+  readingContent: ReadingSection[];
   onBackToHome: () => void;
 }
 
@@ -33,6 +36,10 @@ const Results: React.FC<ResultsProps> = ({
   readingAnswers: userReadingAnswers,
   writingTask1,
   writingTask2,
+  listeningAnswerKey,
+  readingAnswerKey,
+  listeningTranscript,
+  readingContent,
   onBackToHome
 }) => {
   const [listeningScores, setListeningScores] = useState<SectionScore[]>([]);
@@ -80,7 +87,7 @@ const Results: React.FC<ResultsProps> = ({
 
   useEffect(() => {
     // Calculate listening scores
-    const listeningCalc: SectionScore[] = listeningAnswers.sections.map(section => {
+    const listeningCalc: SectionScore[] = listeningAnswerKey.sections.map(section => {
       let correct = 0;
       for (const q of section.questions) {
         const userAnswer = userListeningAnswers[q.question];
@@ -97,7 +104,7 @@ const Results: React.FC<ResultsProps> = ({
     setListeningScores(listeningCalc);
 
     // Calculate reading scores
-    const readingCalc: SectionScore[] = readingAnswers.sections.map(section => {
+    const readingCalc: SectionScore[] = readingAnswerKey.sections.map(section => {
       let correct = 0;
       for (const q of section.questions) {
         const userAnswer = userReadingAnswers[q.question];
@@ -112,12 +119,12 @@ const Results: React.FC<ResultsProps> = ({
       };
     });
     setReadingScores(readingCalc);
-  }, [userListeningAnswers, userReadingAnswers]);
+  }, [userListeningAnswers, userReadingAnswers, listeningAnswerKey, readingAnswerKey]);
 
   // Precompute listening full text and parts for highlight rendering
   const lFullText = (lTextRef.current && lTextRef.current.innerText)
     ? lTextRef.current.innerText
-    : [listeningTranscripts.part1, listeningTranscripts.part2, listeningTranscripts.part3, listeningTranscripts.part4].join('\n\n');
+    : [listeningTranscript.part1, listeningTranscript.part2, listeningTranscript.part3, listeningTranscript.part4].join('\n\n');
 
   const lParts = lRenderHighlightedText(lFullText);
 
@@ -134,7 +141,7 @@ const Results: React.FC<ResultsProps> = ({
     return ranges;
   };
 
-  const lRanges = computeRanges([listeningTranscripts.part1, listeningTranscripts.part2, listeningTranscripts.part3, listeningTranscripts.part4]);
+  const lRanges = computeRanges([listeningTranscript.part1, listeningTranscript.part2, listeningTranscript.part3, listeningTranscript.part4]);
 
   const renderRange = (start: number, end: number) => {
     const nodes: React.ReactNode[] = [];
@@ -187,19 +194,10 @@ const Results: React.FC<ResultsProps> = ({
       });
 
       if (result.ok) {
-        // Add email to Mock Tested list after successful submission
-        const addResult = await addToMockTested(testId, userEmail);
-        if (addResult.ok) {
-          toast.success('✓ Kết quả đã được lưu thành công!', {
-            style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
-          });
-          setSubmitted(true);
-        } else {
-          toast.error('⚠ Kết quả lưu nhưng có lỗi cập nhật danh sách: ' + (addResult.message || 'Unknown error'), {
-            style: { background: '#f59e0b', color: '#ffffff', border: '1px solid #d97706' }
-          });
-          setSubmitted(true);
-        }
+        toast.success('✓ Kết quả đã được lưu thành công!', {
+          style: { background: '#16a34a', color: '#ffffff', border: '1px solid #15803d' }
+        });
+        setSubmitted(true);
       } else {
         toast.error('✗ Lỗi khi lưu kết quả: ' + (result.message || 'Unknown error'), {
           style: { background: '#dc2626', color: '#ffffff', border: '1px solid #b91c1c' }
@@ -392,7 +390,7 @@ const Results: React.FC<ResultsProps> = ({
               {/* Left: Questions with User Answers */}
               <div className="space-y-4 max-h-[800px] overflow-y-auto pr-4">
                 <h3 className="font-bold text-lg mb-4">Bài làm của bạn</h3>
-                {listeningAnswers.sections.map((section) => (
+                {listeningAnswerKey.sections.map((section) => (
                   <div key={section.sectionNumber} className="space-y-3 pb-6 border-b">
                     <h4 className="font-semibold text-blue-600">Section {section.sectionNumber}</h4>
                     {section.questions.map((q) => {
@@ -499,7 +497,7 @@ const Results: React.FC<ResultsProps> = ({
           </CardHeader>
           <CardContent className="mt-6">
             <div className="space-y-8">
-              {readingAnswers.sections.map((section) => (
+              {readingAnswerKey.sections.map((section) => (
                 <div key={section.sectionNumber} className="border-t pt-6">
                   <h3 className="font-bold text-lg text-green-600 mb-4">Section {section.sectionNumber}</h3>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -525,7 +523,7 @@ const Results: React.FC<ResultsProps> = ({
                       )} */}
                       <div className="text-sm leading-relaxed text-slate-700 space-y-4">
                         {(() => {
-                          const readingSection = readingSections.find(s => s.id === section.sectionNumber);
+                          const readingSection = readingContent.find(s => s.id === section.sectionNumber);
                           if (!readingSection) return <p>Passage not found</p>;
                           return readingSection.passages.map((passage, idx) => (
                             <p key={idx} className="whitespace-pre-wrap text-lg">{passage}</p>
@@ -599,7 +597,7 @@ const Results: React.FC<ResultsProps> = ({
                 </TabsList>
 
               <TabsContent value="listening" className="space-y-6">
-                {listeningAnswers.sections.map((section, sectionIdx) => (
+                {listeningAnswerKey.sections.map((section, sectionIdx) => (
                   <div key={sectionIdx} className="space-y-4">
                     <h3 className="text-lg font-semibold text-blue-600">Section {section.sectionNumber}</h3>
                     <div className="grid gap-3">
@@ -633,7 +631,7 @@ const Results: React.FC<ResultsProps> = ({
               </TabsContent>
 
               <TabsContent value="reading" className="space-y-6">
-                {readingAnswers.sections.map((section, sectionIdx) => (
+                {readingAnswerKey.sections.map((section, sectionIdx) => (
                   <div key={sectionIdx} className="space-y-4">
                     <h3 className="text-lg font-semibold text-green-600">Section {section.sectionNumber}</h3>
                     <div className="grid gap-3">

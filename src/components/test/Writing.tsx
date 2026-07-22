@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 interface WritingProps {
   userEmail: string;
   onComplete: (results: WritingResults) => void;
+  content: { task1: string; task2: string };
 }
 
 export interface WritingResults {
@@ -26,31 +27,22 @@ interface WritingTask {
   image?: string;
 }
 
-const WritingTasksData: WritingTask[] = [
-  {
-    taskNumber: 1,
-    title: 'Task 1: Academic Writing (Graph Description)',
-    timeMinutes: 20,
-    image: '/images/wri.jpg',
-    content: `The graph shows the average Japanese monthly salary (Yen) from 1953 to 1973, and the prices of black and white televisions and color televisions during the same period.
-              
-              Task: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.
-              
-              Write at least 150 words.`
-  },
-  {
-    taskNumber: 2,
-    title: 'Task 2: Academic Writing (Essay)',
-    timeMinutes: 40,
-    content: `Question: Some people benefit from modern communication technology, but some have not been helped at all. Do you agree or disagree?
-
-              Task: Give reasons for your answer and include any relevant examples from your own knowledge or experience.
-
-              Write at least 250 words.`
-  }
-];
-
-const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
+const Writing: React.FC<WritingProps> = ({ userEmail, onComplete, content }) => {
+  const writingTasksData: WritingTask[] = [
+    {
+      taskNumber: 1,
+      title: 'Task 1: Academic Writing (Graph Description)',
+      timeMinutes: 20,
+      image: '/images/wri.jpg',
+      content: `${content.task1}\n\nTask: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.`
+    },
+    {
+      taskNumber: 2,
+      title: 'Task 2: Academic Writing (Essay)',
+      timeMinutes: 40,
+      content: `Question: ${content.task2}\n\nTask: Give reasons for your answer and include any relevant examples from your own knowledge or experience.\n\nWrite at least 250 words.`
+    }
+  ];
   const [currentTab, setCurrentTab] = useState('task1');
   const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes total
   const [task1, setTask1] = useState('');
@@ -162,14 +154,14 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
         <TabsContent value="task1" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{WritingTasksData[0].title}</CardTitle>
+              <CardTitle>{writingTasksData[0].title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="w-[100%]">
-                  {WritingTasksData[0].image && (
+                  {writingTasksData[0].image && (
                     <img
-                      src={WritingTasksData[0].image}
+                      src={writingTasksData[0].image}
                       alt="Writing Task 1"
                       className="w-full max-w-2xl rounded-lg"
                     />
@@ -177,7 +169,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
                 </div>
                 <div className="w-[100%]">
                   <div className="bg-muted p-4 rounded-lg">
-                    <p className="text-foreground whitespace-pre-line font-semibold">{WritingTasksData[0].content}</p>
+                    <p className="text-foreground whitespace-pre-line font-semibold">{writingTasksData[0].content}</p>
                   </div>
                 </div>
               </div>
@@ -245,11 +237,11 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete }) => {
         <TabsContent value="task2" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>{WritingTasksData[1].title}</CardTitle>
+              <CardTitle>{writingTasksData[1].title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="bg-muted p-4 rounded-lg">
-                <p className="text-foreground whitespace-pre-line font-semibold">{WritingTasksData[1].content}</p>
+                <p className="text-foreground whitespace-pre-line font-semibold">{writingTasksData[1].content}</p>
               </div>
 
               <div className="space-y-2">

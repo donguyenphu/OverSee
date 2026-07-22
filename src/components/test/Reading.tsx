@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { readingSections } from '@/data/readingContent';
-import { readingAnswers as readingAnswerKey, isAnswerCorrect } from '@/data/answerKeys';
+import { ReadingSection } from '@/data/readingContent';
+import { SkillAnswers, isAnswerCorrect } from '@/data/answerKeys';
 import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle, Highlighter, X } from 'lucide-react';
 
 interface ReadingProps {
   userEmail: string;
   onComplete: (results: ReadingResults) => void;
+  sections: ReadingSection[];
+  answerKey: SkillAnswers;
 }
 
 export interface ReadingResults {
@@ -18,7 +20,7 @@ export interface ReadingResults {
   totalScore: number;
 }
 
-const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
+const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete, sections, answerKey }) => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -38,7 +40,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
 
   const textRef = useRef<HTMLDivElement>(null);
 
-  const section = readingSections[currentSectionIndex];
+  const section = sections[currentSectionIndex];
   const currentSectionId = section.id;
   const fullText = section.passages.join('\n');
   const currentHighlights = sectionHighlights[currentSectionId] || new Array(fullText.length).fill(false);
@@ -119,7 +121,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   };
 
   const getReadingAnswers = (questionNumber: number) => {
-    const section = readingAnswerKey.sections.find(s =>
+    const section = answerKey.sections.find(s =>
       s.questions.some(q => q.question === questionNumber)
     );
     if (!section) return [];
@@ -182,7 +184,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
   };
 
   const handleNextSection = () => {
-    if (currentSectionIndex < readingSections.length - 1) {
+    if (currentSectionIndex < sections.length - 1) {
       setCurrentSectionIndex(currentSectionIndex + 1);
     }
   };
@@ -671,7 +673,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete }) => {
           ← Previous Passage
         </Button>
 
-        {currentSectionIndex < readingSections.length - 1 ? (
+        {currentSectionIndex < sections.length - 1 ? (
           <Button onClick={handleNextSection}>
             Next Passage →
           </Button>

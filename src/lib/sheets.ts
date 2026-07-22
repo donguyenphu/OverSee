@@ -4,7 +4,7 @@
 // VITE_MENTOR_WEBAPP_URL - Apps Script URL for mentor registrations (handles 3 tabs: IELTS, SAT, VN)
 // VITE_ABLE_TO_TEST_SHEET_ID - Sheet ID for OverSee Able To Test
 // VITE_MOCK_TESTED_SHEET_ID - Sheet ID for OverSee Mock Tested
-// NOTE: Apps Script will route data to correct tab based on category field
+// The Mock Tested web app is the write path for submitted IELTS results.
 
 export interface AppendResult {
   ok: boolean;
@@ -42,9 +42,10 @@ async function appendViaWebApp(webappUrl: string | undefined, values: any[]): Pr
     const res = await fetch(webappUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        // text/plain is CORS-safelisted; the body is still JSON for Apps Script.
+        'Content-Type': 'text/plain;charset=utf-8',
       },
-      mode: 'no-cors', // Add this to handle CORS
+      mode: 'no-cors',
       body: JSON.stringify({ values })
     });
 
@@ -74,21 +75,30 @@ export async function getEmailsFromSheet(sheetId: string, column = 'A'): Promise
   }
 }
 
-const getTestSheetIds = (testId: string) => {
+interface MockTestSheetConfig {
+  ableToTestSheetId: string | undefined;
+  mockTestedSheetId: string | undefined;
+  mockTestedWebappUrl: string | undefined;
+}
+
+const getTestSheetConfig = (testId: string): MockTestSheetConfig => {
   if (testId === 'ielts-mock-2') {
     return {
       ableToTestSheetId: import.meta.env.VITE_ABLE_TO_TEST_2_SHEET_ID,
-      mockTestedSheetId: import.meta.env.VITE_MOCK_TESTED_2_SHEET_ID
+      mockTestedSheetId: import.meta.env.VITE_MOCK_TESTED_2_SHEET_ID,
+      mockTestedWebappUrl: import.meta.env.VITE_MOCK_TESTED_2_WEBAPP_URL
     };
   }
+
   return {
     ableToTestSheetId: import.meta.env.VITE_ABLE_TO_TEST_SHEET_ID,
-    mockTestedSheetId: import.meta.env.VITE_MOCK_TESTED_SHEET_ID
+    mockTestedSheetId: import.meta.env.VITE_MOCK_TESTED_SHEET_ID,
+    mockTestedWebappUrl: import.meta.env.VITE_MOCK_TESTED_WEBAPP_URL
   };
 };
 
 export async function checkMockTestEligibility(testId: string, email: string): Promise<{ eligible: boolean; message: string }> {
-  const { ableToTestSheetId, mockTestedSheetId } = getTestSheetIds(testId);
+  const { ableToTestSheetId, mockTestedSheetId } = getTestSheetConfig(testId);
 
   if (!ableToTestSheetId || !mockTestedSheetId) {
     return { eligible: false, message: 'Thiếu cấu hình Google Sheets' };
@@ -117,16 +127,6 @@ export async function checkMockTestEligibility(testId: string, email: string): P
   }
 }
 
-export async function addToMockTested(testId: string, email: string): Promise<AppendResult> {
-  const sheetId = testId === 'ielts-mock-2'
-    ? import.meta.env.VITE_MOCK_TESTED_2_SHEET_ID
-    : import.meta.env.VITE_MOCK_TESTED_SHEET_ID;
-  if (!sheetId) return { ok: false, message: 'Thiếu VITE_MOCK_TESTED_SHEET_ID' };
-
-  // Keep the existing tested-sheet structure: Email is column A.
-  return appendViaApi(sheetId, [email]);
-}
-
 export interface MockTestResult {
   testId: string;
   email: string;
@@ -142,12 +142,10 @@ export interface MockTestResult {
 }
 
 export async function submitMockTestResults(data: MockTestResult): Promise<AppendResult> {
-  const sheetId = data.testId === 'ielts-mock-2'
-    ? import.meta.env.VITE_MOCK_TESTED_2_SHEET_ID
-    : import.meta.env.VITE_MOCK_TESTED_SHEET_ID;
-  const webappUrl = data.testId === 'ielts-mock-2'
-    ? import.meta.env.VITE_MOCK_TESTED_2_WEBAPP_URL
-    : import.meta.env.VITE_MOCK_TESTED_WEBAPP_URL;
+  const {
+    mockTestedSheetId: sheetId,
+    mockTestedWebappUrl: webappUrl
+  } = getTestSheetConfig(data.testId);
 
   if (!sheetId && !webappUrl) {
     return { ok: false, message: 'Thiếu VITE_MOCK_TESTED_SHEET_ID hoặc VITE_MOCK_TESTED_WEBAPP_URL' };

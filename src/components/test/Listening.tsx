@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'lucide-react';
-import { isAnswerCorrect, normalizeAnswer, listeningAnswers as listeningQuestionAnswers } from '@/data/answerKeys';
+import { isAnswerCorrect, normalizeAnswer, SkillAnswers } from '@/data/answerKeys';
 
 type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
 
@@ -26,6 +26,7 @@ interface ListeningProps {
   userEmail: string;
   onComplete: (results: ListeningResults) => void;
   audioUrl: string;
+  answerKey: SkillAnswers;
 }
 
 export interface ListeningResults {
@@ -101,7 +102,7 @@ const listeningQuestions: ListeningSection[] = [
   }
 ];
 
-const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }) => {
+const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, answerKey }) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -119,7 +120,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl }
   const textRef = useRef<HTMLDivElement>(null);
 
   const getListeningAnswers = (questionNumber: number) => {
-    const section = listeningQuestionAnswers.sections.find(s =>
+    const section = answerKey.sections.find(s =>
       s.questions.some(q => q.question === questionNumber)
     );
     if (!section) return [];
