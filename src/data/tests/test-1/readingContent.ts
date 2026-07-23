@@ -3,6 +3,7 @@
 export interface ReadingSection {
   id: number;
   title: string;
+  questionLayout?: 'test2';
   subtitleOrImage?: string;
   imageUrl?: string;
   passages: string[];

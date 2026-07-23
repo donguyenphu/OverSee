@@ -1,5 +1,6 @@
-import { SkillAnswers } from '@/data/answerKeys';
-import { ReadingSection } from '@/data/readingContent';
+import { SkillAnswers } from '@/data/tests/test-1/answerKeys';
+import { ReadingSection } from '@/data/tests/test-1/readingContent';
+import { listeningTranscripts } from '@/data/listeningTranscripts';
 import { testOneDatabase } from '@/data/tests/test-1';
 import { testTwoDatabase } from '@/data/tests/test-2';
 
@@ -8,6 +9,7 @@ export interface IELTSMockTest {
   title: string;
   description: string;
   audioUrl: string;
+  audioUrls?: string[];
   content: {
     listening: typeof listeningTranscripts;
     reading: ReadingSection[];
@@ -46,6 +48,12 @@ const testTwo: IELTSMockTest = {
   description: 'Đề thi mô phỏng IELTS Academic số 2.',
   content: testTwoDatabase,
   answerKey: testTwoDatabase.answerKey,
+  audioUrls: [
+    'https://ielts-up.com/listening/8.1.mp3',
+    'https://ielts-up.com/listening/8.2.mp3',
+    'https://ielts-up.com/listening/8.3.mp3',
+    'https://ielts-up.com/listening/8.4.mp3'
+  ],
   sheets: {
     allowedEmailsEnv: 'VITE_ABLE_TO_TEST_2_SHEET_ID',
     testedEmailsEnv: 'VITE_MOCK_TESTED_2_SHEET_ID',

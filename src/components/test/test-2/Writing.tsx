@@ -9,17 +9,17 @@ import { Label } from '@/components/ui/label';
 
 interface WritingProps {
   userEmail: string;
-  onComplete: (results: WritingResults) => void;
-  content: { task1: string; task2: string };
+  onComplete: (results: WritingResults2) => void;
+  content: { task1: string; task2: string; task1Image?: string };
 }
 
-export interface WritingResults {
+export interface WritingResults2 {
   task1: string;
   task2: string;
   email: string;
 }
 
-interface WritingTask {
+interface WritingTask2 {
   taskNumber: number;
   title: string;
   timeMinutes: number;
@@ -27,13 +27,13 @@ interface WritingTask {
   image?: string;
 }
 
-const Writing: React.FC<WritingProps> = ({ userEmail, onComplete, content }) => {
-  const writingTasksData: WritingTask[] = [
+const Writing2: React.FC<WritingProps> = ({ userEmail, onComplete, content }) => {
+  const writingTasksData: WritingTask2[] = [
     {
       taskNumber: 1,
       title: 'Task 1: Academic Writing (Graph Description)',
       timeMinutes: 20,
-      image: '/images/wri.jpg',
+      image: content.task1Image || '/images/IELTS_Wri_2.png',
       content: `${content.task1}\n\nTask: Summarize the information by selecting and reporting the main features, and make comparisons where relevant.\n\nWrite at least 150 words.`
     },
     {
@@ -95,7 +95,7 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete, content }) => 
   }, []);
 
   const handleComplete = () => {
-    const results: WritingResults = {
+    const results: WritingResults2 = {
       task1,
       task2,
       email: userEmail
@@ -326,4 +326,4 @@ const Writing: React.FC<WritingProps> = ({ userEmail, onComplete, content }) => 
   );
 };
 
-export default Writing;
+export default Writing2;

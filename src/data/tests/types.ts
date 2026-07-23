@@ -1,5 +1,5 @@
-import { ReadingSection } from '@/data/readingContent';
-import { SkillAnswers } from '@/data/answerKeys';
+import { ReadingSection } from '@/data/tests/test-1/readingContent';
+import { SkillAnswers } from '@/data/tests/test-1/answerKeys';
 
 export interface ListeningContent {
   part1: string;
@@ -11,6 +11,7 @@ export interface ListeningContent {
 export interface WritingContent {
   task1: string;
   task2: string;
+  task1Image?: string;
 }
 
 export interface IELTSTestDatabase {

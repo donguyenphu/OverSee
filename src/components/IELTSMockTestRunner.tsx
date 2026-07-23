@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/subpage/Footer';
-import Listening from '@/components/test/Listening';
-import Reading from '@/components/test/Reading';
-import Writing, { WritingResults } from '@/components/test/Writing';
-import Results from '@/components/test/Results';
+import Listening from '@/components/test/test-2/Listening';
+import Reading from '@/components/test/test-2/Reading';
+import Writing1, { WritingResults1 } from '@/components/test/test-1/Writing';
+import Writing2, { WritingResults2 } from '@/components/test/test-2/Writing';
+import Results from '@/components/test/test-2/Results';
 import { getIELTSMockTest } from '@/data/ieltsMockTests';
+import { listeningQuestions as testTwoListeningQuestions } from '@/components/test/test-2/Listening';
+import { listeningQuestions as testOneListeningQuestions } from '@/components/test/test-1/Listening';
 import { toast } from 'sonner';
 
 const IELTSMockTestRunner = () => {
@@ -30,13 +33,14 @@ const IELTSMockTestRunner = () => {
     toast.success(message);
   };
 
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <main className="w-full max-w-screen-2xl mx-auto px-6 py-10 flex-grow">
-        {step === 'listening' && <Listening userEmail={userEmail} onComplete={results => { setListeningAnswers(results.answers); complete('Hoàn thành Listening! Bắt đầu Reading', 'reading'); }} audioUrl={test.audioUrl} answerKey={test.answerKey.listening} />}
+        {step === 'listening' && <Listening userEmail={userEmail} onComplete={results => { setListeningAnswers(results.answers); complete('Hoàn thành Listening! Bắt đầu Reading', 'reading'); }} audioUrl={test.audioUrl} audioUrls={test.audioUrls} answerKey={test.answerKey.listening} questions={test.id === 'ielts-mock-2' ? testTwoListeningQuestions : test.id === 'ielts-mock-1' ? testOneListeningQuestions : undefined} />}
         {step === 'reading' && <Reading userEmail={userEmail} onComplete={results => { setReadingAnswers(results.answers); complete('Hoàn thành Reading! Bắt đầu Writing', 'writing'); }} sections={test.content.reading} answerKey={test.answerKey.reading} />}
-        {step === 'writing' && <Writing userEmail={userEmail} onComplete={(results: WritingResults) => { setWritingTask1(results.task1); setWritingTask2(results.task2); complete('Hoàn thành Writing! Xem kết quả', 'results'); }} content={test.content.writing} />}
+        {step === 'writing' && <Writing userEmail={userEmail} onComplete={(results: test.id === 'ielts-mock-1' ? WritingResults1 : WritingResults2) => { setWritingTask1(results.task1); setWritingTask2(results.task2); complete('Hoàn thành Writing! Xem kết quả', 'results'); }} content={test.content.writing} />}
         {step === 'results' && <Results testId={test.id} userEmail={userEmail} listeningAnswers={listeningAnswers} readingAnswers={readingAnswers} writingTask1={writingTask1} writingTask2={writingTask2} listeningAnswerKey={test.answerKey.listening} readingAnswerKey={test.answerKey.reading} listeningTranscript={test.content.listening} readingContent={test.content.reading} onBackToHome={() => navigate('/')} />}
       </main>
       <Footer />

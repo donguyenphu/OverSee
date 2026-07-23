@@ -4,11 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'lucide-react';
-import { isAnswerCorrect, normalizeAnswer, SkillAnswers } from '@/data/answerKeys';
+import { isAnswerCorrect, normalizeAnswer, SkillAnswers } from '@/data/tests/test-1/answerKeys';
 
-type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
 
-interface ListeningQuestion {
+type ListeningQuestionType = 'text' | 'mcq' | 'dropdown' | 'multiselect';
+
+export interface ListeningQuestion {
   number: number;
   question: string;
   type: ListeningQuestionType;
@@ -16,7 +17,7 @@ interface ListeningQuestion {
   placeholder?: string;
 }
 
-interface ListeningSection {
+export interface ListeningSection {
   section: number;
   questions: ListeningQuestion[];
   startQuestion: number;
@@ -26,7 +27,9 @@ interface ListeningProps {
   userEmail: string;
   onComplete: (results: ListeningResults) => void;
   audioUrl: string;
+  audioUrls?: string[];
   answerKey: SkillAnswers;
+  questions?: ListeningSection[];
 }
 
 export interface ListeningResults {
@@ -35,74 +38,76 @@ export interface ListeningResults {
   sectionScores: { [key: number]: number };
 }
 
-const listeningQuestions: ListeningSection[] = [
+export const listeningQuestions: ListeningSection[] = [
   {
     section: 1,
     startQuestion: 1,
     questions: [
-      { number: 1, question: 'Location', type: 'text', placeholder: 'Southwest' },
-      { number: 2, question: 'Rooms', type: 'text', placeholder: 'double' },
-      { number: 3, question: 'The other room used as', type: 'text', placeholder: 'office' },
-      { number: 4, question: 'Downstairs', type: 'text', placeholder: 'lounge' },
-      { number: 5, question: 'Which of these extra service does the customer agree to do?', type: 'mcq', options: ['A. Change the bed linen', 'B. Do some gardening work', 'C. Clean the glass'] },
-      { number: 6, question: 'What does the customer want cleaned every three months?', type: 'mcq', options: ['A. Curtains', 'B. Carpets', 'C. Mats'] },
-      { number: 7, question: 'What does the customer want done with clothes?', type: 'mcq', options: ['A. Wash and iron the clothes', 'B. Iron the clothes', 'C. Clean and dry the clothes'] },
-      { number: 8, question: "The agent's address is 12 ____ Road.", type: 'text', placeholder: 'Amyes' },
-      { number: 9, question: 'Her house will get cleaned next ____.', type: 'text', placeholder: 'Thursday' },
-      { number: 10, question: 'The maximum time of cleaning service is ____ hours.', type: 'text', placeholder: '3' }
+      { number: 1, question: 'First name', type: 'text' },
+      { number: 2, question: 'Passport number', type: 'text' },
+      { number: 3, question: 'Course enrolled', type: 'text' },
+      { number: 4, question: 'Length of the course', type: 'text' },
+      { number: 5, question: 'Homestay time', type: 'text' },
+      { number: 6, question: 'Which kind of family does the girl prefer?', type: 'multiselect', options: ['A. A big family with many young children', 'B. A family without smoker or drinkers', 'C. A family without any pets', 'D. A family with many animals or pets'] },
+      { number: 7, question: "Although the girl is not a vegetarian, she doesn't eat a lot of meat. Her favourite food is", type: 'text' },
+      { number: 8, question: 'The girls has given up playing handball. Now, she just play ____ with her friends at weekends.', type: 'text' },
+      { number: 9, question: 'The girl does not like the bus because they are always late. She would rather', type: 'text' },
+      { number: 10, question: 'The girl can get the information about the homestay family that she wants', type: 'text' }
     ]
   },
   {
     section: 2,
     startQuestion: 11,
     questions: [
-      { number: 11, question: 'The main purpose of the service is to', type: 'mcq', options: ['A. educate people', 'B. persuade people to fly', 'C. provide people with comfort'] },
-      { number: 12, question: 'The number of people working at Sydney Airport is', type: 'mcq', options: ['A. 200', 'B. 360', 'C. 440'] },
-      { number: 13, question: 'Dogs are chosen according to', type: 'mcq', options: ['A. their ability to stay calm', 'B. their friendliness', 'C. their skill at locating narcotics'] },
-      { number: 14, question: 'The number of postal items processed last year amounted to', type: 'mcq', options: ['A. 4,400', 'B. 52,000', 'C. 72,000'] },
-      { number: 15, question: 'People carrying items that are not allowed', type: 'mcq', options: ['A. will get arrested', 'B. will be refused on board', 'C. will be given a warning'] },
-      { number: 16, question: 'Which of the following is NOT allowed to be taken on the flight?', type: 'mcq', options: ['A. Carry-on items', 'B. Plant seeds', 'C. Parcels'] },
-      { number: 17, question: 'What is the proper security protocol for a pocket knife found in a carry-on suitcase?', type: 'mcq', options: ['A. It is returned to the passenger after examination', 'B. It is thrown away in a safe receptacle', 'C. It is passed on to higher-level authorities'] },
-      { number: 18, question: 'The acceptable material for packing goods in Australia is ____.', type: 'text', placeholder: 'paper' },
-      { number: 19, question: 'The belongings most of the time are refused due to problems with the ____.', type: 'text', placeholder: 'labels' },
-      { number: 20, question: 'The customs must be given notice of the goods from ____ days before it arrives in Australia.', type: 'text', placeholder: '2-10' }
+      { number: 11, question: 'Normal visas last', type: 'text' },
+      { number: 12, question: 'You need to pay', type: 'text' },
+      { number: 13, question: 'Some Enzian consulates require you to provide a letter to', type: 'text' },
+      { number: 14, question: 'You can get information of major embassies on', type: 'text' },
+      { number: 15, question: 'If you carry a lot of money, you need to complete a', type: 'text' },
+      { number: 16, question: 'Remember to declare all your items, especially expensive items, on a', type: 'text' },
+      { number: 17, question: 'The health certificate you need is the', type: 'text' },
+      { number: 18, question: 'To get a youth fare card, you should show your', type: 'text' },
+      { number: 19, question: 'Take at least', type: 'text' },
+      { number: 20, question: 'Take Yen or', type: 'text' }
     ]
   },
   {
     section: 3,
     startQuestion: 21,
     questions: [
-      { number: 21, question: '21', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 22, question: '22', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 23, question: '23', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 24, question: '24', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 25, question: '25', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 26, question: '26', type: 'dropdown', options: ['A', 'B', 'C', 'D', 'E', 'F'] },
-      { number: 27, question: 'If you need to find information on a certain book, you can use ____ check-out cards.', type: 'text', placeholder: 'pink and yellow' },
-      { number: 28, question: 'If you want to find information in a specific field, use the ____ guides.', type: 'text', placeholder: 'subject' },
-      { number: 29, question: 'Computers in some ____ cannot be linked to the network.', type: 'text', placeholder: 'universities' },
-      { number: 30, question: 'You can find more information in a ____ on my desk.', type: 'text', placeholder: 'blue folder' }
+      { number: 21, question: 'The woman being interviewed is now working in the bank. Her occupation is', type: 'text' },
+      { number: 22, question: 'The woman usually spends about', type: 'text' },
+      { number: 23, question: 'The woman often goes to', type: 'text' },
+      { number: 24, question: 'According to the woman,', type: 'text' },
+      { number: 25, question: '50% of the people being interviewed spend', type: 'text' },
+      { number: 26, question: '15% of the people being interviewed spend', type: 'text' },
+      { number: 27, question: '35% of the people being interviewed spend', type: 'text' },
+      { number: 28, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] },
+      { number: 29, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] },
+      { number: 30, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] }
     ]
   },
   {
     section: 4,
     startQuestion: 31,
     questions: [
-      { number: 31, question: 'The student thought there were no crocodiles in Northern Africa because', type: 'mcq', options: ['A. North Africa contains very little wildlife for the crocodile to prey on', 'B. she found no mention in the literature of their existence there', 'C. there is very little water in North Africa'] },
-      { number: 32, question: 'Generally, crocodiles live in groups of about', type: 'mcq', options: ['A. 20', 'B. 38', 'C. 46'] },
-      { number: 33, question: 'African crocodiles usually live in areas with', type: 'mcq', options: ['A. hot, dry climates', 'B. hot, wet rainforests', 'C. warm, wet climates'] },
-      { number: 34, question: 'Crocodiles in dry areas live in caves located', type: 'mcq', options: ['A. underground', 'B. in mountainsides', 'C. underwater'] },
-      { number: 35, question: 'What change caused changes in crocodile populations in North Africa?', type: 'mcq', options: ['A. They were driven away by a fierce predator', 'B. Crocodiles evolved from desert creatures to wetland creatures', 'C. North Africa used to be wetland but slowly turned to desert over time'] },
-      { number: 36, question: 'Desert crocodiles sometimes live in places with dry periods that last up to ____ months.', type: 'text', placeholder: '8' },
-      { number: 37, question: 'A hole dug by a female crocodile in which to lay eggs can have a ____ of up to 60cm.', type: 'text', placeholder: 'depth' },
-      { number: 38, question: 'Local people are not ____ crocodiles.', type: 'text', placeholder: 'afraid of' },
-      { number: 39, question: 'Crocodiles ____ out of fear when humans populate their habitat.', type: 'text', placeholder: 'attack' },
-      { number: 40, question: 'Researchers want to study more about population size, ____ , and relations to other populations of crocodiles.', type: 'text', placeholder: 'migration patterns' }
+      { number: 31, question: 'What does the lecturer provide for those interested in extra reading?', type: 'mcq', options: ['A. Personal consultation sessions.', 'B. Extra materials, such as a booklist.', 'C. Mid-term examination.', 'D. Free glasses.'] },
+      { number: 32, question: 'In the past, time management meant you needed to', type: 'mcq', options: ['A. reduce your stress.', 'B. plan for every hour of the week.', 'C. own a good watch.', 'D. set goals and try to achieve these goals.'] },
+      { number: 33, question: 'Today, wise time management means you need to', type: 'mcq', options: ['A. set goals and work in a systematic way.', 'B. work faster.', 'C. set an overview of your assignment.', 'D. make a list, plan for everything and try to stick to this plan.'] },
+      { number: 34, question: 'In this college, students are assigned', type: 'mcq', options: ['A. team projects.', 'B. final term examinations.', 'C. essays.', 'D. time management courses.'] },
+      { number: 35, question: 'One sign students feel under pressure is', type: 'mcq', options: ['A. library books go missing.', 'B. students get angry for no reason.', 'C. lower class attendance rates.', 'D. trouble at the library.'] },
+      { number: 36, question: 'What suggestion does the lecturer give?', type: 'mcq', options: ['A. Making a very detailed plan of their daily activities.', 'B. Not being so stressed just because there is an assignment.', 'C. A regular one-hour session in their personal timetables.', 'D. Wearing comfortable shoes.'] },
+      { number: 37, question: 'There are three kinds of planners. They are', type: 'mcq', options: ['A. one weekly planner, one daily planner and one hour planner.', 'B. one yearly planner, one weekly planner and one daily planner.', 'C. one term planner, one monthly planner and one weekly planner.', 'D. one term planner, one weekly and one daily planner.'] },
+      { number: 38, question: 'To set an overview of your time, you should need at least', type: 'mcq', options: ['A. one week.', 'B. half a week.', 'C. one month.', 'D. one term.'] },
+      { number: 39, question: 'The daily planner of time is mainly concerned with', type: 'mcq', options: ['A. the detailed planning.', 'B. how to plan all available time.', 'C. TV schedules.', 'D. an overview of everything you need to do for several days.'] },
+      { number: 40, question: 'According to the lecturer, wise time management may have the following benefit:', type: 'mcq', options: ['A. having more time to spend on relaxation and other activities.', 'B. improving your performance in the final term assignment.', 'C. helping you write better essays.', 'D. improving your memory.'] }
     ]
   }
 ];
 
-const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, answerKey }) => {
+
+const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, audioUrls, answerKey, questions }) => {
+  const testQuestions = questions ?? listeningQuestions;
   const [currentSection, setCurrentSection] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -255,7 +260,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
   // Clear all highlights in current section
   const clearSectionHighlights = () => {
     const newHighlights = { ...questionHighlights };
-    const section = listeningQuestions[currentSection];
+    const section = testQuestions[currentSection];
     section.questions.forEach(q => {
       delete newHighlights[`q${q.number}`];
       if (q.type === 'mcq' && q.options) {
@@ -333,6 +338,20 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
     }));
   };
 
+  const handlePartThreeMultiSelect = (value: string) => {
+    const selected = [answers[28], answers[29], answers[30]].filter(Boolean) as string[];
+    const nextSelected = selected.includes(value)
+      ? selected.filter(item => item !== value)
+      : selected.length < 3 ? [...selected, value] : selected;
+
+    setAnswers(prev => ({
+      ...prev,
+      28: nextSelected[0] || '',
+      29: nextSelected[1] || '',
+      30: nextSelected[2] || ''
+    }));
+  };
+
   const handlePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -365,7 +384,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
   };
 
   const handleNextSection = () => {
-    if (currentSection < listeningQuestions.length - 1) {
+    if (currentSection < testQuestions.length - 1) {
       setCurrentSection(currentSection + 1);
     }
   };
@@ -377,7 +396,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
   };
 
   const handleComplete = () => {
-    const sectionData = listeningQuestions[currentSection];
+    const sectionData = testQuestions[currentSection];
     const results: ListeningResults = {
       scores: [],
       answers,
@@ -386,7 +405,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
     onComplete(results);
   };
 
-  const section = listeningQuestions[currentSection];
+  const section = testQuestions[currentSection];
 
   return (
     <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
@@ -412,7 +431,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
         <CardContent className="space-y-4">
           <audio
             ref={audioRef}
-            src={audioUrl}
+            src={audioUrls?.[currentSection] || audioUrl}
             onEnded={() => setIsPlaying(false)}
           />
 
@@ -510,10 +529,10 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
             )}
           {section.section === 1 && (
             <div>
-              <div className="text-xl font-bold text-blue-700">QUESTION 1-4</div>
-              <p>Complete the form below.</p>
-              <p className="font-semibold text-red-600 text-xl">Write ONE WORD ONLY for each answer.</p>
-              <p className="font-bold text-xl">HOUSE SERVICE INFORMATION</p>
+              <div className="text-xl font-bold text-blue-700">QUESTION 1-5</div>
+              <p>The housing officer takes some details from the girl.</p>
+              <p className="font-semibold text-red-600 text-xl">Complete the following form with <strong>NO MORE THAN THREE WORDS AND/OR A NUMBER</strong> for each answer.</p>
+              <p className="font-bold text-xl">PERSONAL DETAILS FOR HOMESTAY APPLICATION</p>
               <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50 mt-2">
                 <table className="w-full border-collapse">
                   <thead>
@@ -524,11 +543,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="border px-2 py-2">Name:</td>
-                      <td className="border px-2 py-2">Barbara Hill</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Location:</td>
+                      <td className="border px-2 py-2">First name</td>
                       <td className="border px-2 py-2">
                         <div className="flex items-center gap-2">
                           <Input
@@ -538,17 +553,24 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
                             placeholder="Type your answer here"
                             className="text-base h-9 w-40"
                           /> 
-                          <span>London</span>
                         </div>
                         {renderReview(1)}
                       </td>
                     </tr>
                     <tr>
-                      <td className="border px-2 py-2">Postcode:</td>
-                      <td className="border px-2 py-2">SW105</td>
+                      <td className="border px-2 py-2">Family name</td>
+                      <td className="border px-2 py-2">Yuichini</td>
                     </tr>
                     <tr>
-                      <td className="border px-2 py-2">Rooms:</td>
+                      <td className="border px-2 py-2">Gender</td>
+                      <td className="border px-2 py-2">Female</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Age</td>
+                      <td className="border px-2 py-2">28</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Passport number</td>
                       <td className="border px-2 py-2">
                         <div className="flex items-center gap-2">
                           <span>two</span>
@@ -565,7 +587,11 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
                       </td>
                     </tr>
                     <tr>
-                      <td className="border px-2 py-2">The other room used as:</td>
+                      <td className="border px-2 py-2">Nationality</td>
+                      <td className="border px-2 py-2">Japanese</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-2">Course enrolled</td>
                       <td className="border px-2 py-2">
                         <div className="flex items-center gap-2">
                           <span>an</span>
@@ -581,10 +607,9 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
                       </td>
                     </tr>
                     <tr>
-                      <td className="border px-2 py-2">Downstairs:</td>
+                      <td className="border px-2 py-2">Length of the course</td>
                       <td className="border px-2 py-2">
                         <div className="flex items-center gap-2">
-                          <span>kitchen-diner, conservatory, and</span>
                           <Input
                             id="q-4"
                             value={answers[4] || ''}
@@ -597,55 +622,34 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
                       </td>
                     </tr>
                     <tr>
-                      <td className="border px-2 py-2">Pets:</td>
-                      <td className="border px-2 py-2">2 dogs and 3 cats</td>
+                      <td className="border px-2 py-2">Homestay time</td>
+                      <td className="border px-2 py-2">
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="q-4"
+                            value={answers[4] || ''}
+                            onChange={(e) => handleAnswerChange(5, e.target.value)}
+                            placeholder="Type your answer here"
+                            className="text-base h-9 w-40"
+                          />
+                        </div>
+                        {renderReview(4)}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-
+              {/* 6 */}
               <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 5-7</div>
-                <p className='text-xl'>Choose the correct letter, A, B, or C.</p>
+                <div className="text-xl font-bold text-blue-700">QUESTION 6</div>
+                <p>Mark <strong>TWO</strong> letters that represent the correct answers</p>
               </div>
-              {section.questions.filter((q) => q.number >= 5 && q.number <= 7).map((q) => (
-                <div key={q.number} className="space-y-1 border-l-4 border-blue-200 pl-4 py-1">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                    </div>
-                  </Label>
-                  <div className="grid gap-2">
-                    {(q.options || []).map((option, idx) => {
-                      const value = option.split('.')[0].trim();
-                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
-                      return (
-                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
-                          <input
-                            type="radio"
-                            name={`q-${q.number}`}
-                            value={value}
-                            checked={answers[q.number] === value}
-                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                            className="w-4 h-4"
-                          />
-                          <span className="text-lg" data-element-id={optionKey}>
-                            {renderTextWithHighlight(option, optionKey)}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                  {renderReview(q.number)}
-                </div>
-              ))}
-
               <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 8-10</div>
+                <div className="text-xl font-bold text-blue-700">QUESTION 7-10</div>
                 <p>Complete the sentences below.</p>
                 <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
               </div>
-              {section.questions.filter((q) => q.number >= 8 && q.number <= 10).map((q) => (
+              {section.questions.filter((q) => q.number >= 7 && q.number <= 10).map((q) => (
                 <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
                   <Label className="font-semibold text-xl">
                     <div data-element-id={`q${q.number}`}>
@@ -729,69 +733,91 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
 
           {section.section === 3 && (
             <div>
-              <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
-              <p className='text-xl'>Write the correct letter, A-F, next to questions 21-26.</p>
-              <div className="flex items-center gap-2">
-                <div className="w-1/2">
-                  <img src="/images/listeningup1.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
-                  <div className="border rounded-lg p-3 bg-slate-50 text-sm">
-                    <div className="font-semibold text-lg">A: Video Resource Centre</div>
-                    <div className="font-semibold text-lg">B: Reading Room</div>
-                    <div className="font-semibold text-lg">C: Food Service Centre</div>
-                    <div className="font-semibold text-lg">D: Periodicals Section</div>
-                    <div className="font-semibold text-lg">E: Enquiry Desk</div>
-                    <div className="font-semibold text-lg">F: Satellite TV Station</div>
-                  </div>
-                </div>
-                <div className="w-1/2">
-                  {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
-                    <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
-                      <Label className="font-semibold text-lg">
+              {section.questions[0]?.type === 'text' ? (
+                <>
+                  <div className="text-xl font-bold text-blue-700">QUESTION 21-24</div>
+                  <p className="text-xl">Complete the sentences below.</p>
+                  <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
+                  {section.questions.filter((q) => q.number >= 21 && q.number <= 24).map((q) => (
+                    <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                      <Label className="font-semibold text-xl">
                         <div data-element-id={`q${q.number}`}>
-                          {renderTextWithHighlight(`QUESTION ${q.number}.`, `q${q.number}`)}
+                          {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
                         </div>
                       </Label>
-                      <select
-                        id={`q-${q.number}`}
-                        value={answers[q.number] || ''}
-                        onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                        className="w-full rounded-md border bg-background p-2 m-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                      >
-                        <option value="">Select</option>
-                        {(q.options || []).map((option, idx) => (
-                          <option key={idx} value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
+                      <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} placeholder="Type your answer here" className="h-10 py-2" />
                       {renderReview(q.number)}
                     </div>
                   ))}
-                </div>
-              </div>
-              
-              <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 27-30</div>
-                <p className='text-xl'>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
-              </div>
-              {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
-                <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+
+                  <div className="pt-4">
+                    <div className="text-xl font-bold text-blue-700">QUESTION 25-27</div>
+                    <p className="text-xl">Fill in the blanks with ONE WORD AND/OR A NUMBER for each answer.</p>
+                  </div>
+                  <div className="border rounded-lg p-4 bg-slate-50">
+                    {section.questions.filter((q) => q.number >= 25 && q.number <= 27).map((q) => (
+                      <div key={q.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-lg flex-1">{q.question}</Label>
+                        <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} className="h-10 w-48" />
+                        {renderReview(q.number)}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4">
+                    <div className="text-xl font-bold text-blue-700">QUESTION 28-30</div>
+                    <p className="text-xl">Mark THREE letters that represent the correct answer.</p>
+                    <p className="text-lg">Most of the people being interviewed think that these are most difficult to buy.</p>
+                  </div>
+                  <div className="grid gap-2 border rounded-lg p-4 bg-slate-50">
+                    {(section.questions[7]?.options || []).map((option, idx) => {
+                      const value = option.split('.')[0].trim();
+                      const selected = [answers[28], answers[29], answers[30]].includes(value);
+                      return (
+                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-lg">
+                          <input type="checkbox" checked={selected} onChange={() => handlePartThreeMultiSelect(value)} className="w-4 h-4" />
+                          <span data-element-id={`q28_option${String.fromCharCode(65 + idx)}`}>{renderTextWithHighlight(option, `q28_option${String.fromCharCode(65 + idx)}`)}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                  {[28, 29, 30].map(number => renderReview(number))}
+                </>
+              ) : (
+                <>
+                  <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
+                  <p className="text-xl">Write the correct letter, A-F, next to questions 21-26.</p>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1/2">
+                      <img src="/images/listeningup1.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
+                      <div className="border rounded-lg p-3 bg-slate-50 text-sm">
+                        <div className="font-semibold text-lg">A: Video Resource Centre</div>
+                        <div className="font-semibold text-lg">B: Reading Room</div>
+                        <div className="font-semibold text-lg">C: Food Service Centre</div>
+                        <div className="font-semibold text-lg">D: Periodicals Section</div>
+                        <div className="font-semibold text-lg">E: Enquiry Desk</div>
+                        <div className="font-semibold text-lg">F: Satellite TV Station</div>
+                      </div>
                     </div>
-                  </Label>
-                  <Input
-                    id={`q-${q.number}`}
-                    value={answers[q.number] || ''}
-                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                    placeholder="Type your answer here"
-                    className="h-10 py-2"
-                  />
-                  {renderReview(q.number)}
-                </div>
-              ))}
+                    <div className="w-1/2">
+                      {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
+                        <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
+                          <Label className="font-semibold text-lg"><div data-element-id={`q${q.number}`}>{renderTextWithHighlight(`QUESTION ${q.number}.`, `q${q.number}`)}</div></Label>
+                          <select id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} className="w-full rounded-md border bg-background p-2 m-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">Select</option>
+                            {(q.options || []).map((option, idx) => <option key={idx} value={option}>{option}</option>)}
+                          </select>
+                          {renderReview(q.number)}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="pt-4"><div className="text-xl font-bold text-blue-700">QUESTION 27-30</div><p className="text-xl">Complete the sentences below.</p><p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p></div>
+                  {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
+                    <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2"><Label className="font-semibold text-xl"><div data-element-id={`q${q.number}`}>{renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}</div></Label><Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} placeholder="Type your answer here" className="h-10 py-2" />{renderReview(q.number)}</div>
+                  ))}
+                </>
+              )}
             </div>
           )}
 
@@ -870,7 +896,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
           <span className='text-lg'>← Back</span>
         </Button>
 
-        {currentSection < listeningQuestions.length - 1 ? (
+        {currentSection < testQuestions.length - 1 ? (
           <Button onClick={handleNextSection} className="flex-1">
             <span className='text-lg'>Next Section →</span>
           </Button>

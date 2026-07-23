@@ -12,7 +12,8 @@ import { checkMockTestEligibility } from '@/lib/sheets';
 import { getIELTSMockTest } from '@/data/ieltsMockTests';
 
 const IELTSMockTestAccess = () => {
-  const ENABLE_ACCESS_VALIDATION = true;
+  // TURN ON/OFF THE VALIDATION
+  const ENABLE_ACCESS_VALIDATION = false;
   const { testId = '' } = useParams();
   const test = getIELTSMockTest(testId);
   const navigate = useNavigate();

@@ -3,10 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle, Eye, EyeOff, ChevronRight, ChevronLeft, Highlighter, X } from 'lucide-react';
 import { useTextHighlight } from '@/hooks/useTextHighlight';
-import { ReadingSection } from '@/data/readingContent';
+import { ReadingSection } from '@/data/tests/test-1/readingContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { isAnswerCorrect, SkillAnswers, normalizeAnswer } from '@/data/answerKeys';
+import { isAnswerCorrect, SkillAnswers, normalizeAnswer } from '@/data/tests/test-1/answerKeys';
 import { submitMockTestResults } from '@/lib/sheets';
 
 interface ResultsProps {

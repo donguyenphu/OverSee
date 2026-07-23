@@ -1,10 +1,10 @@
-import { listeningAnswers, readingAnswers } from '@/data/answerKeys';
-import { listeningTranscripts } from '@/data/listeningTranscripts';
-import { readingSections } from '@/data/readingContent';
+import { listeningAnswers, readingAnswers } from '@/data/tests/test-1/answerKeys';
+import { listeningQuestions } from '@/components/test/test-1/Listening';
+import { readingSections } from '@/data/tests/test-1/readingContent';
 import { IELTSTestDatabase } from '@/data/tests/types';
 
 export const testOneDatabase: IELTSTestDatabase = {
-  listening: listeningTranscripts,
+  listening: listeningQuestions,
   reading: readingSections,
   writing: {
     task1: 'The graph shows the average Japanese monthly salary and television prices from 1953 to 1973.',

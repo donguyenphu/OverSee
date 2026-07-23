@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ReadingSection } from '@/data/readingContent';
-import { SkillAnswers, isAnswerCorrect } from '@/data/answerKeys';
+import { ReadingSection } from '@/data/tests/test-1/readingContent';
+import { SkillAnswers, isAnswerCorrect } from '@/data/tests/test-1/answerKeys';
 import { Label } from '@/components/ui/label';
 import { CheckCircle, XCircle, Highlighter, X } from 'lucide-react';
 
@@ -183,6 +183,82 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete, sections, answ
     }));
   };
 
+  const handleMultiSelect = (questionNumbers: number[], value: string) => {
+    const selected = questionNumbers.map(number => answers[number]).filter(Boolean) as string[];
+    const nextSelected = selected.includes(value)
+      ? selected.filter(item => item !== value)
+      : selected.length < questionNumbers.length ? [...selected, value] : selected;
+
+    setAnswers(prev => questionNumbers.reduce((nextAnswers, number, index) => ({
+      ...nextAnswers,
+      [number]: nextSelected[index] || ''
+    }), { ...prev }));
+  };
+
+  const renderTestTwoQuestions = () => {
+    const renderSelectQuestions = (questions: typeof section.questions, title: string, instruction: string) => (
+      <>
+        <div className="text-lg font-bold text-blue-700">{title}</div>
+        <p className="text-lg">{instruction}</p>
+        {questions.map(question => (
+          <div key={question.globalNumber} className="space-y-2">
+            <Label htmlFor={`q-${question.globalNumber}`} className="font-semibold text-lg">QUESTION {question.globalNumber}. {question.question}</Label>
+            <select id={`q-${question.globalNumber}`} value={answers[question.globalNumber] || ''} onChange={(e) => handleAnswerChange(question.globalNumber, e.target.value)} className="w-full rounded-md border bg-background p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+              <option value="">Type your answer here</option>
+              {question.options?.map((option, index) => <option key={index} value={option}>{option}</option>)}
+            </select>
+            {renderReview(question.globalNumber)}
+          </div>
+        ))}
+      </>
+    );
+
+    const renderFillQuestions = (questions: typeof section.questions, title: string, instruction: string) => (
+      <>
+        <div className="text-lg font-bold text-blue-700 pt-4">{title}</div>
+        <p className="text-lg">{instruction}</p>
+        {questions.map(question => (
+          <div key={question.globalNumber} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+            <Label htmlFor={`q-${question.globalNumber}`} className="font-semibold text-lg flex-1">QUESTION {question.globalNumber}. {question.question}</Label>
+            <Input id={`q-${question.globalNumber}`} value={answers[question.globalNumber] || ''} onChange={(e) => handleAnswerChange(question.globalNumber, e.target.value)} className="h-10 w-48" />
+            {renderReview(question.globalNumber)}
+          </div>
+        ))}
+      </>
+    );
+
+    const renderChoiceQuestions = (questions: typeof section.questions, title: string, instruction: string) => (
+      <>
+        <div className="text-lg font-bold text-blue-700 pt-4">{title}</div>
+        <p className="text-lg">{instruction}</p>
+        {questions.map(question => (
+          <div key={question.globalNumber} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+            <Label className="font-semibold text-lg">QUESTION {question.globalNumber}. {question.question}</Label>
+            <div className="grid gap-2">
+              {question.options?.map((option, index) => {
+                const value = option.split('.')[0].trim();
+                return <label key={index} className="flex items-center gap-2 cursor-pointer text-lg"><input type="radio" name={`q-${question.globalNumber}`} value={value} checked={answers[question.globalNumber] === value} onChange={(e) => handleAnswerChange(question.globalNumber, e.target.value)} className="w-4 h-4" /><span>{option}</span></label>;
+              })}
+            </div>
+            {renderReview(question.globalNumber)}
+          </div>
+        ))}
+      </>
+    );
+
+    if (section.id === 1) {
+      return <>{renderSelectQuestions(section.questions.slice(0, 4), 'Questions 1-4', 'Which paragraph contains each of the following pieces of information?')}{renderFillQuestions(section.questions.slice(4, 8), 'Questions 5-8', 'Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.')}{renderSelectQuestions(section.questions.slice(8), 'Questions 9-13', 'Do the statements agree with the information given in Reading Passage 1? Choose TRUE, FALSE or NOT GIVEN.')}</>;
+    }
+
+    if (section.id === 2) {
+      const statements = ['McCarthy claims people can become addicted to using cars.', 'The cost of using a car rose by over ten per cent last year.', 'Most British people borrow money to help buy cars.', 'Many people need cars to drive in London occasionally.', 'Streetcar operates in over 20 cities in Britain.', "Streetcar's cars must be left at specific locations.", 'Car sharing is becoming more popular with people who live and work near each other.', 'The government wants to encourage people to go to work on foot or by bicycle.'];
+      const multiSelectQuestions = [18, 19, 20, 21, 22];
+      return <>{renderSelectQuestions(section.questions.slice(0, 4), 'Questions 14-17', 'Which paragraph does each of the following headings best fit?')}<div className="text-lg font-bold text-blue-700 pt-4">Questions 18-22</div><p className="text-lg">According to the text, FIVE of the following statements are true. Write the corresponding letters in answer boxes 18 to 22.</p><div className="grid gap-2 border rounded-lg p-4 bg-slate-50">{statements.map((statement, index) => { const value = String.fromCharCode(65 + index); const selected = multiSelectQuestions.some(number => answers[number] === value); return <label key={value} className="flex items-center gap-2 text-lg"><input type="checkbox" checked={selected} onChange={() => handleMultiSelect(multiSelectQuestions, value)} className="w-4 h-4" /><span>{value}. {statement}</span></label>; })}</div>{multiSelectQuestions.map(number => renderReview(number))}{renderChoiceQuestions(section.questions.slice(4), 'Questions 23-26', 'For each question, only ONE of the choices is correct.')}</>;
+    }
+
+    return <>{renderChoiceQuestions(section.questions.slice(0, 4), 'Questions 27-30', 'For each question, only ONE of the choices is correct.')}{renderFillQuestions(section.questions.slice(4, 9), 'Questions 31-35', 'Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.')}{renderSelectQuestions(section.questions.slice(9), 'Questions 36-40', 'Do the statements agree with the information given in Reading Passage 3? Choose TRUE, FALSE or NOT GIVEN.')}</>;
+  };
+
   const handleNextSection = () => {
     if (currentSectionIndex < sections.length - 1) {
       setCurrentSectionIndex(currentSectionIndex + 1);
@@ -329,6 +405,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete, sections, answ
               <CardTitle>Questions {section.questions[0].globalNumber}-{section.questions[section.questions.length - 1].globalNumber}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
+              {section.questionLayout === 'test2' ? renderTestTwoQuestions() : <>
               {section.id === 1 && (
                 <>
                   <div className="text-lg font-bold text-blue-700">Questions 1-7</div>
@@ -658,6 +735,7 @@ const Reading: React.FC<ReadingProps> = ({ userEmail, onComplete, sections, answ
                   ))}
                 </>
               )}
+              </>}
             </CardContent>
           </Card>
         </div>
