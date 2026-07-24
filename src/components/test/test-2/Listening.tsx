@@ -7,7 +7,7 @@ import { Play, Pause, SkipBack, SkipForward, Volume2, Highlighter, X } from 'luc
 import { isAnswerCorrect, normalizeAnswer, SkillAnswers } from '@/data/tests/test-1/answerKeys';
 
 
-type ListeningQuestionType = 'text' | 'mcq' | 'dropdown' | 'multiselect';
+type ListeningQuestionType = 'text' | 'mcq' | 'dropdown';
 
 export interface ListeningQuestion {
   number: number;
@@ -48,7 +48,7 @@ export const listeningQuestions: ListeningSection[] = [
       { number: 3, question: 'Course enrolled', type: 'text' },
       { number: 4, question: 'Length of the course', type: 'text' },
       { number: 5, question: 'Homestay time', type: 'text' },
-      { number: 6, question: 'Which kind of family does the girl prefer?', type: 'multiselect', options: ['A. A big family with many young children', 'B. A family without smoker or drinkers', 'C. A family without any pets', 'D. A family with many animals or pets'] },
+      { number: 6, question: 'Which kind of family does the girl prefer?', type: 'mcq', options: ['A. A and B', 'B. B and C', 'C. C and D', 'D. A and C', 'E. A and D', 'F. B and D'] },
       { number: 7, question: "Although the girl is not a vegetarian, she doesn't eat a lot of meat. Her favourite food is", type: 'text' },
       { number: 8, question: 'The girls has given up playing handball. Now, she just play ____ with her friends at weekends.', type: 'text' },
       { number: 9, question: 'The girl does not like the bus because they are always late. She would rather', type: 'text' },
@@ -79,9 +79,9 @@ export const listeningQuestions: ListeningSection[] = [
       { number: 22, question: 'The woman usually spends about', type: 'text' },
       { number: 23, question: 'The woman often goes to', type: 'text' },
       { number: 24, question: 'According to the woman,', type: 'text' },
-      { number: 25, question: '50% of the people being interviewed spend', type: 'text' },
-      { number: 26, question: '15% of the people being interviewed spend', type: 'text' },
-      { number: 27, question: '35% of the people being interviewed spend', type: 'text' },
+      { number: 25, question: '🔵 50% of the people being interviewed spend', type: 'text' },
+      { number: 26, question: '🔴 15% of the people being interviewed spend', type: 'text' },
+      { number: 27, question: '🟢 35% of the people being interviewed spend', type: 'text' },
       { number: 28, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] },
       { number: 29, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] },
       { number: 30, question: 'Most of the people being interviewed think that ____ is/are most difficult to buy.', type: 'mcq', options: ['A. Books', 'B. Study materials', 'C. Foods', 'D. Trousers', 'E. Shoes', 'F. Sportswear'] }
@@ -106,7 +106,7 @@ export const listeningQuestions: ListeningSection[] = [
 ];
 
 
-const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, audioUrls, answerKey, questions }) => {
+const Listening2: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, audioUrls, answerKey, questions }) => {
   const testQuestions = questions ?? listeningQuestions;
   const [currentSection, setCurrentSection] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30 * 60); // 30 minutes
@@ -117,7 +117,7 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(100);
   const audioRef = useRef<HTMLAudioElement>(null);
-  
+
   // Highlight states: each question/option element has its own highlight array
   const [questionHighlights, setQuestionHighlights] = useState<{ [elementId: string]: boolean[] }>({});
   const [selectedRange, setSelectedRange] = useState<{ start: number; end: number; text: string; elementId: string } | null>(null);
@@ -407,6 +407,21 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
 
   const section = testQuestions[currentSection];
 
+  const q6 =  section.questions.find(q => q.number == 6);
+
+  const q11 = section.questions.find(q => q.number == 11);
+  const q12 = section.questions.find(q => q.number == 12);
+  const q13 = section.questions.find(q => q.number == 13);
+  const q14 = section.questions.find(q => q.number == 14);
+  const q15 = section.questions.find(q => q.number == 15);
+  const q16 = section.questions.find(q => q.number == 16);
+  const q17 = section.questions.find(q => q.number == 17);
+  const q18 = section.questions.find(q => q.number == 18);
+  const q19 = section.questions.find(q => q.number == 19);
+  const q20 = section.questions.find(q => q.number == 20);
+
+
+
   return (
     <div className="space-y-6 w-full max-w-screen-2xl mx-auto px-4 py-4">
       {/* Header */}
@@ -493,14 +508,14 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
             {/* Floating highlight toolbar */}
             {selectedRange && selectionPos && (
               <div style={{ position: 'fixed', left: selectionPos.x + 8, top: selectionPos.y - 40, zIndex: 9999 }} className="flex gap-2 p-2 bg-white border rounded-lg shadow-lg">
-                <Button 
+                <Button
                   size="sm"
                   onClick={() => { addHighlight(); setSelectionPos(null); }}
                   className="bg-yellow-500 hover:bg-yellow-600 text-sm"
                 >
                   <Highlighter className="w-4 h-4 mr-1" />Highlight
                 </Button>
-                <Button 
+                <Button
                   size="sm"
                   onClick={() => { removeHighlight(); setSelectionPos(null); }}
                   variant="outline"
@@ -516,372 +531,483 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
               const qNum = parseInt(key.replace(/[^\d]/g, ''));
               return section.questions.some(q => q.number === qNum) && questionHighlights[key]?.some(h => h);
             }) && (
-              <div className="flex gap-2 p-2 bg-red-50 rounded">
-                <Button 
-                  size="lg"
-                  variant="ghost"
-                  onClick={clearSectionHighlights}
-                  className="text-lg h-6 font-semibold"
-                >
-                  Clear all
-                </Button>
+                <div className="flex gap-2 p-2 bg-red-50 rounded">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    onClick={clearSectionHighlights}
+                    className="text-lg h-6 font-semibold"
+                  >
+                    Clear all
+                  </Button>
+                </div>
+              )}
+            {section.section === 1 && (
+              <div>
+                <div className="text-xl font-bold text-blue-700">QUESTION 1-5</div>
+                <p>The housing officer takes some details from the girl.</p>
+                <p className="font-semibold text-red-600 text-xl">Complete the following form with NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+                <p className="font-bold text-xl">PERSONAL DETAILS FOR HOMESTAY APPLICATION</p>
+                <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50 mt-2">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="border px-2 py-2 text-left">Question: </th>
+                        <th className="border px-2 py-2 text-left">Answer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="border px-2 py-2">First name</td>
+                        <td className="border px-2 py-2">
+                          <div className="flex items-center gap-2">
+                            <Input
+                              id="q-1"
+                              value={answers[1] || ''}
+                              onChange={(e) => handleAnswerChange(1, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base h-9 w-40"
+                            />
+                          </div>
+                          {renderReview(1)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Family name</td>
+                        <td className="border px-2 py-2">Yuichini</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Gender</td>
+                        <td className="border px-2 py-2">Female</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Age</td>
+                        <td className="border px-2 py-2">28</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Passport number</td>
+                        <td className="border px-2 py-2">
+                          <div className="flex items-center gap-2">
+                            <span>two</span>
+                            <Input
+                              id="q-2"
+                              value={answers[2] || ''}
+                              onChange={(e) => handleAnswerChange(2, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base h-9 w-40"
+                            />
+                            <span>bedrooms</span>
+                          </div>
+                          {renderReview(2)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Nationality</td>
+                        <td className="border px-2 py-2">Japanese</td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Course enrolled</td>
+                        <td className="border px-2 py-2">
+                          <div className="flex items-center gap-2">
+                            <span>an</span>
+                            <Input
+                              id="q-3"
+                              value={answers[3] || ''}
+                              onChange={(e) => handleAnswerChange(3, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base h-9 w-40"
+                            />
+                          </div>
+                          {renderReview(3)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Length of the course</td>
+                        <td className="border px-2 py-2">
+                          <div className="flex items-center gap-2">
+                            <Input
+                              id="q-4"
+                              value={answers[4] || ''}
+                              onChange={(e) => handleAnswerChange(4, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base h-9 w-40"
+                            />
+                          </div>
+                          {renderReview(4)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border px-2 py-2">Homestay time</td>
+                        <td className="border px-2 py-2">
+                          <div className="flex items-center gap-2">
+                            <Input
+                              id="q-4"
+                              value={answers[4] || ''}
+                              onChange={(e) => handleAnswerChange(5, e.target.value)}
+                              placeholder="Type your answer here"
+                              className="text-base h-9 w-40"
+                            />
+                          </div>
+                          {renderReview(4)}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* 6 */}
+                <div className="pt-4">
+                  <div className="text-xl font-bold text-blue-700">QUESTION 6</div>
+                  <p>Select the <strong>TRUE letter set</strong> that represent the correct answers</p>
+                  <div className="overflow-x-auto border rounded-md p-4 bg-slate-50 mt-2">
+                    <strong><p>A. A big family with many young children</p></strong>
+                    <strong><p>B. A small family without smoker or drinkers</p></strong>
+                    <strong><p>C. A family without any pets</p></strong>
+                    <strong><p>D. A family with many animals or pets</p></strong>
+                  </div>
+                  {q6 && (
+                  <div key={q6.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                    <Label className="font-semibold text-xl">
+                      <div data-element-id={`q${q6.number}`}>
+                        {renderTextWithHighlight(`QUESTION ${q6.number}. ${q6.question}`, `q${q6.number}`)}
+                      </div>
+                    </Label>
+                    <div className="grid gap-2">
+                      {(q6.options || []).map((option, idx) => {
+                        const value = option.split('.')[0].trim();
+                        const optionKey = `q${q6.number}_option${String.fromCharCode(65 + idx)}`;
+                        return (
+                          <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                            <input
+                              type="radio"
+                              name={`q-${q6.number}`}
+                              value={value}
+                              checked={answers[q6.number] === value}
+                              onChange={(e) => handleAnswerChange(q6.number, e.target.value)}
+                              className="w-4 h-4"
+                            />
+                            <span className='text-lg' data-element-id={optionKey}>
+                              {renderTextWithHighlight(option, optionKey)}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                    {renderReview(q6.number)}
+                  </div>
+                )}
+                </div>
+                <div className="pt-4">
+                  <div className="text-xl font-bold text-blue-700">QUESTION 7-10</div>
+                  <p>Complete the sentences below.</p>
+                  <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
+                </div>
+                {section.questions.filter((q) => q.number >= 7 && q.number <= 10).map((q) => (
+                  <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
+                    <Label className="font-semibold text-xl">
+                      <div data-element-id={`q${q.number}`}>
+                        {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                      </div>
+                    </Label>
+                    <Input
+                      id={`q-${q.number}`}
+                      value={answers[q.number] || ''}
+                      onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                      placeholder="Type your answer here"
+                      className="text-base h-10"
+                    />
+                    {renderReview(q.number)}
+                  </div>
+                ))}
+
               </div>
             )}
-          {section.section === 1 && (
-            <div>
-              <div className="text-xl font-bold text-blue-700">QUESTION 1-5</div>
-              <p>The housing officer takes some details from the girl.</p>
-              <p className="font-semibold text-red-600 text-xl">Complete the following form with <strong>NO MORE THAN THREE WORDS AND/OR A NUMBER</strong> for each answer.</p>
-              <p className="font-bold text-xl">PERSONAL DETAILS FOR HOMESTAY APPLICATION</p>
-              <div className="overflow-x-auto border rounded-lg p-4 bg-slate-50 mt-2">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="border px-2 py-2 text-left">Question: </th>
-                      <th className="border px-2 py-2 text-left">Answer</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border px-2 py-2">First name</td>
-                      <td className="border px-2 py-2">
-                        <div className="flex items-center gap-2">
-                          <Input
-                            id="q-1"
-                            value={answers[1] || ''}
-                            onChange={(e) => handleAnswerChange(1, e.target.value)}
-                            placeholder="Type your answer here"
-                            className="text-base h-9 w-40"
-                          /> 
+
+            {section.section === 2 && (
+              <div>
+                <div className="text-xl font-bold text-blue-700">QUESTION 11-20</div>
+                <p>You will hear a talk by a tour guide about travel to Enzia</p>
+                <p className="font-semibold text-red-600">Complete the notes by filling in the blanks with NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer</p>
+                <div className="overflow-x-auto border rounded-md p-4 bg-slate-50 mt-2">
+                  <p className="text-xl font-bold text-blue-700">VISAS</p>
+                  <p>
+                    {q11 && (
+                      <div key={q11.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q11.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">11</span>
                         </div>
-                        {renderReview(1)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Family name</td>
-                      <td className="border px-2 py-2">Yuichini</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Gender</td>
-                      <td className="border px-2 py-2">Female</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Age</td>
-                      <td className="border px-2 py-2">28</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Passport number</td>
-                      <td className="border px-2 py-2">
-                        <div className="flex items-center gap-2">
-                          <span>two</span>
-                          <Input
-                            id="q-2"
-                            value={answers[2] || ''}
-                            onChange={(e) => handleAnswerChange(2, e.target.value)}
-                            placeholder="Type your answer here"
-                            className="text-base h-9 w-40"
-                          />
-                          <span>bedrooms</span>
+                        <Input
+                          id={`q-${q11.number}`}
+                          value={answers[q11.number] || ''}
+                          onChange={(e) => handleAnswerChange(q11.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q11.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p>
+                    {q12 && (
+                      <div key={q12.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q12.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">12</span>
                         </div>
-                        {renderReview(2)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Nationality</td>
-                      <td className="border px-2 py-2">Japanese</td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Course enrolled</td>
-                      <td className="border px-2 py-2">
-                        <div className="flex items-center gap-2">
-                          <span>an</span>
-                          <Input
-                            id="q-3"
-                            value={answers[3] || ''}
-                            onChange={(e) => handleAnswerChange(3, e.target.value)}
-                            placeholder="Type your answer here"
-                            className="text-base h-9 w-40"
-                          />
+                        <Input
+                          id={`q-${q12.number}`}
+                          value={answers[q12.number] || ''}
+                          onChange={(e) => handleAnswerChange(q12.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q12.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p className="font-semibold">Price may change from time to time</p>
+                  <p>
+                    {q13 && (
+                      <div key={q13.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q13.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">13</span>
                         </div>
-                        {renderReview(3)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Length of the course</td>
-                      <td className="border px-2 py-2">
-                        <div className="flex items-center gap-2">
-                          <Input
-                            id="q-4"
-                            value={answers[4] || ''}
-                            onChange={(e) => handleAnswerChange(4, e.target.value)}
-                            placeholder="Type your answer here"
-                            className="text-base h-9 w-40"
-                          />
+                        <Input
+                          id={`q-${q13.number}`}
+                          value={answers[q13.number] || ''}
+                          onChange={(e) => handleAnswerChange(q13.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q13.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p>
+                    {q14 && (
+                      <div key={q14.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q14.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">14</span>
                         </div>
-                        {renderReview(4)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border px-2 py-2">Homestay time</td>
-                      <td className="border px-2 py-2">
-                        <div className="flex items-center gap-2">
-                          <Input
-                            id="q-4"
-                            value={answers[4] || ''}
-                            onChange={(e) => handleAnswerChange(5, e.target.value)}
-                            placeholder="Type your answer here"
-                            className="text-base h-9 w-40"
-                          />
+                        <Input
+                          id={`q-${q14.number}`}
+                          value={answers[q14.number] || ''}
+                          onChange={(e) => handleAnswerChange(q14.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        <span className="font-semibold"> of the student handbook</span>
+                        {renderReview(q14.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p className="font-semibold">If you want to re-enter Enzia, you must get a multi-entry visa</p>
+                  <p className="text-xl font-bold text-blue-700">SOME MISCELLANEOUS GENERAL ADVICE</p>
+                  <p>
+                    {q15 && (
+                      <div key={q15.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q15.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">15</span>
                         </div>
-                        {renderReview(4)}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              {/* 6 */}
-              <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 6</div>
-                <p>Mark <strong>TWO</strong> letters that represent the correct answers</p>
-              </div>
-              <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 7-10</div>
-                <p>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600">Write NO MORE THAN THREE WORDS for each answer.</p>
-              </div>
-              {section.questions.filter((q) => q.number >= 7 && q.number <= 10).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 mt-3">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                    </div>
-                  </Label>
-                  <Input
-                    id={`q-${q.number}`}
-                    value={answers[q.number] || ''}
-                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                    placeholder="Type your answer here"
-                    className="text-base h-10"
-                  />
-                  {renderReview(q.number)}
+                        <Input
+                          id={`q-${q15.number}`}
+                          value={answers[q15.number] || ''}
+                          onChange={(e) => handleAnswerChange(q15.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q15.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p>
+                    {q16 && (
+                      <div key={q16.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q16.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">16</span>
+                        </div>
+                        <Input
+                          id={`q-${q16.number}`}
+                          value={answers[q16.number] || ''}
+                          onChange={(e) => handleAnswerChange(q16.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q16.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p>
+                    {q17 && (
+                      <div key={q17.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q17.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">17</span>
+                        </div>
+                        <Input
+                          id={`q-${q17.number}`}
+                          value={answers[q17.number] || ''}
+                          onChange={(e) => handleAnswerChange(q17.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q17.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p className="text-xl font-bold text-blue-700">NOTES FOR STUDENTS</p>
+                  <p>
+                    {q18 && (
+                      <div key={q18.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q18.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">18</span>
+                        </div>
+                        <Input
+                          id={`q-${q18.number}`}
+                          value={answers[q18.number] || ''}
+                          onChange={(e) => handleAnswerChange(q18.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        {renderReview(q18.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p>
+                    {q19 && (
+                      <div key={q19.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q19.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">19</span>
+                        </div>
+                        <Input
+                          id={`q-${q19.number}`}
+                          value={answers[q19.number] || ''}
+                          onChange={(e) => handleAnswerChange(q19.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        <span className="font-semibold"> passport photos with you</span>
+                        {renderReview(q19.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p className="text-xl font-bold text-blue-700">CURRENCY</p>
+                  <p>
+                    {q20 && (
+                      <div key={q20.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
+                        <Label className="font-semibold text-xl">{q20.question}</Label>
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg text-white font-bold text-4xl border-4 border-white/20 text-md">
+                          <span className="text-sm">20</span>
+                        </div>
+                        <Input
+                          id={`q-${q20.number}`}
+                          value={answers[q20.number] || ''}
+                          onChange={(e) => handleAnswerChange(q20.number, e.target.value)}
+                          className="h-10 w-[40%]"
+                        />
+                        <span className="font-semibold"> with you</span>
+                        {renderReview(q20.number)}
+                      </div>
+                    )}
+                  </p>
+                  <p className="font-semibold">Credit cards are not acceptable because of fraud scandals</p>
                 </div>
-              ))}
+              </div>
+            )}
 
-            </div>
-          )}
-
-          {section.section === 2 && (
-            <div>
-              <div className="text-xl font-bold text-blue-700">QUESTION 11-17</div>
-              <p>Choose the correct letter, A, B, or C.</p>
-              {section.questions.filter((q) => q.number >= 11 && q.number <= 17).map((q) => (
-                <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                    </div>
-                  </Label>
-                  <div className="grid gap-2 py-2">
-                    {(q.options || []).map((option, idx) => {
-                      const value = option.split('.')[0].trim();
-                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
-                      return (
-                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
-                          <input
-                            type="radio"
-                            name={`q-${q.number}`}
-                            value={value}
-                            checked={answers[q.number] === value}
-                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                            className="w-4 h-4"
-                          />
-                          <span className="text-lg" data-element-id={optionKey}>
-                            {renderTextWithHighlight(option, optionKey)}
-                          </span>
-                        </label>
-                      );
-                    })}
+            {section.section === 3 && (
+              <div>
+                <div className="text-xl font-bold text-blue-700">QUESTION 21-24</div>
+                <p className="text-xl">Complete the sentences below.</p>
+                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+                {section.questions.filter((q) => q.number >= 21 && q.number <= 24).map((q) => (
+                  <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                    <Label className="font-semibold text-xl">
+                      <div data-element-id={`q${q.number}`}>
+                        {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                      </div>
+                    </Label>
+                    <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} placeholder="Type your answer here" className="h-10 py-2" />
+                    {renderReview(q.number)}
                   </div>
-                  {renderReview(q.number)}
+                ))}
+
+                <div className="pt-4">
+                  <div className="text-xl font-bold text-blue-700">QUESTION 25-27</div>
+                  <p className="font-semibold text-red-600 text-xl">Fill in the blanks with ONE WORD AND/OR A NUMBER for each answer.</p>
                 </div>
-              ))}
-
-              <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 18-20</div>
-                <p className="text-lg">Complete the sentences below.</p>
-                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
-              </div>
-              {section.questions.filter((q) => q.number >= 18 && q.number <= 20).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                    </div>
-                  </Label>
-                  <Input
-                    id={`q-${q.number}`}
-                    value={answers[q.number] || ''}
-                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                    placeholder="Type your answer here"
-                    className="text-base h-10"
-                  />
-                  {renderReview(q.number)}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {section.section === 3 && (
-            <div>
-              {section.questions[0]?.type === 'text' ? (
-                <>
-                  <div className="text-xl font-bold text-blue-700">QUESTION 21-24</div>
-                  <p className="text-xl">Complete the sentences below.</p>
-                  <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p>
-                  {section.questions.filter((q) => q.number >= 21 && q.number <= 24).map((q) => (
-                    <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
-                      <Label className="font-semibold text-xl">
-                        <div data-element-id={`q${q.number}`}>
-                          {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                        </div>
-                      </Label>
-                      <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} placeholder="Type your answer here" className="h-10 py-2" />
-                      {renderReview(q.number)}
-                    </div>
-                  ))}
-
-                  <div className="pt-4">
-                    <div className="text-xl font-bold text-blue-700">QUESTION 25-27</div>
-                    <p className="text-xl">Fill in the blanks with ONE WORD AND/OR A NUMBER for each answer.</p>
+                <div className="flex gap-4 pt-4 items-center">
+                  <div className="w-[20%]">
+                    <img src="/images/IELTS_Test_2_L3.1.png" className="w-full h-auto rounded-lg" />
                   </div>
-                  <div className="border rounded-lg p-4 bg-slate-50">
+                  <div className="border rounded-lg p-4 bg-slate-50 w-[80%]">
                     {section.questions.filter((q) => q.number >= 25 && q.number <= 27).map((q) => (
                       <div key={q.number} className="flex items-center gap-2 border-b last:border-b-0 py-3">
-                        <Label className="font-semibold text-lg flex-1">{q.question}</Label>
-                        <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} className="h-10 w-48" />
+                        <Label className="font-semibold text-lg">{q.question}</Label>
+                        <Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} className="h-10 w-[60%]" />
+                        <p className="font-semibold text-lg"> a month</p>
                         {renderReview(q.number)}
                       </div>
                     ))}
                   </div>
-
-                  <div className="pt-4">
-                    <div className="text-xl font-bold text-blue-700">QUESTION 28-30</div>
-                    <p className="text-xl">Mark THREE letters that represent the correct answer.</p>
-                    <p className="text-lg">Most of the people being interviewed think that these are most difficult to buy.</p>
-                  </div>
-                  <div className="grid gap-2 border rounded-lg p-4 bg-slate-50">
-                    {(section.questions[7]?.options || []).map((option, idx) => {
-                      const value = option.split('.')[0].trim();
-                      const selected = [answers[28], answers[29], answers[30]].includes(value);
-                      return (
-                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-lg">
-                          <input type="checkbox" checked={selected} onChange={() => handlePartThreeMultiSelect(value)} className="w-4 h-4" />
-                          <span data-element-id={`q28_option${String.fromCharCode(65 + idx)}`}>{renderTextWithHighlight(option, `q28_option${String.fromCharCode(65 + idx)}`)}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                  {[28, 29, 30].map(number => renderReview(number))}
-                </>
-              ) : (
-                <>
-                  <div className="text-xl font-bold text-blue-700">QUESTION 21-26</div>
-                  <p className="text-xl">Write the correct letter, A-F, next to questions 21-26.</p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1/2">
-                      <img src="/images/listeningup1.jpg" alt="Listening 21-30 reference" className="w-full rounded-lg border my-3" />
-                      <div className="border rounded-lg p-3 bg-slate-50 text-sm">
-                        <div className="font-semibold text-lg">A: Video Resource Centre</div>
-                        <div className="font-semibold text-lg">B: Reading Room</div>
-                        <div className="font-semibold text-lg">C: Food Service Centre</div>
-                        <div className="font-semibold text-lg">D: Periodicals Section</div>
-                        <div className="font-semibold text-lg">E: Enquiry Desk</div>
-                        <div className="font-semibold text-lg">F: Satellite TV Station</div>
-                      </div>
-                    </div>
-                    <div className="w-1/2">
-                      {section.questions.filter((q) => q.number >= 21 && q.number <= 26).map((q) => (
-                        <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2">
-                          <Label className="font-semibold text-lg"><div data-element-id={`q${q.number}`}>{renderTextWithHighlight(`QUESTION ${q.number}.`, `q${q.number}`)}</div></Label>
-                          <select id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} className="w-full rounded-md border bg-background p-2 m-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                            <option value="">Select</option>
-                            {(q.options || []).map((option, idx) => <option key={idx} value={option}>{option}</option>)}
-                          </select>
-                          {renderReview(q.number)}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="pt-4"><div className="text-xl font-bold text-blue-700">QUESTION 27-30</div><p className="text-xl">Complete the sentences below.</p><p className="font-semibold text-red-600 text-xl">Write NO MORE THAN THREE WORDS for each answer.</p></div>
-                  {section.questions.filter((q) => q.number >= 27 && q.number <= 30).map((q) => (
-                    <div key={q.number} className="space-y-0 border-l-4 border-blue-200 pl-4 py-2"><Label className="font-semibold text-xl"><div data-element-id={`q${q.number}`}>{renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}</div></Label><Input id={`q-${q.number}`} value={answers[q.number] || ''} onChange={(e) => handleAnswerChange(q.number, e.target.value)} placeholder="Type your answer here" className="h-10 py-2" />{renderReview(q.number)}</div>
-                  ))}
-                </>
-              )}
-            </div>
-          )}
-
-          {section.section === 4 && (
-            <div>
-              <div className="text-xl font-bold text-blue-700">QUESTION 31-35</div>
-              <p className="text-xl">Choose the correct letter, A, B, or C.</p>
-              {section.questions.filter((q) => q.number >= 31 && q.number <= 35).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
-                    </div>
-                  </Label>
-                  <div className="grid gap-2">
-                    {(q.options || []).map((option, idx) => {
-                      const value = option.split('.')[0].trim();
-                      const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
-                      return (
-                        <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
-                          <input
-                            type="radio"
-                            name={`q-${q.number}`}
-                            value={value}
-                            checked={answers[q.number] === value}
-                            onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                            className="w-4 h-4"
-                          />
-                          <span className='text-lg' data-element-id={optionKey}>
-                            {renderTextWithHighlight(option, optionKey)}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                  {renderReview(q.number)}
                 </div>
-              ))}
 
-              <div className="pt-4">
-                <div className="text-xl font-bold text-blue-700">QUESTION 36-40</div>
-                <p className='text-xl'>Complete the sentences below.</p>
-                <p className="font-semibold text-red-600 text-xl">Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+                <div className="pt-4">
+                  <div className="text-xl font-bold text-blue-700">QUESTION 28-30</div>
+                  <p className="font-semibold text-red-600 text-xl">Mark THREE letters that represent the correct answer.</p>
+                  <p className="text-xl">Most of the people being interviewed think that these are most difficult to buy.</p>
+                </div>
+                <div className="grid gap-2 border rounded-lg p-4 bg-slate-50">
+                  {(section.questions[7]?.options || []).map((option, idx) => {
+                    const value = option.split('.')[0].trim();
+                    const selected = [answers[28], answers[29], answers[30]].includes(value);
+                    return (
+                      <label key={idx} className="flex items-center gap-2 cursor-pointer text-lg">
+                        <input type="checkbox" checked={selected} onChange={() => handlePartThreeMultiSelect(value)} className="w-4 h-4" />
+                        <span data-element-id={`q28_option${String.fromCharCode(65 + idx)}`}>{renderTextWithHighlight(option, `q28_option${String.fromCharCode(65 + idx)}`)}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+                {[28, 29, 30].map(number => renderReview(number))}
               </div>
-              {section.questions.filter((q) => q.number >= 36 && q.number <= 40).map((q) => (
-                <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
-                  <Label className="font-semibold text-xl">
-                    <div data-element-id={`q${q.number}`}>
-                      {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+            )}
+            {/* 31-40 */}
+            {section.section === 4 && (
+              <div>
+                <div className="text-xl font-bold text-blue-700">QUESTION 31-40</div>
+                <p className="text-xl">Choose the correct letter, A, B, or C.</p>
+                {section.questions.filter((q) => q.number >= 31 && q.number <= 40).map((q) => (
+                  <div key={q.number} className="space-y-2 border-l-4 border-blue-200 pl-4 py-2">
+                    <Label className="font-semibold text-xl">
+                      <div data-element-id={`q${q.number}`}>
+                        {renderTextWithHighlight(`QUESTION ${q.number}. ${q.question}`, `q${q.number}`)}
+                      </div>
+                    </Label>
+                    <div className="grid gap-2">
+                      {(q.options || []).map((option, idx) => {
+                        const value = option.split('.')[0].trim();
+                        const optionKey = `q${q.number}_option${String.fromCharCode(65 + idx)}`;
+                        return (
+                          <label key={idx} className="flex items-center gap-2 cursor-pointer text-sm">
+                            <input
+                              type="radio"
+                              name={`q-${q.number}`}
+                              value={value}
+                              checked={answers[q.number] === value}
+                              onChange={(e) => handleAnswerChange(q.number, e.target.value)}
+                              className="w-4 h-4"
+                            />
+                            <span className='text-lg' data-element-id={optionKey}>
+                              {renderTextWithHighlight(option, optionKey)}
+                            </span>
+                          </label>
+                        );
+                      })}
                     </div>
-                  </Label>
-                  <Input
-                    id={`q-${q.number}`}
-                    value={answers[q.number] || ''}
-                    onChange={(e) => handleAnswerChange(q.number, e.target.value)}
-                    placeholder="Type your answer here"
-                    className="text-base h-10"
-                  />
-                  {renderReview(q.number)}
-                </div>
-              ))}
-            </div>
-          )}
-            </div>
+                    {renderReview(q.number)}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </CardContent>
       </Card>
 
@@ -910,4 +1036,4 @@ const Listening: React.FC<ListeningProps> = ({ userEmail, onComplete, audioUrl, 
   );
 };
 
-export default Listening;
+export default Listening2;
